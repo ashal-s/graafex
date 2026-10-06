@@ -19,15 +19,15 @@ const linkCls = "t-small block text-heading transition-colors hover:text-accent"
 
 export default function Footer() {
   return (
-    <footer id="contact" className="relative z-[2] overflow-hidden">
-      <Media seed={7} palette={["#ff4d00", "#ff7a33"]} className="!absolute inset-0 opacity-75" />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,var(--bg)_0%,#100c0acc_40%,transparent_100%)]" />
+    <footer id="contact" className="theme-violet relative z-[2] overflow-hidden">
+      <Media seed={7} palette={["#5c4a78", "#8a74b0"]} className="!absolute inset-0 opacity-80" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,var(--bg)_0%,#241c32cc_42%,transparent_100%)]" />
 
       <div className="container-x relative pb-5 pt-[clamp(3rem,5vw,4.5rem)]">
         <Reveal className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div className="max-w-[40rem]">
             <Eyebrow>Ready to move forward?</Eyebrow>
-            <h2 className="t-h4 font-semibold text-heading">
+            <h2 className="ink-fade t-h4 font-semibold">
               The best results start with a good conversation. Let’s have ours.
             </h2>
           </div>

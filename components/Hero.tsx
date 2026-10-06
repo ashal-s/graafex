@@ -2,26 +2,34 @@
 
 import { useEffect, useRef } from "react";
 import { hero } from "@/lib/content";
-import { BlurText, LogoMark, Reveal } from "./ui";
+import { LogoMark } from "./ui";
 
 /** Web MP4 derived from public/videos/hero_video.mov (browsers do not reliably play .mov). */
 const HERO_VIDEO = "/videos/hero_video.mp4";
 
 export default function Hero() {
   const wrap = useRef<HTMLDivElement>(null);
-  const media = useRef<HTMLDivElement>(null);
+  const overlay = useRef<HTMLDivElement>(null);
+  const text = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Inset video shrinks toward the bottom-left as you scroll past it.
+  // Video stays full size; scrolling fades in a light overlay and lifts the headline from the bottom.
   useEffect(() => {
     let raf = 0;
+    const clamp = (n: number) => Math.min(1, Math.max(0, n));
     const update = () => {
       raf = 0;
-      if (!wrap.current || !media.current) return;
-      const vh = window.innerHeight;
-      const p = Math.min(1, Math.max(0, window.scrollY / vh));
-      const scale = 1 - p * 0.55;
-      media.current.style.transform = `scale(${scale})`;
+      const el = wrap.current;
+      if (!el) return;
+      const runway = el.offsetHeight - window.innerHeight;
+      const p = clamp(runway > 0 ? -el.getBoundingClientRect().top / runway : 0);
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const t = reduce ? 1 : clamp((p - 0.15) / 0.4);
+      if (overlay.current) overlay.current.style.opacity = String(clamp(p / 0.4) * 0.35);
+      if (text.current) {
+        text.current.style.opacity = String(t);
+        text.current.style.transform = `translateY(${(1 - t) * 60}%)`;
+      }
     };
     const onScroll = () => {
       if (!raf) raf = requestAnimationFrame(update);
@@ -50,7 +58,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={wrap} className="relative z-[2]">
+    <section ref={wrap} className="relative z-[2] h-[280svh]">
       {/* Intro loader */}
       <div className="loader fixed inset-0 z-[70] flex items-center justify-center bg-bg">
         <div className="t-h3 flex items-center gap-5 font-semibold text-heading">
@@ -68,8 +76,7 @@ export default function Hero() {
       {/* Sticky hero — padded so page bg shows around the rounded frame */}
       <div className="sticky top-0 flex h-[100svh] items-stretch overflow-hidden p-[var(--margin)]">
         <div
-          ref={media}
-          className="relative h-full w-full origin-bottom-left overflow-hidden rounded-[var(--radius-main)] bg-black will-change-transform"
+          className="relative h-full w-full overflow-hidden rounded-[var(--radius-main)] bg-black"
         >
           <video
             ref={videoRef}
@@ -83,12 +90,12 @@ export default function Hero() {
             preload="auto"
             aria-label="Graafex brand video"
           />
-        </div>
-      </div>
-
-      <div className="container-x relative pb-[clamp(4rem,8vw,8rem)] pt-[clamp(4rem,10vw,10rem)]">
-        <div className="mix-blend-difference">
-          <BlurText text={hero.heading} className="t-h2 max-w-[22ch] font-semibold text-heading" />
+          <div ref={overlay} className="pointer-events-none absolute inset-0 bg-black opacity-0" aria-hidden />
+          <div className="absolute inset-x-0 bottom-0 overflow-hidden p-[var(--margin)] pb-[calc(var(--margin)*2)] md:px-[calc(var(--margin)*2)]">
+            <div ref={text} className="opacity-0 will-change-transform">
+              <h1 className="t-h2 max-w-[22ch] font-semibold text-white">{hero.heading}</h1>
+            </div>
+          </div>
         </div>
       </div>
     </section>

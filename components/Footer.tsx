@@ -15,7 +15,7 @@ function Clock() {
   return <span className="t-small tabular-nums">{time}</span>;
 }
 
-const linkCls = "t-h6 block text-heading transition-colors hover:text-accent";
+const linkCls = "t-small block text-heading transition-colors hover:text-accent";
 
 export default function Footer() {
   return (
@@ -23,19 +23,21 @@ export default function Footer() {
       <Media seed={7} palette={["#ff4d00", "#ff7a33"]} className="!absolute inset-0 opacity-75" />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,var(--bg)_0%,#100c0acc_40%,transparent_100%)]" />
 
-      <div className="container-x relative pb-8 pt-[clamp(5rem,10vw,10rem)]">
-        <Reveal className="max-w-[56rem]">
-          <Eyebrow>Ready to move forward?</Eyebrow>
-          <h2 className="t-h2 mb-10 font-semibold text-heading">
-            The best results start with a good conversation. Let’s have ours.
-          </h2>
+      <div className="container-x relative pb-5 pt-[clamp(3rem,5vw,4.5rem)]">
+        <Reveal className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div className="max-w-[40rem]">
+            <Eyebrow>Ready to move forward?</Eyebrow>
+            <h2 className="t-h4 font-semibold text-heading">
+              The best results start with a good conversation. Let’s have ours.
+            </h2>
+          </div>
           <SwooshButton href={`mailto:${site.email}`}>Start a conversation</SwooshButton>
         </Reveal>
 
-        <div className="mt-[clamp(5rem,10vw,10rem)] grid gap-10 border-t border-line pt-12 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-6 border-t border-line pt-6 lg:grid-cols-4">
           <div>
-            <p className="t-small mb-4 uppercase tracking-[0.12em] text-heading/60">Navigate</p>
-            <ul className="space-y-2">
+            <p className="t-small mb-2 uppercase tracking-[0.12em] text-heading/60">Navigate</p>
+            <ul className="space-y-1">
               {navLinks.map((l) => (
                 <li key={l.href}>
                   <a href={l.href} className={linkCls}>{l.label}</a>
@@ -44,31 +46,27 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <p className="t-small mb-4 uppercase tracking-[0.12em] text-heading/60">Get in touch</p>
+            <p className="t-small mb-2 uppercase tracking-[0.12em] text-heading/60">Get in touch</p>
             <a href={`mailto:${site.email}`} className={linkCls}>{site.email}</a>
             <a href={`tel:${site.phone.replace(/\s/g, "")}`} className={linkCls}>{site.phone}</a>
           </div>
           <div>
-            <p className="t-small mb-4 uppercase tracking-[0.12em] text-heading/60">Come see us</p>
-            <p className="t-h6 text-heading">
+            <p className="t-small mb-2 uppercase tracking-[0.12em] text-heading/60">Come see us</p>
+            <p className="t-small text-heading">
               {site.address[0]}
               <br />
               {site.address[1]}
             </p>
           </div>
           <div>
-            <p className="t-small mb-4 uppercase tracking-[0.12em] text-heading/60">Socials</p>
+            <p className="t-small mb-2 uppercase tracking-[0.12em] text-heading/60">Socials</p>
             {site.socials.map((s) => (
               <a key={s.label} href={s.href} className={linkCls}>{s.label}</a>
             ))}
           </div>
         </div>
 
-        <p aria-hidden className="mt-16 select-none text-[clamp(4rem,19vw,22rem)] font-bold leading-[0.8] tracking-[-0.05em] text-heading/[0.06]">
-          graafex
-        </p>
-
-        <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-line pt-6">
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-4">
           <Logo className="t-h6" />
           <span className="t-small">©{new Date().getFullYear()} {site.name}. All rights reserved</span>
           <Clock />

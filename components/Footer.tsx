@@ -1,19 +1,42 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { navLinks, site } from "@/lib/content";
-import { Eyebrow, Logo, Media, Reveal, SwooshButton } from "./ui";
+import { Logo, Media, SwooshButton } from "./ui";
 
-function Clock() {
-  const [time, setTime] = useState("");
-  useEffect(() => {
-    const tick = () => setTime(new Date().toLocaleTimeString("en-GB", { hour12: false }));
-    tick();
-    const id = setInterval(tick, 1000);
-    return () => clearInterval(id);
-  }, []);
-  return <span className="t-small tabular-nums">{time}</span>;
-}
+const footerLinks = navLinks.filter((l) => ["Home", "About", "Portfolio"].includes(l.label));
+
+const icons: Record<string, React.ReactNode> = {
+  Instagram: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden>
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" />
+    </svg>
+  ),
+  TikTok: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden>
+      <path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5" />
+      <path d="M14 3c.4 2.6 2 4.2 5 4.5" />
+    </svg>
+  ),
+  Facebook: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden>
+      <path d="M14 8.5h2.5V5H14a3.5 3.5 0 0 0-3.5 3.5V11H8v3.5h2.5V21H14v-6.5h2.5L17 11h-3V8.5z" />
+    </svg>
+  ),
+  YouTube: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden>
+      <rect x="2.5" y="5.5" width="19" height="13" rx="4" />
+      <path d="M10 9.5v5l4.5-2.5z" fill="currentColor" />
+    </svg>
+  ),
+  LinkedIn: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden>
+      <rect x="3" y="3" width="18" height="18" rx="3" />
+      <path d="M8 10.5V16M8 7.8v.01M12 16v-5.5M12 13c0-1.7 1.1-2.5 2.3-2.5S16 11.3 16 13v3" />
+    </svg>
+  ),
+};
 
 const linkCls = "t-small block text-heading transition-colors hover:text-accent";
 
@@ -23,53 +46,40 @@ export default function Footer() {
       <Media seed={7} palette={["#5c4a78", "#8a74b0"]} className="!absolute inset-0 opacity-80" />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,var(--bg)_0%,#241c32cc_42%,transparent_100%)]" />
 
-      <div className="container-x relative pb-5 pt-[clamp(3rem,5vw,4.5rem)]">
-        <Reveal className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-[40rem]">
-            <Eyebrow>Ready to move forward?</Eyebrow>
-            <h2 className="ink-fade t-h4 font-semibold">
-              The best results start with a good conversation. Let’s have ours.
-            </h2>
-          </div>
-          <SwooshButton href={`mailto:${site.email}`}>Start a conversation</SwooshButton>
-        </Reveal>
-
-        <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-6 border-t border-line pt-6 lg:grid-cols-4">
-          <div>
-            <p className="t-small mb-2 uppercase tracking-[0.12em] text-heading/60">Navigate</p>
-            <ul className="space-y-1">
-              {navLinks.map((l) => (
-                <li key={l.href}>
-                  <a href={l.href} className={linkCls}>{l.label}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <p className="t-small mb-2 uppercase tracking-[0.12em] text-heading/60">Get in touch</p>
-            <a href={`mailto:${site.email}`} className={linkCls}>{site.email}</a>
-            <a href={`tel:${site.phone.replace(/\s/g, "")}`} className={linkCls}>{site.phone}</a>
-          </div>
-          <div>
-            <p className="t-small mb-2 uppercase tracking-[0.12em] text-heading/60">Come see us</p>
-            <p className="t-small text-heading">
-              {site.address[0]}
-              <br />
-              {site.address[1]}
-            </p>
-          </div>
-          <div>
-            <p className="t-small mb-2 uppercase tracking-[0.12em] text-heading/60">Socials</p>
-            {site.socials.map((s) => (
-              <a key={s.label} href={s.href} className={linkCls}>{s.label}</a>
-            ))}
+      <div className="container-x relative py-[clamp(2rem,3.5vw,3rem)]">
+        <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+          <h2 className="ink-fade t-h5 max-w-[34rem] font-semibold">
+            The best results start with a good conversation. Let’s have ours.
+          </h2>
+          <div className="self-start md:self-auto">
+            <SwooshButton href="/about#work">View our portfolio</SwooshButton>
           </div>
         </div>
 
-        <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-4">
+        <div className="mt-8 grid gap-6 border-t border-line pt-6 md:grid-cols-3 md:items-center">
           <Logo className="t-h6" />
-          <span className="t-small">©{new Date().getFullYear()} {site.name}. All rights reserved</span>
-          <Clock />
+          <ul className="flex gap-6 md:justify-center">
+            {footerLinks.map((l) => (
+              <li key={l.href}>
+                <a href={l.href} className={linkCls}>{l.label}</a>
+              </li>
+            ))}
+          </ul>
+          <div className="flex flex-wrap items-center gap-4 md:justify-end">
+            <a href={`mailto:${site.email}`} className={linkCls}>{site.email}</a>
+            <div className="flex gap-1">
+              {site.socials.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  aria-label={s.label}
+                  className="flex h-9 w-9 items-center justify-center text-white transition-opacity hover:opacity-70"
+                >
+                  {icons[s.label]}
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </footer>

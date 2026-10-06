@@ -7,6 +7,9 @@ export const site = {
   address: ["123 Studio Street,", "Your City 0000"],
   socials: [
     { label: "Instagram", href: "https://instagram.com" },
+    { label: "TikTok", href: "https://tiktok.com" },
+    { label: "Facebook", href: "https://facebook.com" },
+    { label: "YouTube", href: "https://youtube.com" },
     { label: "LinkedIn", href: "https://linkedin.com" },
   ],
 };
@@ -14,7 +17,7 @@ export const site = {
 export const navLinks = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
-  { label: "Work", href: "/about#work" },
+  { label: "Portfolio", href: "/about#work" },
   { label: "Partner with us", href: "/#contact" },
 ];
 

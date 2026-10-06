@@ -27,7 +27,7 @@ export default function Cursor() {
       x = e.clientX;
       y = e.clientY;
       el.style.opacity = "1";
-      target = (e.target as Element | null)?.closest?.(INTERACTIVE) ? 3.2 : 1;
+      target = (e.target as Element | null)?.closest?.(INTERACTIVE) ? 1.8 : 1;
     };
     const onLeave = () => (el.style.opacity = "0");
 

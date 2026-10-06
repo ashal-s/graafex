@@ -20,11 +20,7 @@ export const navLinks = [
 
 export const hero = {
   loader: ["Every idea", "starts somewhere."],
-  heading:
-    "We make brands impossible to ignore — and build the strategy that keeps them moving long after launch day.",
-  intro:
-    "We work alongside ambitious teams to shape their goals into creative work people remember and act on.",
-  body: "Whether you're chasing growth, sign-ups, sales or support, every choice we make is measured against the outcome you need.",
+  heading: "Brands built to stand out and strategy built to last.",
 };
 
 export const work = [

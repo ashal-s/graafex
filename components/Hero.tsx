@@ -81,23 +81,14 @@ export default function Hero() {
             loop
             playsInline
             preload="auto"
-            aria-label="Graafex showreel"
+            aria-label="Graafex brand video"
           />
-          <div className="pointer-events-none absolute bottom-[var(--margin)] left-[var(--margin)] z-[2] flex items-center gap-3 text-sm uppercase tracking-[0.12em] text-heading/80">
-            <span className="h-2 w-2 animate-pulse rounded-full bg-accent" /> Showreel
-          </div>
         </div>
       </div>
 
       <div className="container-x relative pb-[clamp(4rem,8vw,8rem)] pt-[clamp(4rem,10vw,10rem)]">
         <div className="mix-blend-difference">
-          <BlurText text={hero.heading} className="t-h2 mb-12 max-w-[22ch] font-semibold text-heading" />
-        </div>
-        <div className="grid gap-8 md:grid-cols-12">
-          <Reveal className="t-large md:col-span-4 md:col-start-7 text-heading">{hero.intro}</Reveal>
-          <Reveal className="md:col-span-4 md:col-start-7" delay={120}>
-            {hero.body}
-          </Reveal>
+          <BlurText text={hero.heading} className="t-h2 max-w-[22ch] font-semibold text-heading" />
         </div>
       </div>
     </section>

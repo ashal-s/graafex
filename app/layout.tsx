@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Syne } from "next/font/google";
 import "./globals.css";
+import Cursor from "@/components/Cursor";
 
 // Geometric display grotesk — sharp against black, warm with orange.
 const primary = Syne({
@@ -18,7 +19,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${primary.variable} antialiased`}>
-      <body className="min-h-full">{children}</body>
+      <body className="min-h-full">
+        {children}
+        <Cursor />
+      </body>
     </html>
   );
 }

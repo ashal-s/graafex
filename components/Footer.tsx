@@ -3,7 +3,10 @@
 import { navLinks, site } from "@/lib/content";
 import { Logo, Media, SwooshButton } from "./ui";
 
-const footerLinks = navLinks.filter((l) => ["Home", "About", "Portfolio"].includes(l.label));
+const footerLinks = [
+  ...navLinks,
+  { label: "Portfolio", href: "/extras#work" },
+];
 
 const icons: Record<string, React.ReactNode> = {
   Instagram: (
@@ -52,7 +55,7 @@ export default function Footer() {
             The best results start with a good conversation. Let’s have ours.
           </h2>
           <div className="self-start md:self-auto">
-            <SwooshButton href="/about#work">View our portfolio</SwooshButton>
+            <SwooshButton href="/extras#work">View our portfolio</SwooshButton>
           </div>
         </div>
 

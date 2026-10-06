@@ -111,7 +111,7 @@ export function Media({
 export function LogoMark({ className = "h-[1.4em] w-[1.4em]" }: { className?: string }) {
   return (
     <svg viewBox="0 0 32 32" className={className} aria-hidden>
-      <circle cx="16" cy="16" r="15" fill="none" stroke="var(--accent)" strokeWidth="2.5" />
+      <circle cx="16" cy="16" r="15" fill="none" stroke="currentColor" strokeWidth="2.5" />
       <path d="M22 11a8 8 0 1 0 1 7h-7" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
     </svg>
   );
@@ -119,7 +119,7 @@ export function LogoMark({ className = "h-[1.4em] w-[1.4em]" }: { className?: st
 
 export function Logo({ className = "" }: { className?: string }) {
   return (
-    <span className={`inline-flex items-center gap-2 font-bold tracking-tight text-heading ${className}`}>
+    <span className={`inline-flex items-center gap-2 font-bold tracking-tight text-white ${className}`}>
       <LogoMark />
       graafex
     </span>

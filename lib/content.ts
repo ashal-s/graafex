@@ -17,8 +17,6 @@ export const site = {
 export const navLinks = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
-  { label: "Portfolio", href: "/about#work" },
-  { label: "Partner with us", href: "/#contact" },
 ];
 
 export const hero = {
@@ -80,3 +78,10 @@ export const testimonials = [
 export const stickyWords = ["Ideas in", "Motion"];
 
 export const clientLogos = ["Lumen", "Orbitra", "Kestrel", "Nova&Co", "Fieldhouse", "Meridian", "Parallel", "Quarry", "Sable", "Tidewater"];
+
+export const aboutServices = [
+  { title: "Videography", body: "Brand films, social video and cinematic storytelling." },
+  { title: "Content Creation", body: "Scroll-stopping content shaped around your audience." },
+  { title: "Graphic Design", body: "Identities and visuals that look sharp everywhere." },
+  { title: "Influencer Marketing", body: "The right voices, carrying your message further." },
+];

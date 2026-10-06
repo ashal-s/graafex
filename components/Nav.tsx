@@ -16,9 +16,9 @@ export default function Nav() {
   }, [open]);
 
   const palettes = [
-    ["#ff4d00", "#5c1a00"],
-    ["#ff7a33", "#3a1208"],
-    ["#ff9a5c", "#1a0c08"],
+    ["#5c4a78", "#241c32"],
+    ["#8a74b0", "#30283c"],
+    ["#9b9bc8", "#241c32"],
   ];
 
   return (
@@ -27,7 +27,7 @@ export default function Nav() {
         Skip to main content
       </a>
 
-      <div className="fixed inset-x-0 top-[var(--margin)] z-50 flex items-center justify-between gap-6 px-[calc(var(--margin)*2)] py-5 mix-blend-difference">
+      <div className="fixed inset-x-0 top-[var(--margin)] z-50 flex items-center justify-between gap-6 px-[calc(var(--margin)*2)] py-5">
         <a href="/" aria-label={`${site.name} home`} className="t-h5 text-white">
           <Logo className="!text-white" />
         </a>
@@ -37,7 +37,7 @@ export default function Nav() {
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
         aria-controls="site-menu"
-        className="fixed right-[calc(var(--margin)*2)] top-[calc(var(--margin)+1rem)] z-[55] flex cursor-pointer items-center gap-3 rounded-[var(--radius-xs)] bg-bg px-4 py-2.5 text-sm font-semibold uppercase tracking-[0.08em] text-heading transition-colors hover:bg-accent hover:text-bg"
+        className="theme-violet fixed right-[calc(var(--margin)*2)] top-[calc(var(--margin)+1rem)] z-[55] flex cursor-pointer items-center gap-3 rounded-[var(--radius-xs)] !bg-accent !bg-none px-4 py-2.5 text-sm font-semibold uppercase tracking-[0.08em] !text-bg transition-colors hover:!bg-heading"
       >
         <span className="relative block h-[1.2em] overflow-hidden">
           <span className={`block transition-transform duration-500 ${open ? "-translate-y-full" : ""}`}>Menu</span>
@@ -56,10 +56,10 @@ export default function Nav() {
       <nav
         id="site-menu"
         aria-label="Main"
-        className={`fixed inset-0 z-50 transition-[clip-path] duration-700 ease-[var(--ease)] ${open ? "[clip-path:inset(0_0_0_0)]" : "pointer-events-none [clip-path:inset(0_0_100%_0)]"}`}
+        className={`theme-violet fixed inset-0 z-50 transition-[clip-path] duration-700 ease-[var(--ease)] ${open ? "[clip-path:inset(0_0_0_0)]" : "pointer-events-none [clip-path:inset(0_0_100%_0)]"}`}
         inert={!open}
       >
-        <div className="absolute inset-0 bg-bg" />
+        <div className="absolute inset-0 bg-bg/60" />
         {palettes.map((p, i) => (
           <Media
             key={i}

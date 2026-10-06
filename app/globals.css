@@ -280,3 +280,12 @@ body {
   from { transform: scaleX(0); }
   to { transform: scaleX(1); }
 }
+
+/* Scroll-linked parallax: --p runs -1 → 1 as the element crosses the viewport */
+.parallax {
+  transform: translate3d(calc(var(--p, 0) * var(--x, 0px)), calc(var(--p, 0) * var(--y, 0px)), 0);
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .parallax { transform: none; }
+}

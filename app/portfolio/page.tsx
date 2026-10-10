@@ -3,7 +3,7 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import ScrollParallax from "@/components/ScrollParallax";
 import PortfolioVideo from "@/components/PortfolioVideo";
-import CaseStudy from "@/components/CaseStudy";
+import { CaseStudyCard } from "@/components/CaseStudy";
 import { Eyebrow, Media, Reveal, SwooshButton } from "@/components/ui";
 import { caseStudies, clientLogos, portfolioVideos, site } from "@/lib/content";
 
@@ -77,10 +77,17 @@ export default function Portfolio() {
             </Reveal>
           </div>
 
-          {/* Case studies — each holds its own film, reels, photography and graphic design */}
-          {caseStudies.map((study, i) => (
-            <CaseStudy key={study.slug} study={study} index={i} />
-          ))}
+          {/* Case studies — each card opens its own page with reels, photography and graphic design */}
+          <div className={`${sectionPad} border-t border-line`} id="case-studies">
+            <SectionHead eyebrow="Case studies" title="In depth">
+              A closer look at selected projects, from the main film to the reels, photography and design around it.
+            </SectionHead>
+            <div className="flex flex-col gap-16 md:gap-24">
+              {caseStudies.map((study, i) => (
+                <CaseStudyCard key={study.slug} study={study} index={i} />
+              ))}
+            </div>
+          </div>
 
           {/* CTA */}
           <div className={`${sectionPad} border-t border-line`}>

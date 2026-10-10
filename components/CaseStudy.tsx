@@ -1,31 +1,55 @@
+import Link from "next/link";
 import type { CaseStudyData } from "@/lib/content";
 import { Eyebrow, Reveal } from "./ui";
 import PortfolioVideo from "./PortfolioVideo";
 import PortfolioGallery from "./PortfolioGallery";
 
+const seedFor = (index: number) => 20 + index * 40;
+
+/** Portfolio-page teaser: cover film, title and summary, linking to the full case study. */
+export function CaseStudyCard({ study, index }: { study: CaseStudyData; index: number }) {
+  return (
+    <Reveal>
+      <Link
+        href={`/portfolio/${study.slug}`}
+        data-hover-play
+        className="group grid gap-6 md:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] md:items-end md:gap-12"
+      >
+        <div className="relative aspect-video overflow-hidden rounded-[var(--radius-main)] bg-bg-2 ring-1 ring-line">
+          <div className="absolute inset-0 transition-transform duration-700 ease-[var(--ease-out)] group-hover:scale-[1.03]">
+            <PortfolioVideo
+              trigger="hover"
+              src={study.video.src}
+              poster={study.video.poster}
+              palette={study.palette}
+              seed={seedFor(index)}
+              label={`${study.client} case study`}
+            />
+          </div>
+        </div>
+        <div>
+          <Eyebrow>{`Case study ${String(index + 1).padStart(2, "0")}`}</Eyebrow>
+          <h3 className="t-h3 font-semibold text-heading">{study.title}</h3>
+          <p className="t-small mt-4 max-w-[28rem]">{study.summary}</p>
+          <p className="t-small mt-6 flex items-center gap-2 font-semibold text-heading">
+            View case study
+            <span aria-hidden className="transition-transform duration-500 group-hover:translate-x-2">→</span>
+          </p>
+        </div>
+      </Link>
+    </Reveal>
+  );
+}
+
 function Label({ children }: { children: string }) {
   return <p className="mb-5 text-xs font-medium uppercase tracking-[0.12em] text-accent">{children}</p>;
 }
 
-export default function CaseStudy({ study, index }: { study: CaseStudyData; index: number }) {
-  const seed = 20 + index * 40;
+/** Full case study: main film, details, vertical reels, photography and graphic design. */
+export function CaseStudyDetail({ study, index }: { study: CaseStudyData; index: number }) {
+  const seed = seedFor(index);
   return (
-    <article
-      id={study.slug}
-      className="container-x relative border-t border-line py-[clamp(3.5rem,7vw,6.5rem)]"
-      aria-labelledby={`${study.slug}-title`}
-    >
-      <Reveal className="mb-10 grid gap-6 md:mb-14 md:grid-cols-[1fr_minmax(0,24rem)] md:items-end md:gap-16">
-        <div>
-          <Eyebrow>{`Case study ${String(index + 1).padStart(2, "0")}`}</Eyebrow>
-          <h2 id={`${study.slug}-title`} className="t-h2 font-semibold text-heading">
-            {study.title}
-          </h2>
-        </div>
-        <p className="t-small">{study.summary}</p>
-      </Reveal>
-
-      {/* Main film */}
+    <>
       <Reveal>
         <div className="relative aspect-video overflow-hidden rounded-[var(--radius-main)] bg-bg-2 ring-1 ring-line">
           <PortfolioVideo
@@ -50,16 +74,15 @@ export default function CaseStudy({ study, index }: { study: CaseStudyData; inde
       <div className="mt-10 grid gap-8 md:grid-cols-3 md:gap-12">
         {study.narrative.map((n, i) => (
           <Reveal key={n.label} delay={i * 90}>
-            <h3 className="t-h5 mb-3 flex items-baseline gap-3 font-semibold text-heading">
+            <h2 className="t-h5 mb-3 flex items-baseline gap-3 font-semibold text-heading">
               <span className="t-small text-accent">{String(i + 1).padStart(2, "0")}</span>
               {n.label}
-            </h3>
+            </h2>
             <p className="t-small">{n.body}</p>
           </Reveal>
         ))}
       </div>
 
-      {/* Vertical reels, one line */}
       <Reveal className="mt-14">
         <Label>Vertical reels</Label>
         <ul className="-mx-[var(--margin)] flex snap-x snap-mandatory gap-4 overflow-x-auto px-[var(--margin)] pb-2 md:mx-0 md:grid md:grid-cols-4 md:overflow-visible md:px-0 md:pb-0">
@@ -86,6 +109,6 @@ export default function CaseStudy({ study, index }: { study: CaseStudyData; inde
           <PortfolioGallery items={study.designs} seed={seed + 20} />
         </Reveal>
       )}
-    </article>
+    </>
   );
 }

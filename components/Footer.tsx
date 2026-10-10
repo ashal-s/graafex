@@ -3,10 +3,7 @@
 import { navLinks, site } from "@/lib/content";
 import { Logo, Media, SwooshButton } from "./ui";
 
-const footerLinks = [
-  ...navLinks,
-  { label: "Portfolio", href: "/extras#work" },
-];
+const footerLinks = navLinks;
 
 const icons: Record<string, React.ReactNode> = {
   Instagram: (

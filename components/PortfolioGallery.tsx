@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { imageSize, type Size } from "@/lib/image-size";
 
 type Item = { src: string; alt: string };
@@ -27,16 +28,23 @@ function Columns({
           {col.map(({ item, i }) => (
             <li key={`${item.src}-${i}`}>
               <figure className="group relative overflow-hidden rounded-[var(--radius-small)] bg-bg-2 ring-1 ring-line">
-                {/* Natural proportions: width/height reserve the right space before the image loads. */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={item.src}
-                  alt={item.alt}
-                  width={sizes[i]?.width}
-                  height={sizes[i]?.height}
-                  loading="lazy"
-                  className="block h-auto w-full transition-transform duration-700 ease-[var(--ease-out)] group-hover:scale-[1.03]"
-                />
+                {/*
+                  Natural proportions: width/height reserve the right space before the image loads.
+                  The photo is scaled slightly past its frame and drifts inside it on scroll
+                  (.parallax is driven by <ScrollParallax />). 5% travel x 1.5 clamp stays within
+                  the 8% overscan of scale 1.16.
+                */}
+                <div className="parallax" style={{ "--y": "5%" } as CSSProperties}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={item.src}
+                    alt={item.alt}
+                    width={sizes[i]?.width}
+                    height={sizes[i]?.height}
+                    loading="lazy"
+                    className="block h-auto w-full scale-[1.16] transition-transform duration-700 ease-[var(--ease-out)] group-hover:scale-[1.22]"
+                  />
+                </div>
               </figure>
             </li>
           ))}

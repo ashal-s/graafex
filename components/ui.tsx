@@ -42,29 +42,9 @@ export function Reveal({
   );
 }
 
-/** Heading whose characters un-blur one by one. */
-export function BlurText({ text, className = "" }: { text: string; className?: string }) {
-  const ref = useInView<HTMLHeadingElement>(0.3);
-  let i = 0;
+export function SwooshButton({ href, children, className = "" }: { href: string; children: string; className?: string }) {
   return (
-    <h2 ref={ref} className={className} aria-label={text}>
-      {text.split(" ").map((word, w) => (
-        <span key={w} aria-hidden className="inline-block whitespace-nowrap">
-          {[...word].map((ch, c) => (
-            <span key={c} className="char" style={{ "--i": i++ } as CSSProperties}>
-              {ch}
-            </span>
-          ))}
-          {" "}
-        </span>
-      ))}
-    </h2>
-  );
-}
-
-export function SwooshButton({ href, children }: { href: string; children: string }) {
-  return (
-    <a href={href} className="swoosh t-small">
+    <a href={href} className={`swoosh t-small ${className}`}>
       <span className="swoosh__bg" aria-hidden>
         <span className="swoosh__layer swoosh__layer--1" />
         <span className="swoosh__layer swoosh__layer--2" />
@@ -126,10 +106,10 @@ export function Logo({ className = "" }: { className?: string }) {
   );
 }
 
-export function Eyebrow({ children }: { children: ReactNode }) {
+export function Eyebrow({ children, dot = true }: { children: ReactNode; dot?: boolean }) {
   return (
     <p className="t-small mb-4 flex items-center gap-2 font-medium uppercase tracking-[0.12em] text-accent">
-      <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+      {dot && <span className="h-1.5 w-1.5 rounded-full bg-accent" />}
       {children}
     </p>
   );

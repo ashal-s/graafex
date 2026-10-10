@@ -8,7 +8,6 @@
   --heading: #fff5ed;
   --accent: #ff4d00;
   --accent-deep: #ff7a33;
-  --accent-soft: #ff9a5c;
   --border: rgb(255 120 50 / 0.22);
   --margin: clamp(1rem, 0.6rem + 2vw, 3rem);
   --radius-main: 1.5rem;
@@ -24,6 +23,7 @@
   --color-text: var(--text);
   --color-heading: var(--heading);
   --color-accent: var(--accent);
+  --color-accent-deep: var(--accent-deep);
   --color-line: var(--border);
   --font-sans: var(--font-primary);
 }
@@ -74,7 +74,6 @@ body {
 }
 
 /* Fluid type scale (20rem → 120rem viewport) */
-.t-display { font-size: clamp(4rem, 3.4rem + 3vw, 7rem); line-height: 0.95; letter-spacing: -0.03em; }
 .t-h1 { font-size: clamp(3rem, 2.15rem + 4.25vw, 7.25rem); line-height: 0.95; letter-spacing: -0.035em; }
 .t-h2 { font-size: clamp(1.75rem, 1.425rem + 1.625vw, 3.375rem); line-height: 1.08; letter-spacing: -0.025em; }
 .t-h3 { font-size: clamp(1.85rem, 1.62rem + 1.15vw, 3rem); line-height: 1.1; letter-spacing: -0.02em; }
@@ -120,62 +119,47 @@ body {
   100% { transform: translate3d(6%, -4%, 0) rotate(8deg) scale(1.1); }
 }
 
-/* Hero + footer: deep plum canvas, silver-lavender type */
-.theme-violet {
-  --bg: #30283c;
-  --bg-2: #241c32;
-  --text: rgb(198 198 226 / 0.84);
-  --heading: #f4f4fb;
-  --accent: #c6c6e2;
-  --accent-deep: #9b9bc8;
-  --accent-soft: #e2e2f0;
-  --border: rgb(198 198 226 / 0.22);
+/* Dark canvas — page starts, hero, menu overlay and footer. Uses the root ember/orange tokens. */
+.theme-dark {
   color: var(--text);
   background:
-    radial-gradient(42% 36% at 0% 18%, rgb(92 74 130 / 0.55), transparent 62%),
-    radial-gradient(36% 32% at 100% 0%, rgb(126 110 168 / 0.28), transparent 58%),
-    radial-gradient(48% 40% at 88% 100%, rgb(70 54 108 / 0.45), transparent 62%),
-    #30283c;
+    radial-gradient(45% 40% at 0% 15%, rgb(255 77 0 / 0.26), transparent 62%),
+    radial-gradient(40% 35% at 100% 0%, rgb(255 122 51 / 0.16), transparent 58%),
+    radial-gradient(50% 42% at 90% 100%, rgb(255 60 0 / 0.22), transparent 62%),
+    #0f0a08;
 }
-.theme-violet .media { background: #241c32; }
-.theme-violet .ink-fade {
-  background-image: linear-gradient(180deg, #f9f9fd 0%, #e2e2f0 48%, #b5b5db 100%);
+
+/* Gradient headline text for dark canvases */
+.ink-fade {
+  background-image: linear-gradient(180deg, #fffaf5 0%, #ffd9bf 48%, #ff9a5c 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
-.theme-violet .swoosh { color: #241c32; }
-.theme-violet ::selection {
-  background: #9b9bc8;
-  color: #241c32;
-}
 
-/* Hero only — darker frame so the video reads brighter against it */
-.theme-violet-hero {
+/* Hero only — near-black frame so the video reads brighter against it */
+.theme-dark-hero {
   background:
-    radial-gradient(38% 32% at 0% 16%, rgb(58 44 88 / 0.35), transparent 62%),
-    radial-gradient(40% 36% at 100% 90%, rgb(40 28 64 / 0.4), transparent 60%),
-    #141018;
+    radial-gradient(38% 32% at 0% 16%, rgb(255 77 0 / 0.16), transparent 62%),
+    radial-gradient(40% 36% at 100% 90%, rgb(255 60 0 / 0.14), transparent 60%),
+    #0d0806;
 }
-.theme-violet-hero .hero-wash {
+.theme-dark-hero .hero-wash {
   background:
-    radial-gradient(70% 55% at 50% 40%, transparent 40%, #0c0a12 100%);
+    radial-gradient(70% 55% at 50% 40%, transparent 40%, #0c0807 100%);
   mix-blend-mode: normal;
   opacity: 0.35;
 }
 
-/* One light contrast band (e.g. testimonials) */
-.section-light {
+/* Pure white band with orange elements (e.g. the About page process) */
+.section-white {
   --heading: #1c1410;
-  --text: rgb(40 28 22 / 0.75);
-  --border: rgb(28 20 16 / 0.14);
-  --accent: #e03d00;
-  --accent-deep: #ff4d00;
+  --text: rgb(40 28 22 / 0.72);
+  --border: rgb(28 20 16 / 0.12);
+  --accent: #c23a00;
+  --accent-deep: #a03000;
   color: var(--text);
-  background:
-    radial-gradient(80% 60% at 10% 0%, rgb(255 77 0 / 0.2), transparent 50%),
-    radial-gradient(70% 50% at 100% 100%, rgb(255 122 51 / 0.22), transparent 55%),
-    linear-gradient(160deg, #fff8f4 0%, #ffe9db 48%, #ffd8c2 100%);
+  background: #fff;
 }
 
 /* Reveal on scroll */
@@ -185,17 +169,6 @@ body {
   transition: opacity 1s var(--ease-out), transform 1s var(--ease-out);
 }
 .reveal.is-in { opacity: 1; transform: none; }
-
-/* Per-character blur reveal */
-.char {
-  display: inline-block;
-  opacity: 0;
-  filter: blur(10px);
-  transform: translateY(0.2em);
-  transition: opacity 0.8s var(--ease-out), filter 0.8s var(--ease-out), transform 0.8s var(--ease-out);
-  transition-delay: calc(var(--i) * 12ms);
-}
-.is-in .char { opacity: 1; filter: blur(0); transform: none; }
 
 /* Swoosh button: two colour layers wipe across on hover */
 .swoosh {
@@ -240,16 +213,6 @@ body {
 .swoosh:hover .swoosh__text--a { transform: translateY(-150%); }
 .swoosh:hover .swoosh__text--b { transform: none; }
 
-/* Marquee */
-.marquee {
-  display: flex;
-  width: max-content;
-  animation: marquee 40s linear infinite;
-}
-@keyframes marquee {
-  to { transform: translateX(-50%); }
-}
-
 /* Loader */
 .loader {
   animation: loader-out 0.9s var(--ease) 2.2s forwards;
@@ -273,12 +236,6 @@ body {
     animation-delay: 0s !important;
     transition-duration: 0.001ms !important;
   }
-  .marquee { animation: none; }
-}
-
-@keyframes progress {
-  from { transform: scaleX(0); }
-  to { transform: scaleX(1); }
 }
 
 /* Scroll-linked parallax: --p runs -1 → 1 as the element crosses the viewport */

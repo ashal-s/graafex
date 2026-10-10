@@ -10,19 +10,20 @@ import { cn } from "@/lib/utils";
  *  - scrolls with the page instead of an inner fixed-height scroll box
  *  - every image keeps its own aspect ratio (no fixed 400x400 crop)
  *  - images are dealt across the columns left-to-right
- *  - alternate columns travel in opposite directions and line up mid-screen
+ *  - columns start in a straight line as the section enters the screen, then
+ *    alternate columns drift in opposite directions as you scroll
  */
 export type ParallaxImage = { src: string; alt: string; width?: number; height?: number };
 
 export const ParallaxScroll = ({
   images,
   columns = 3,
-  distance = 120,
+  distance = 140,
   className,
 }: {
   images: ParallaxImage[];
   columns?: number;
-  /** Max travel in px, up or down, across the section's pass through the viewport. */
+  /** Max travel in px, up or down, by the time the section has scrolled out of view. */
   distance?: number;
   className?: string;
 }) => {
@@ -34,8 +35,9 @@ export const ParallaxScroll = ({
   });
 
   const d = reduceMotion ? 0 : distance;
-  const up = useTransform(scrollYProgress, [0, 1], [d, -d]);
-  const down = useTransform(scrollYProgress, [0, 1], [-d, d]);
+  // 0 at the start of the pass (columns level), then away from each other.
+  const up = useTransform(scrollYProgress, [0, 1], [0, -d]);
+  const down = useTransform(scrollYProgress, [0, 1], [0, d]);
 
   const parts = Array.from({ length: columns }, () => [] as ParallaxImage[]);
   images.forEach((img, i) => parts[i % columns].push(img));

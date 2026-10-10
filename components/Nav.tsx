@@ -109,7 +109,7 @@ export default function Nav() {
         aria-expanded={open}
         aria-controls="site-menu"
         aria-label={open ? "Close menu" : "Open menu"}
-        className="group fixed right-[calc(var(--margin)*2)] top-[calc(var(--margin)+1rem)] z-[57] flex cursor-pointer items-center gap-3 rounded-full bg-accent py-1.5 pl-5 pr-1.5 text-sm font-semibold uppercase tracking-[0.1em] text-bg transition-colors duration-300 hover:bg-heading"
+        className="group fixed right-[calc(var(--margin)*2)] top-[calc(var(--margin)+1rem)] z-[57] flex cursor-pointer items-center gap-3 rounded-full bg-[#c23a00] py-1.5 pl-5 pr-1.5 text-sm font-semibold uppercase tracking-[0.1em] text-white transition-colors duration-300 hover:bg-heading hover:text-bg"
       >
         {/* Both words share one grid cell so the pill is always as wide as the longer one */}
         <span className="grid h-[1.2em] overflow-hidden" aria-hidden>

@@ -126,8 +126,7 @@ export type CaseStudyData = {
   video: { src?: string; poster?: string };
   meta: { label: string; value: string }[];
   reels: { title: string; src?: string; palette: Palette }[];
-  photos: Still[];
-  designs: Still[];
+  gallery: Still[];
 };
 
 // One entry per case study — each carries its own film, reels, photos and graphic design.
@@ -151,19 +150,17 @@ export const caseStudies: CaseStudyData[] = [
       { title: "Reel 3", src: HERO_VIDEO, palette: ["#9b9bc8", "#5c4a78"] },
       { title: "Reel 4", src: HERO_VIDEO, palette: ["#6e5a94", "#e2e2f0"] },
     ],
-    photos: [
-      { title: "Photo 1", ratio: "portrait", palette: ["#5c4a78", "#c6c6e2"] },
-      { title: "Photo 2", ratio: "landscape", palette: ["#6e5a94", "#9b9bc8"] },
-      { title: "Photo 3", ratio: "square", palette: ["#4a3a68", "#e2e2f0"] },
-      { title: "Photo 4", ratio: "landscape", palette: ["#6e5a94", "#30283c"] },
-      { title: "Photo 5", ratio: "portrait", palette: ["#5c4a78", "#9b9bc8"] },
-      { title: "Photo 6", ratio: "square", palette: ["#8a74b0", "#241c32"] },
-    ],
-    designs: [
-      { title: "Design 1", ratio: "landscape", palette: ["#8a74b0", "#241c32"] },
-      { title: "Design 2", ratio: "portrait", palette: ["#9b9bc8", "#3a2e52"] },
-      { title: "Design 3", ratio: "square", palette: ["#7e6ea8", "#241c32"] },
-      { title: "Design 4", ratio: "landscape", palette: ["#8a74b0", "#c6c6e2"] },
+    gallery: [
+      { title: "Image 1", ratio: "portrait", palette: ["#5c4a78", "#c6c6e2"] },
+      { title: "Image 2", ratio: "landscape", palette: ["#8a74b0", "#241c32"] },
+      { title: "Image 3", ratio: "square", palette: ["#4a3a68", "#e2e2f0"] },
+      { title: "Image 4", ratio: "landscape", palette: ["#6e5a94", "#9b9bc8"] },
+      { title: "Image 5", ratio: "portrait", palette: ["#9b9bc8", "#3a2e52"] },
+      { title: "Image 6", ratio: "square", palette: ["#7e6ea8", "#241c32"] },
+      { title: "Image 7", ratio: "landscape", palette: ["#6e5a94", "#30283c"] },
+      { title: "Image 8", ratio: "portrait", palette: ["#5c4a78", "#9b9bc8"] },
+      { title: "Image 9", ratio: "square", palette: ["#8a74b0", "#c6c6e2"] },
+      { title: "Image 10", ratio: "landscape", palette: ["#8a74b0", "#241c32"] },
     ],
   },
 ];

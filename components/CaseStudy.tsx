@@ -40,7 +40,7 @@ export function CaseStudyCard({ study, index }: { study: CaseStudyData; index: n
   );
 }
 
-/** Case study body below the main film: details, vertical reels, photography and graphic design. */
+/** Case study body below the main film: details, vertical reels and the photography / graphic design gallery. */
 export function CaseStudyDetail({ study, index }: { study: CaseStudyData; index: number }) {
   const seed = seedFor(index);
   return (
@@ -66,15 +66,9 @@ export function CaseStudyDetail({ study, index }: { study: CaseStudyData; index:
         </ul>
       </Reveal>
 
-      {study.photos.length > 0 && (
+      {study.gallery.length > 0 && (
         <Reveal className="mt-14">
-            <PortfolioGallery items={study.photos} seed={seed + 10} />
-        </Reveal>
-      )}
-
-      {study.designs.length > 0 && (
-        <Reveal className="mt-14">
-            <PortfolioGallery items={study.designs} seed={seed + 20} />
+          <PortfolioGallery items={study.gallery} seed={seed + 10} />
         </Reveal>
       )}
     </>

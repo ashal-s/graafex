@@ -11,7 +11,7 @@ export default function PortfolioGallery({
   items,
   seed = 0,
 }: {
-  items: CaseStudyData["photos"];
+  items: CaseStudyData["gallery"];
   seed?: number;
 }) {
   return (

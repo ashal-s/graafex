@@ -140,7 +140,7 @@ export const caseStudies: CaseStudyData[] = [
     summary:
       "Placeholder: a short summary of what we made for the Pharmaceutical Development Conference and why it mattered.",
     palette: ["#5c4a78", "#8a74b0"],
-    video: {},
+    video: { src: HERO_VIDEO },
     meta: [
       { label: "Client", value: "Pharmaceutical Development Conference" },
       { label: "Year", value: "2025" },

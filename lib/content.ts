@@ -129,7 +129,7 @@ export type CaseStudyData = {
   gallery: Still[];
 };
 
-// One entry per case study — each carries its own film, reels, photos and graphic design.
+// One entry per case study — each carries its own film, reels and a gallery of photography and graphic design.
 export const caseStudies: CaseStudyData[] = [
   {
     slug: "pharmaceutical-development-conference",

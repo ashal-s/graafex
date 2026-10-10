@@ -35,7 +35,7 @@ export default function Portfolio() {
                       data-hover-play
                       className="group relative aspect-video overflow-hidden rounded-[var(--radius-small)] bg-bg-2 ring-1 ring-line"
                     >
-                      <div className="absolute inset-0 transition-transform duration-700 ease-[var(--ease-out)] group-hover:scale-[1.04]">
+                      <div className="absolute inset-0">
                         <PortfolioVideo trigger="hover" src={v.src} poster={v.poster} palette={v.palette} seed={i + 1} label={v.title} />
                       </div>
                       {/* Play icon — fades out while the tile is hovered or focused */}
@@ -59,8 +59,8 @@ export default function Portfolio() {
 
         </section>
 
-        {/* Clients — light band */}
-        <section className="section-light relative z-[2] overflow-hidden" id="clients">
+        {/* Clients */}
+        <section className="relative z-[2] overflow-hidden" id="clients">
           <div className={`${sectionPad} py-[clamp(3rem,6vw,5rem)]`}>
             <Reveal className="mb-10 md:mb-14">
               <Eyebrow dot={false}>Clients</Eyebrow>

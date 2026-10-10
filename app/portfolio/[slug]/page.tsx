@@ -58,13 +58,13 @@ export default async function CaseStudyPage({ params }: PageProps<"/portfolio/[s
 
           <div className="container-x relative pb-[clamp(3.5rem,7vw,6.5rem)] pt-[clamp(1.5rem,3vw,2.5rem)]">
             {/* Summary on the left, year and services on the same line to the right */}
-            <Reveal className="flex flex-col gap-8 border-b border-line pb-8 md:flex-row md:items-start md:justify-between md:gap-16">
-              <p className="t-large max-w-[40rem]">{study.summary}</p>
+            <Reveal className="flex flex-col gap-8 border-b border-line pb-8 font-[family-name:var(--font-body)] md:flex-row md:items-start md:justify-between md:gap-16">
+              <p className="t-large max-w-[40rem] tracking-[-0.005em]">{study.summary}</p>
               <dl className="flex shrink-0 flex-wrap gap-x-10 gap-y-6">
                 {study.meta.map((m) => (
                   <div key={m.label}>
                     <dt className="mb-1 text-xs font-medium uppercase tracking-[0.12em] text-accent">{m.label}</dt>
-                    <dd className="t-small text-heading">{m.value}</dd>
+                    <dd className="t-small font-medium tabular-nums text-heading">{m.value}</dd>
                   </div>
                 ))}
               </dl>

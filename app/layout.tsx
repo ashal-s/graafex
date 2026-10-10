@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Syne } from "next/font/google";
+import { Inter, Syne } from "next/font/google";
 import "./globals.css";
 import Cursor from "@/components/Cursor";
 
@@ -10,6 +10,13 @@ const primary = Syne({
   weight: ["400", "500", "600", "700", "800"],
 });
 
+// Neutral text face for copy and figures where Syne's numerals read too stylised.
+const body = Inter({
+  variable: "--font-body",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+});
+
 export const metadata: Metadata = {
   title: "Graafex — Strategy, Design & Film",
   description:
@@ -18,7 +25,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${primary.variable} antialiased`}>
+    <html lang="en" className={`${primary.variable} ${body.variable} antialiased`}>
       <body className="min-h-full">
         {children}
         <Cursor />

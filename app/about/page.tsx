@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import AboutTeam from "@/components/AboutTeam";
 import ScrollParallax from "@/components/ScrollParallax";
 import { Eyebrow, Media, Reveal, SwooshButton } from "@/components/ui";
-import { aboutProcess, aboutServices, site } from "@/lib/content";
+import { aboutServices, site } from "@/lib/content";
 
 export const metadata = { title: "About" };
 
@@ -31,8 +31,24 @@ export default function About() {
               </p>
             </Reveal>
           </div>
-          <div className="container-x relative pb-[clamp(4rem,8vw,7rem)]">
-            <Reveal>
+        </section>
+
+        {/* White band with orange elements */}
+        <section className="section-white relative z-[2] overflow-hidden">
+          <svg
+            aria-hidden
+            viewBox="0 0 400 400"
+            className="pointer-events-none absolute -right-14 -top-16 h-[11rem] w-[11rem] text-accent md:-right-12 md:-top-28 md:h-[18rem] md:w-[18rem]"
+            fill="none"
+            stroke="currentColor"
+          >
+            <circle cx="200" cy="200" r="190" strokeWidth="2" />
+            <circle cx="200" cy="200" r="140" strokeWidth="2" opacity="0.6" />
+            <circle cx="200" cy="200" r="90" strokeWidth="2" opacity="0.35" />
+            <circle cx="200" cy="200" r="40" fill="currentColor" stroke="none" />
+          </svg>
+          <div className="container-x relative py-[clamp(4rem,8vw,7rem)]">
+            <Reveal className="mb-10 md:mb-14">
               <Eyebrow>What we offer</Eyebrow>
             </Reveal>
             <ul className="border-t border-line">
@@ -51,40 +67,7 @@ export default function About() {
                 </li>
               ))}
             </ul>
-          </div>
-        </section>
-
-        {/* White band with orange elements */}
-        <section className="section-white relative z-[2] overflow-hidden">
-          <svg
-            aria-hidden
-            viewBox="0 0 400 400"
-            className="pointer-events-none absolute -right-20 -top-20 h-[16rem] w-[16rem] text-accent md:-right-10 md:-top-24 md:h-[24rem] md:w-[24rem]"
-            fill="none"
-            stroke="currentColor"
-          >
-            <circle cx="200" cy="200" r="190" strokeWidth="2" />
-            <circle cx="200" cy="200" r="140" strokeWidth="2" opacity="0.6" />
-            <circle cx="200" cy="200" r="90" strokeWidth="2" opacity="0.35" />
-            <circle cx="200" cy="200" r="40" fill="currentColor" stroke="none" />
-          </svg>
-          <div className="container-x relative py-[clamp(4rem,8vw,7rem)]">
-            <Reveal className="mb-14 max-w-[44rem] md:mb-20">
-              <Eyebrow>How we work</Eyebrow>
-              <h2 className="t-h2 font-semibold text-heading">{aboutProcess.title}</h2>
-            </Reveal>
-            <ol className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
-              {aboutProcess.steps.map((step, i) => (
-                <li key={step.title}>
-                  <Reveal delay={i * 90} className="border-t-4 border-accent pt-6">
-                    <p className="t-h1 font-semibold leading-none text-accent">{String(i + 1).padStart(2, "0")}</p>
-                    <h3 className="t-h4 mt-6 font-semibold text-heading">{step.title}</h3>
-                    <p className="t-small mt-3 max-w-[18rem]">{step.body}</p>
-                  </Reveal>
-                </li>
-              ))}
-            </ol>
-            <Reveal className="mt-16 md:mt-20">
+            <Reveal className="mt-14 md:mt-16">
               <SwooshButton href={`mailto:${site.email}`}>Start a project</SwooshButton>
             </Reveal>
           </div>

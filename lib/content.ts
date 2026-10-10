@@ -109,13 +109,3 @@ export const portfolioVideos: {
   { title: "Fieldhouse", src: HERO_VIDEO, palette: ["#ff7a33", "#ffd9bf"] },
   { title: "Meridian Health", src: HERO_VIDEO, palette: ["#c23a00", "#ff9a5c"] },
 ];
-
-export const aboutProcess = {
-  title: "A clear process, from first conversation to final cut.",
-  steps: [
-    { title: "Discover", body: "We learn your organisation, your audience and what success looks like." },
-    { title: "Define", body: "Strategy, story and a creative direction everyone can get behind." },
-    { title: "Create", body: "Design, film and photography, produced with care and shaped with you." },
-    { title: "Deliver", body: "Polished assets in every format you need, ready to launch and grow." },
-  ],
-};

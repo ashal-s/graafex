@@ -10,7 +10,8 @@ Built with [Next.js](https://nextjs.org) (App Router), React, and Tailwind CSS.
 | ----- | ----------- |
 | `/` | Home — video hero with scroll-driven intro |
 | `/about` | Studio story, services, and team |
-| `/extras` | Portfolio / additional work |
+| `/portfolio` | Hover-play film grid, clients and case study cards |
+| `/portfolio/<slug>` | A case study (hero film, reels, photos) — see [Adding a case study](#adding-a-case-study) |
 
 Site copy, nav, services, and contact details live in [`lib/content.ts`](lib/content.ts). Much of it is still placeholder — swap in real Graafex content there.
 

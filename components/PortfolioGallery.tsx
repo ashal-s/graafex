@@ -28,7 +28,7 @@ function Columns({
         <ul key={c} className="flex min-w-0 flex-1 flex-col gap-4">
           {col.map(({ item, i }) => (
             <li key={`${item.src}-${i}`}>
-              <figure className="group relative overflow-hidden rounded-[var(--radius-small)] bg-bg-2 ring-1 ring-line">
+              <figure className="relative overflow-hidden rounded-[var(--radius-small)] bg-bg-2 ring-1 ring-line">
                 {/* Natural proportions: width/height reserve the right space before the image loads. */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -37,7 +37,7 @@ function Columns({
                   width={sizes[i]?.width}
                   height={sizes[i]?.height}
                   loading="lazy"
-                  className="block h-auto w-full transition-transform duration-700 ease-[var(--ease-out)] group-hover:scale-[1.03]"
+                  className="block h-auto w-full"
                 />
               </figure>
             </li>

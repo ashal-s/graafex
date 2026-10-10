@@ -52,7 +52,7 @@ export const ParallaxScroll = ({
         <motion.ul key={c} style={{ y: c % 2 ? down : up }} className="grid gap-4">
           {part.map((img, i) => (
             <li key={`${img.src}-${i}`}>
-              <figure className="group relative overflow-hidden rounded-[var(--radius-small)] bg-bg-2 ring-1 ring-line">
+              <figure className="relative overflow-hidden rounded-[var(--radius-small)] bg-bg-2 ring-1 ring-line">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={img.src}
@@ -60,7 +60,7 @@ export const ParallaxScroll = ({
                   width={img.width}
                   height={img.height}
                   loading="lazy"
-                  className="block h-auto w-full transition-transform duration-700 ease-[var(--ease-out)] group-hover:scale-[1.03]"
+                  className="block h-auto w-full"
                 />
               </figure>
             </li>

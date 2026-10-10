@@ -40,20 +40,11 @@ export function CaseStudyCard({ study, index }: { study: CaseStudyData; index: n
   );
 }
 
-/** Case study body below the main film: details, vertical reels and the photography / graphic design gallery. */
+/** Case study body below the summary row: vertical reels and the photography / graphic design gallery. */
 export function CaseStudyDetail({ study, index }: { study: CaseStudyData; index: number }) {
   const seed = seedFor(index);
   return (
     <>
-      <Reveal as="dl" className="mt-8 grid grid-cols-1 gap-x-6 gap-y-6 border-b border-line pb-8 sm:grid-cols-2">
-        {study.meta.map((m) => (
-          <div key={m.label}>
-            <dt className="mb-1 text-xs font-medium uppercase tracking-[0.12em] text-accent">{m.label}</dt>
-            <dd className="t-small text-heading">{m.value}</dd>
-          </div>
-        ))}
-      </Reveal>
-
       <Reveal className="mt-14">
         <ul className="-mx-[var(--margin)] flex snap-x snap-mandatory gap-4 overflow-x-auto px-[var(--margin)] pb-2 md:mx-0 md:grid md:grid-cols-4 md:overflow-visible md:px-0 md:pb-0">
           {study.reels.map((r, i) => (

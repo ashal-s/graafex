@@ -39,10 +39,6 @@ export function CaseStudyCard({ study, index }: { study: CaseStudyData; index: n
   );
 }
 
-function Label({ children }: { children: string }) {
-  return <p className="mb-5 text-xs font-medium uppercase tracking-[0.12em] text-accent">{children}</p>;
-}
-
 /** Case study body below the main film: details, vertical reels, photography and graphic design. */
 export function CaseStudyDetail({ study, index }: { study: CaseStudyData; index: number }) {
   const seed = seedFor(index);
@@ -58,7 +54,6 @@ export function CaseStudyDetail({ study, index }: { study: CaseStudyData; index:
       </Reveal>
 
       <Reveal className="mt-14">
-        <Label>Vertical reels</Label>
         <ul className="-mx-[var(--margin)] flex snap-x snap-mandatory gap-4 overflow-x-auto px-[var(--margin)] pb-2 md:mx-0 md:grid md:grid-cols-4 md:overflow-visible md:px-0 md:pb-0">
           {study.reels.map((r, i) => (
             <li key={r.title} className="w-[58%] shrink-0 snap-start sm:w-[38%] md:w-auto">
@@ -72,15 +67,13 @@ export function CaseStudyDetail({ study, index }: { study: CaseStudyData; index:
 
       {study.photos.length > 0 && (
         <Reveal className="mt-14">
-          <Label>Photography</Label>
-          <PortfolioGallery items={study.photos} seed={seed + 10} />
+            <PortfolioGallery items={study.photos} seed={seed + 10} />
         </Reveal>
       )}
 
       {study.designs.length > 0 && (
         <Reveal className="mt-14">
-          <Label>Graphic design</Label>
-          <PortfolioGallery items={study.designs} seed={seed + 20} />
+            <PortfolioGallery items={study.designs} seed={seed + 20} />
         </Reveal>
       )}
     </>

@@ -37,33 +37,33 @@ export default async function CaseStudyPage({ params }: PageProps<"/portfolio/[s
           </div>
           <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,var(--bg)_70%)]" />
 
-          {/* Main film first — runs from the very top of the screen, nav sits over it */}
-          <div className="relative h-[56.25vw] min-h-[20rem] w-full bg-bg-2 md:h-[100svh]">
-            <PortfolioVideo
-              src={study.video.src}
-              poster={study.video.poster}
-              palette={study.palette}
-              seed={seedFor(index)}
-              label={`${study.client} main film`}
-            />
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#0c0a12]/70 to-transparent"
-            />
+          {/* Main film first — framed with the page margin, nav sits over it */}
+          <div className="relative p-[var(--margin)]">
+            <div className="relative aspect-video min-h-[20rem] w-full overflow-hidden rounded-[var(--radius-main)] bg-bg-2 md:aspect-auto md:h-[calc(100svh-var(--margin)*2)]">
+              <PortfolioVideo
+                src={study.video.src}
+                poster={study.video.poster}
+                palette={study.palette}
+                seed={seedFor(index)}
+                label={`${study.client} main film`}
+              />
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgb(12_10_18/0.55)_0%,transparent_22%,transparent_65%,rgb(12_10_18/0.7)_100%)]"
+              />
+              <h1 className="absolute inset-x-0 bottom-0 truncate p-[var(--margin)] text-[clamp(1rem,0.7rem+1.6vw,2.25rem)] font-semibold leading-tight tracking-tight text-heading md:px-[calc(var(--margin)*1.5)] md:pb-[calc(var(--margin)*1.25)]">
+                {study.title}
+              </h1>
+            </div>
           </div>
 
-          <div className="container-x relative pb-[clamp(3.5rem,7vw,6.5rem)] pt-[clamp(2.5rem,5vw,4.5rem)]">
+          <div className="container-x relative pb-[clamp(3.5rem,7vw,6.5rem)] pt-[clamp(1.5rem,3vw,2.5rem)]">
             <Reveal className="mb-12 md:mb-16">
               <Link href="/portfolio#case-studies" className="t-small mb-8 inline-flex items-center gap-2 text-heading hover:text-accent">
                 <span aria-hidden>←</span> Back to portfolio
               </Link>
-              <div className="grid gap-6 md:grid-cols-[1fr_minmax(0,24rem)] md:items-end md:gap-16">
-                <div>
-                  <Eyebrow>{`Case study ${String(index + 1).padStart(2, "0")}`}</Eyebrow>
-                  <h1 className="ink-fade t-h1 font-semibold">{study.title}</h1>
-                </div>
-                <p className="t-small">{study.summary}</p>
-              </div>
+              <Eyebrow>{`Case study ${String(index + 1).padStart(2, "0")}`}</Eyebrow>
+              <p className="t-large max-w-[40rem]">{study.summary}</p>
             </Reveal>
 
             <CaseStudyDetail study={study} index={index} />

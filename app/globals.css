@@ -158,9 +158,9 @@ body {
   --heading: #1c1410;
   --text: rgb(40 28 22 / 0.72);
   --border: rgb(28 20 16 / 0.12);
-  --accent: #ff4d00;
-  --accent-deep: #e03d00;
-  --accent-soft: #ff7a33;
+  --accent: #c23a00;
+  --accent-deep: #a03000;
+  --accent-soft: #d9531a;
   color: var(--text);
   background: #fff;
 }

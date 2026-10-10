@@ -56,9 +56,30 @@ export default function Portfolio() {
             </ul>
           </div>
 
+          {/* Clients */}
+          <div className={`${sectionPad} border-t border-line`} id="clients">
+            <SectionHead eyebrow="Clients" title="Trusted by organisations we admire">
+              From cultural institutions to growing brands, these are some of the teams we have worked with.
+            </SectionHead>
+            <Reveal>
+              <ul className="grid grid-cols-2 border-l border-t border-line sm:grid-cols-3 lg:grid-cols-5">
+                {clientLogos.map((c) => (
+                  <li
+                    key={c}
+                    className="flex h-28 items-center justify-center border-b border-r border-line px-4 text-center md:h-36"
+                  >
+                    <span className="t-h5 font-semibold tracking-tight text-heading opacity-60 transition-opacity duration-300 hover:opacity-100">
+                      {c}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          </div>
+
           {/* Case study */}
           <div className={`${sectionPad} border-t border-line`} id="case-study">
-            <SectionHead eyebrow="Case study" title={`${caseStudy.client}: ${caseStudy.title}`}>
+            <SectionHead eyebrow="Case study" title={caseStudy.title}>
               {caseStudy.summary}
             </SectionHead>
 
@@ -119,27 +140,6 @@ export default function Portfolio() {
               Image-making and identity work, from studio portraits to full brand systems.
             </SectionHead>
             <PortfolioGallery />
-          </div>
-
-          {/* Clients */}
-          <div className={`${sectionPad} border-t border-line`} id="clients">
-            <SectionHead eyebrow="Clients" title="Trusted by organisations we admire">
-              From cultural institutions to growing brands, these are some of the teams we have worked with.
-            </SectionHead>
-            <Reveal>
-              <ul className="grid grid-cols-2 border-l border-t border-line sm:grid-cols-3 lg:grid-cols-5">
-                {clientLogos.map((c) => (
-                  <li
-                    key={c}
-                    className="flex h-28 items-center justify-center border-b border-r border-line px-4 text-center md:h-36"
-                  >
-                    <span className="t-h5 font-semibold tracking-tight text-heading opacity-60 transition-opacity duration-300 hover:opacity-100">
-                      {c}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
           </div>
 
           {/* CTA */}

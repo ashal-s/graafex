@@ -111,28 +111,28 @@ export const portfolioVideos: {
 ];
 
 export const caseStudy = {
-  client: "Northwind Gallery",
-  title: "A new home for modern art",
+  client: "Pharmaceutical Development Conference",
+  title: "Pharmaceutical Development Conference",
   summary:
-    "Northwind was opening its doors after a four-year redevelopment. We built the story of the building, the collection and the people behind it, then carried it across film, social and print.",
+    "Placeholder: a short summary of what we made for the Pharmaceutical Development Conference and why it mattered.",
   palette: ["#5c4a78", "#8a74b0"] as Palette,
   video: { src: undefined as string | undefined, poster: undefined as string | undefined },
   meta: [
-    { label: "Client", value: "Northwind Gallery" },
+    { label: "Client", value: "Pharmaceutical Development Conference" },
     { label: "Year", value: "2025" },
-    { label: "Services", value: "Strategy, Film, Identity" },
-    { label: "Deliverables", value: "Launch film, 12 reels, campaign kit" },
+    { label: "Services", value: "Videography, Content Creation" },
+    { label: "Deliverables", value: "Main film, 4 vertical reels" },
   ],
   narrative: [
-    { label: "The brief", body: "Introduce a reimagined gallery to a younger, wider audience without losing the trust of long-time patrons." },
-    { label: "The approach", body: "A documentary-led launch film, supported by short vertical stories that put curators and artists front and centre." },
-    { label: "The result", body: "Opening-month attendance beat forecast by 38%, and the launch film was the most-watched piece in the gallery's history." },
+    { label: "The brief", body: "Placeholder: what the conference needed from us." },
+    { label: "The approach", body: "Placeholder: how we planned, shot and shaped the content." },
+    { label: "The result", body: "Placeholder: what the work achieved for the event." },
   ],
   reels: [
-    { title: "The curator", src: undefined as string | undefined, palette: ["#5c4a78", "#c6c6e2"] as Palette },
-    { title: "Building the space", src: undefined as string | undefined, palette: ["#8a74b0", "#241c32"] as Palette },
-    { title: "Opening night", src: undefined as string | undefined, palette: ["#9b9bc8", "#5c4a78"] as Palette },
-    { title: "The collection", src: undefined as string | undefined, palette: ["#6e5a94", "#e2e2f0"] as Palette },
+    { title: "Reel 1", src: undefined as string | undefined, palette: ["#5c4a78", "#c6c6e2"] as Palette },
+    { title: "Reel 2", src: undefined as string | undefined, palette: ["#8a74b0", "#241c32"] as Palette },
+    { title: "Reel 3", src: undefined as string | undefined, palette: ["#9b9bc8", "#5c4a78"] as Palette },
+    { title: "Reel 4", src: undefined as string | undefined, palette: ["#6e5a94", "#e2e2f0"] as Palette },
   ],
 };
 

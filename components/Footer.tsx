@@ -42,7 +42,7 @@ const linkCls = "t-small block text-heading transition-colors hover:text-accent"
 
 export default function Footer() {
   return (
-    <footer id="contact" className="theme-violet relative z-[2] overflow-hidden">
+    <footer id="contact" className="theme-violet relative z-[2] overflow-hidden border-t border-line">
       <Media seed={7} palette={["#5c4a78", "#8a74b0"]} className="!absolute inset-0 opacity-80" />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,var(--bg)_0%,#241c32cc_42%,transparent_100%)]" />
 

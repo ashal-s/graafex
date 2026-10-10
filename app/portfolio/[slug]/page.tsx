@@ -36,8 +36,8 @@ export default async function CaseStudyPage({ params }: PageProps<"/portfolio/[s
           </div>
           <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,var(--bg)_70%)]" />
 
-          {/* Main film first — framed with the page margin, nav sits over it */}
-          <div className="relative p-[var(--margin)]">
+          {/* Main film first — same container as the content below, nav sits over it */}
+          <div className="container-x relative py-[var(--margin)]">
             <div className="relative aspect-video min-h-[20rem] w-full overflow-hidden rounded-[var(--radius-main)] bg-bg-2 md:aspect-auto md:h-[calc(100svh-var(--margin)*2)]">
               <PortfolioVideo
                 src={study.video.src}

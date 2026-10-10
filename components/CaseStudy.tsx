@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { CaseStudyData } from "@/lib/content";
 import { Reveal } from "./ui";
 import PortfolioVideo from "./PortfolioVideo";
+import ReelPlayer from "./ReelPlayer";
 import PortfolioGallery from "./PortfolioGallery";
 
 export const seedFor = (index: number) => 20 + index * 40;
@@ -58,7 +59,7 @@ export function CaseStudyDetail({ study, index }: { study: CaseStudyData; index:
           {study.reels.map((r, i) => (
             <li key={r.title} className="w-[58%] shrink-0 snap-start sm:w-[38%] md:w-auto">
               <div className="relative aspect-[9/16] overflow-hidden rounded-[var(--radius-small)] bg-bg-2 ring-1 ring-line">
-                <PortfolioVideo src={r.src} palette={r.palette} seed={seed + 1 + i} label={`${study.client} reel — ${r.title}`} />
+                <ReelPlayer src={r.src} palette={r.palette} seed={seed + 1 + i} label={`${study.client} reel — ${r.title}`} />
               </div>
             </li>
           ))}

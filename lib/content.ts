@@ -146,10 +146,10 @@ export const caseStudies: CaseStudyData[] = [
       { label: "Services", value: "Videography, Content Creation" },
     ],
     reels: [
-      { title: "Reel 1", palette: ["#5c4a78", "#c6c6e2"] },
-      { title: "Reel 2", palette: ["#8a74b0", "#241c32"] },
-      { title: "Reel 3", palette: ["#9b9bc8", "#5c4a78"] },
-      { title: "Reel 4", palette: ["#6e5a94", "#e2e2f0"] },
+      { title: "Reel 1", src: HERO_VIDEO, palette: ["#5c4a78", "#c6c6e2"] },
+      { title: "Reel 2", src: HERO_VIDEO, palette: ["#8a74b0", "#241c32"] },
+      { title: "Reel 3", src: HERO_VIDEO, palette: ["#9b9bc8", "#5c4a78"] },
+      { title: "Reel 4", src: HERO_VIDEO, palette: ["#6e5a94", "#e2e2f0"] },
     ],
     photos: [
       { title: "Photo 1", ratio: "portrait", palette: ["#5c4a78", "#c6c6e2"] },

@@ -3,9 +3,9 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import ScrollParallax from "@/components/ScrollParallax";
 import PortfolioVideo from "@/components/PortfolioVideo";
-import PortfolioGallery from "@/components/PortfolioGallery";
+import CaseStudy from "@/components/CaseStudy";
 import { Eyebrow, Media, Reveal, SwooshButton } from "@/components/ui";
-import { caseStudy, clientLogos, portfolioVideos, site } from "@/lib/content";
+import { caseStudies, clientLogos, portfolioVideos, site } from "@/lib/content";
 
 export const metadata = { title: "Portfolio" };
 
@@ -77,70 +77,10 @@ export default function Portfolio() {
             </Reveal>
           </div>
 
-          {/* Case study */}
-          <div className={`${sectionPad} border-t border-line`} id="case-study">
-            <SectionHead eyebrow="Case study" title={caseStudy.title}>
-              {caseStudy.summary}
-            </SectionHead>
-
-            <Reveal>
-              <div className="relative aspect-video overflow-hidden rounded-[var(--radius-main)] bg-bg-2 ring-1 ring-line">
-                <PortfolioVideo
-                  src={caseStudy.video.src}
-                  poster={caseStudy.video.poster}
-                  palette={caseStudy.palette}
-                  seed={21}
-                  label={`${caseStudy.client} launch film`}
-                />
-              </div>
-            </Reveal>
-
-            <Reveal as="dl" className="mt-8 grid grid-cols-2 gap-x-6 gap-y-6 border-b border-line pb-8 lg:grid-cols-4">
-              {caseStudy.meta.map((m) => (
-                <div key={m.label}>
-                  <dt className="mb-1 text-xs font-medium uppercase tracking-[0.12em] text-accent">{m.label}</dt>
-                  <dd className="t-small text-heading">{m.value}</dd>
-                </div>
-              ))}
-            </Reveal>
-
-            <div className="mt-10 grid gap-8 md:grid-cols-3 md:gap-12">
-              {caseStudy.narrative.map((n, i) => (
-                <Reveal key={n.label} delay={i * 90}>
-                  <h3 className="t-h5 mb-3 flex items-baseline gap-3 font-semibold text-heading">
-                    <span className="t-small text-accent">{String(i + 1).padStart(2, "0")}</span>
-                    {n.label}
-                  </h3>
-                  <p className="t-small">{n.body}</p>
-                </Reveal>
-              ))}
-            </div>
-
-            {/* 4 vertical reels in one line */}
-            <Reveal className="mt-14">
-              <p className="mb-5 text-xs font-medium uppercase tracking-[0.12em] text-accent">Vertical reels</p>
-              <ul className="-mx-[var(--margin)] flex snap-x snap-mandatory gap-4 overflow-x-auto px-[var(--margin)] pb-2 md:mx-0 md:grid md:grid-cols-4 md:overflow-visible md:px-0 md:pb-0">
-                {caseStudy.reels.map((r, i) => (
-                  <li key={r.title} className="w-[58%] shrink-0 snap-start sm:w-[38%] md:w-auto">
-                    <figure>
-                      <div className="relative aspect-[9/16] overflow-hidden rounded-[var(--radius-small)] bg-bg-2 ring-1 ring-line">
-                        <PortfolioVideo src={r.src} palette={r.palette} seed={i + 31} label={`${caseStudy.client} reel — ${r.title}`} />
-                      </div>
-                      <figcaption className="t-small mt-3 text-heading">{r.title}</figcaption>
-                    </figure>
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
-          </div>
-
-          {/* Photography + graphic design */}
-          <div className={`${sectionPad} border-t border-line`} id="stills">
-            <SectionHead eyebrow="Stills" title="Photography & graphic design">
-              Image-making and identity work, from studio portraits to full brand systems.
-            </SectionHead>
-            <PortfolioGallery />
-          </div>
+          {/* Case studies — each holds its own film, reels, photography and graphic design */}
+          {caseStudies.map((study, i) => (
+            <CaseStudy key={study.slug} study={study} index={i} />
+          ))}
 
           {/* CTA */}
           <div className={`${sectionPad} border-t border-line`}>

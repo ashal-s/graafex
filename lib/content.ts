@@ -110,48 +110,67 @@ export const portfolioVideos: {
   { title: "Meridian Health", src: HERO_VIDEO, palette: ["#4a3a68", "#9b9bc8"] },
 ];
 
-export const caseStudy = {
-  client: "Pharmaceutical Development Conference",
-  title: "Pharmaceutical Development Conference",
-  summary:
-    "Placeholder: a short summary of what we made for the Pharmaceutical Development Conference and why it mattered.",
-  palette: ["#5c4a78", "#8a74b0"] as Palette,
-  video: { src: undefined as string | undefined, poster: undefined as string | undefined },
-  meta: [
-    { label: "Client", value: "Pharmaceutical Development Conference" },
-    { label: "Year", value: "2025" },
-    { label: "Services", value: "Videography, Content Creation" },
-    { label: "Deliverables", value: "Main film, 4 vertical reels" },
-  ],
-  narrative: [
-    { label: "The brief", body: "Placeholder: what the conference needed from us." },
-    { label: "The approach", body: "Placeholder: how we planned, shot and shaped the content." },
-    { label: "The result", body: "Placeholder: what the work achieved for the event." },
-  ],
-  reels: [
-    { title: "Reel 1", src: undefined as string | undefined, palette: ["#5c4a78", "#c6c6e2"] as Palette },
-    { title: "Reel 2", src: undefined as string | undefined, palette: ["#8a74b0", "#241c32"] as Palette },
-    { title: "Reel 3", src: undefined as string | undefined, palette: ["#9b9bc8", "#5c4a78"] as Palette },
-    { title: "Reel 4", src: undefined as string | undefined, palette: ["#6e5a94", "#e2e2f0"] as Palette },
-  ],
-};
-
-export const galleryFilters = ["All", "Photography", "Graphic design"] as const;
-
-export const gallery: {
+type Still = {
   title: string;
-  kind: Exclude<(typeof galleryFilters)[number], "All">;
   ratio: "portrait" | "landscape" | "square";
   src?: string;
   palette: Palette;
-}[] = [
-  { title: "Gallery opening", kind: "Photography", ratio: "portrait", palette: ["#5c4a78", "#c6c6e2"] },
-  { title: "Northwind identity", kind: "Graphic design", ratio: "landscape", palette: ["#8a74b0", "#241c32"] },
-  { title: "Harbour at dusk", kind: "Photography", ratio: "landscape", palette: ["#6e5a94", "#9b9bc8"] },
-  { title: "Atlas poster series", kind: "Graphic design", ratio: "portrait", palette: ["#9b9bc8", "#3a2e52"] },
-  { title: "Studio portraits", kind: "Photography", ratio: "square", palette: ["#4a3a68", "#e2e2f0"] },
-  { title: "Fieldhouse packaging", kind: "Graphic design", ratio: "square", palette: ["#7e6ea8", "#241c32"] },
-  { title: "Craft in detail", kind: "Photography", ratio: "portrait", palette: ["#5c4a78", "#9b9bc8"] },
-  { title: "Meridian brand system", kind: "Graphic design", ratio: "landscape", palette: ["#8a74b0", "#c6c6e2"] },
-  { title: "Behind the scenes", kind: "Photography", ratio: "landscape", palette: ["#6e5a94", "#30283c"] },
+};
+
+export type CaseStudyData = {
+  slug: string;
+  client: string;
+  title: string;
+  summary: string;
+  palette: Palette;
+  video: { src?: string; poster?: string };
+  meta: { label: string; value: string }[];
+  narrative: { label: string; body: string }[];
+  reels: { title: string; src?: string; palette: Palette }[];
+  photos: Still[];
+  designs: Still[];
+};
+
+// One entry per case study — each carries its own film, reels, photos and graphic design.
+export const caseStudies: CaseStudyData[] = [
+  {
+    slug: "pharmaceutical-development-conference",
+    client: "Pharmaceutical Development Conference",
+    title: "Pharmaceutical Development Conference",
+    summary:
+      "Placeholder: a short summary of what we made for the Pharmaceutical Development Conference and why it mattered.",
+    palette: ["#5c4a78", "#8a74b0"],
+    video: {},
+    meta: [
+      { label: "Client", value: "Pharmaceutical Development Conference" },
+      { label: "Year", value: "2025" },
+      { label: "Services", value: "Videography, Content Creation" },
+      { label: "Deliverables", value: "Main film, 4 vertical reels, photography, graphic design" },
+    ],
+    narrative: [
+      { label: "The brief", body: "Placeholder: what the conference needed from us." },
+      { label: "The approach", body: "Placeholder: how we planned, shot and shaped the content." },
+      { label: "The result", body: "Placeholder: what the work achieved for the event." },
+    ],
+    reels: [
+      { title: "Reel 1", palette: ["#5c4a78", "#c6c6e2"] },
+      { title: "Reel 2", palette: ["#8a74b0", "#241c32"] },
+      { title: "Reel 3", palette: ["#9b9bc8", "#5c4a78"] },
+      { title: "Reel 4", palette: ["#6e5a94", "#e2e2f0"] },
+    ],
+    photos: [
+      { title: "Photo 1", ratio: "portrait", palette: ["#5c4a78", "#c6c6e2"] },
+      { title: "Photo 2", ratio: "landscape", palette: ["#6e5a94", "#9b9bc8"] },
+      { title: "Photo 3", ratio: "square", palette: ["#4a3a68", "#e2e2f0"] },
+      { title: "Photo 4", ratio: "landscape", palette: ["#6e5a94", "#30283c"] },
+      { title: "Photo 5", ratio: "portrait", palette: ["#5c4a78", "#9b9bc8"] },
+      { title: "Photo 6", ratio: "square", palette: ["#8a74b0", "#241c32"] },
+    ],
+    designs: [
+      { title: "Design 1", ratio: "landscape", palette: ["#8a74b0", "#241c32"] },
+      { title: "Design 2", ratio: "portrait", palette: ["#9b9bc8", "#3a2e52"] },
+      { title: "Design 3", ratio: "square", palette: ["#7e6ea8", "#241c32"] },
+      { title: "Design 4", ratio: "landscape", palette: ["#8a74b0", "#c6c6e2"] },
+    ],
+  },
 ];

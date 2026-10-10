@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import ScrollParallax from "@/components/ScrollParallax";
 import { CaseStudyDetail, seedFor } from "@/components/CaseStudy";
 import PortfolioVideo from "@/components/PortfolioVideo";
-import { Eyebrow, Media, Reveal } from "@/components/ui";
+import { Media, Reveal } from "@/components/ui";
 import { caseStudies } from "@/lib/content";
 
 export function generateStaticParams() {

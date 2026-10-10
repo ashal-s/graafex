@@ -10,20 +10,21 @@ import { cn } from "@/lib/utils";
  *  - scrolls with the page instead of an inner fixed-height scroll box
  *  - every image keeps its own aspect ratio (no fixed 400x400 crop)
  *  - images are dealt across the columns left-to-right
- *  - columns start in a straight line as the section enters the screen, then
- *    alternate columns drift in opposite directions as you scroll
+ *  - columns start level as the section enters the screen, alternate columns
+ *    pull ahead mid-scroll, then settle level again as the section's bottom
+ *    reaches the bottom of the screen (so there is no gap above the footer)
  */
 export type ParallaxImage = { src: string; alt: string; width?: number; height?: number };
 
 export const ParallaxScroll = ({
   images,
   columns = 3,
-  distance = 140,
+  distance = 120,
   className,
 }: {
   images: ParallaxImage[];
   columns?: number;
-  /** Max travel in px, up or down, by the time the section has scrolled out of view. */
+  /** Peak extra upward travel in px of the moving columns, reached mid-scroll. */
   distance?: number;
   className?: string;
 }) => {
@@ -31,13 +32,12 @@ export const ParallaxScroll = ({
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start end", "end start"],
+    offset: ["start end", "end end"],
   });
 
   const d = reduceMotion ? 0 : distance;
-  // 0 at the start of the pass (columns level), then away from each other.
-  const up = useTransform(scrollYProgress, [0, 1], [0, -d]);
-  const down = useTransform(scrollYProgress, [0, 1], [0, d]);
+  // Level at both ends of the pass, peak travel in the middle.
+  const up = useTransform(scrollYProgress, [0, 0.5, 1], [0, -d, 0]);
 
   const parts = Array.from({ length: columns }, () => [] as ParallaxImage[]);
   images.forEach((img, i) => parts[i % columns].push(img));
@@ -46,10 +46,10 @@ export const ParallaxScroll = ({
     <div
       ref={ref}
       className={cn("grid items-start gap-4", className)}
-      style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`, paddingBottom: d }}
+      style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
     >
       {parts.map((part, c) => (
-        <motion.ul key={c} style={{ y: c % 2 ? down : up }} className="grid gap-4">
+        <motion.ul key={c} style={c % 2 ? undefined : { y: up }} className="grid gap-4">
           {part.map((img, i) => (
             <li key={`${img.src}-${i}`}>
               <figure className="relative overflow-hidden rounded-[var(--radius-small)] bg-bg-2 ring-1 ring-line">

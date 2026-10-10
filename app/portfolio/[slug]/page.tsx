@@ -52,7 +52,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/portfolio/[s
             </div>
           </div>
 
-          <div className="container-x relative pb-[clamp(3.5rem,7vw,6.5rem)] pt-[clamp(1.5rem,3vw,2.5rem)]">
+          <div className="container-x relative pb-[clamp(1.5rem,2.5vw,2.5rem)] pt-[clamp(1.5rem,3vw,2.5rem)]">
             {/* Logo, name and description on the left; services and year on the right */}
             <Reveal
               className="grid gap-10 font-[family-name:var(--font-body)] md:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] md:gap-16"

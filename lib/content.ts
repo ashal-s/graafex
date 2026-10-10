@@ -93,8 +93,9 @@ export const aboutServices = [
 
 type Palette = [string, string];
 
-// Temporary: every tile uses the hero video until real films are supplied.
+// Temporary: every tile uses the hero video (and its thumbnail for stills) until real media is supplied.
 const HERO_VIDEO = "/videos/hero_video.mp4";
+const HERO_THUMB = "/videos/hero-poster.jpg";
 
 export const portfolioVideos: {
   title: string;
@@ -151,16 +152,16 @@ export const caseStudies: CaseStudyData[] = [
       { title: "Reel 4", src: HERO_VIDEO, palette: ["#6e5a94", "#e2e2f0"] },
     ],
     gallery: [
-      { title: "Image 1", ratio: "portrait", palette: ["#5c4a78", "#c6c6e2"] },
-      { title: "Image 2", ratio: "landscape", palette: ["#8a74b0", "#241c32"] },
-      { title: "Image 3", ratio: "square", palette: ["#4a3a68", "#e2e2f0"] },
-      { title: "Image 4", ratio: "landscape", palette: ["#6e5a94", "#9b9bc8"] },
-      { title: "Image 5", ratio: "portrait", palette: ["#9b9bc8", "#3a2e52"] },
-      { title: "Image 6", ratio: "square", palette: ["#7e6ea8", "#241c32"] },
-      { title: "Image 7", ratio: "landscape", palette: ["#6e5a94", "#30283c"] },
-      { title: "Image 8", ratio: "portrait", palette: ["#5c4a78", "#9b9bc8"] },
-      { title: "Image 9", ratio: "square", palette: ["#8a74b0", "#c6c6e2"] },
-      { title: "Image 10", ratio: "landscape", palette: ["#8a74b0", "#241c32"] },
+      { title: "Image 1", ratio: "portrait", src: HERO_THUMB, palette: ["#5c4a78", "#c6c6e2"] },
+      { title: "Image 2", ratio: "landscape", src: HERO_THUMB, palette: ["#8a74b0", "#241c32"] },
+      { title: "Image 3", ratio: "square", src: HERO_THUMB, palette: ["#4a3a68", "#e2e2f0"] },
+      { title: "Image 4", ratio: "landscape", src: HERO_THUMB, palette: ["#6e5a94", "#9b9bc8"] },
+      { title: "Image 5", ratio: "portrait", src: HERO_THUMB, palette: ["#9b9bc8", "#3a2e52"] },
+      { title: "Image 6", ratio: "square", src: HERO_THUMB, palette: ["#7e6ea8", "#241c32"] },
+      { title: "Image 7", ratio: "landscape", src: HERO_THUMB, palette: ["#6e5a94", "#30283c"] },
+      { title: "Image 8", ratio: "portrait", src: HERO_THUMB, palette: ["#5c4a78", "#9b9bc8"] },
+      { title: "Image 9", ratio: "square", src: HERO_THUMB, palette: ["#8a74b0", "#c6c6e2"] },
+      { title: "Image 10", ratio: "landscape", src: HERO_THUMB, palette: ["#8a74b0", "#241c32"] },
     ],
   },
 ];

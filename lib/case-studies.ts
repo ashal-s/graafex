@@ -46,8 +46,8 @@ const entries: CaseStudyInput[] = [
     name: "Pharmaceutical Development Conference",
     description:
       "Placeholder: a short summary of what we made for the Pharmaceutical Development Conference and why it mattered.",
-    services: ["Videography", "Content Creation"],
-    year: "2025",
+    services: ["Videography", "Photography", "Graphic Design"],
+    year: "2026",
     video: HERO_VIDEO,
     reels: [HERO_VIDEO, HERO_VIDEO, HERO_VIDEO, HERO_VIDEO],
     photos: Array.from({ length: 10 }, () => HERO_THUMB),

@@ -46,7 +46,7 @@ const entries: CaseStudyInput[] = [
     name: "Pharmaceutical Development Conference",
     description:
       "Placeholder: a short summary of what we made for the Pharmaceutical Development Conference and why it mattered.",
-    services: ["Videography", "Photography", "Graphic Design"],
+    services: ["Videography", "Photography", "Graphic Design", "Content Creation"],
     year: "2026",
     video: HERO_VIDEO,
     reels: [HERO_VIDEO, HERO_VIDEO, HERO_VIDEO, HERO_VIDEO],

@@ -62,9 +62,9 @@ export function BlurText({ text, className = "" }: { text: string; className?: s
   );
 }
 
-export function SwooshButton({ href, children }: { href: string; children: string }) {
+export function SwooshButton({ href, children, className = "" }: { href: string; children: string; className?: string }) {
   return (
-    <a href={href} className="swoosh t-small">
+    <a href={href} className={`swoosh t-small ${className}`}>
       <span className="swoosh__bg" aria-hidden>
         <span className="swoosh__layer swoosh__layer--1" />
         <span className="swoosh__layer swoosh__layer--2" />

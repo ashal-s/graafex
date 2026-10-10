@@ -74,7 +74,9 @@ export default function About() {
                   wherever it appears.
                 </p>
                 <div className="mt-10">
-                  <SwooshButton href={`mailto:${site.email}`}>Start a project</SwooshButton>
+                  <SwooshButton href={`mailto:${site.email}`} className="!text-white">
+                    Start a project
+                  </SwooshButton>
                 </div>
               </Reveal>
 

@@ -24,6 +24,7 @@
   --color-text: var(--text);
   --color-heading: var(--heading);
   --color-accent: var(--accent);
+  --color-accent-deep: var(--accent-deep);
   --color-line: var(--border);
   --font-sans: var(--font-primary);
 }

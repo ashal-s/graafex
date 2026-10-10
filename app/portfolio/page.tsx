@@ -54,9 +54,18 @@ export default function Portfolio() {
                 {clientLogos.map((c) => (
                   <li
                     key={c}
-                    className="flex h-28 items-center justify-center border-b border-r border-line px-4 text-center md:h-36"
+                    className="group relative flex h-28 items-center justify-center overflow-hidden border-b border-r border-line px-4 text-center md:h-36"
                   >
-                    <span className="t-h5 font-semibold tracking-tight text-heading opacity-60 transition-opacity duration-300 hover:opacity-100">
+                    {/* Two colour layers sweep up from the bottom on hover */}
+                    <span
+                      aria-hidden
+                      className="absolute inset-0 translate-y-full bg-accent-deep transition-transform duration-500 ease-[var(--ease)] group-hover:translate-y-0"
+                    />
+                    <span
+                      aria-hidden
+                      className="absolute inset-0 translate-y-full bg-accent transition-transform delay-75 duration-500 ease-[var(--ease)] group-hover:translate-y-0"
+                    />
+                    <span className="t-h5 relative font-semibold tracking-tight text-heading opacity-60 transition-[opacity,color,transform] duration-500 ease-[var(--ease-out)] group-hover:-translate-y-0.5 group-hover:scale-105 group-hover:text-bg-2 group-hover:opacity-100">
                       {c}
                     </span>
                   </li>

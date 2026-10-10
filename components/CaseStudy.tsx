@@ -59,7 +59,7 @@ export function CaseStudyDetail({ study, index }: { study: CaseStudy; index: num
       )}
 
       {study.photos.length > 0 && (
-        <Reveal className="mt-14">
+        <Reveal className="mt-16">
           <PortfolioGallery items={study.photos.map((src, i) => ({ src, alt: `${study.name} — photo ${i + 1}` }))} />
         </Reveal>
       )}

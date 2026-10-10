@@ -18,9 +18,9 @@ export default function Portfolio() {
       <Nav />
       <ScrollParallax />
       <main id="main">
-        <section className="theme-violet relative z-[2] overflow-hidden">
+        <section className="relative z-[2] overflow-hidden">
           <div className="parallax absolute inset-x-0 -inset-y-[20%]" style={{ "--y": "-140px" } as CSSProperties}>
-            <Media seed={5} palette={["#5c4a78", "#8a74b0"]} className="!absolute inset-0 opacity-50" />
+            <Media seed={5} palette={["#ff4d00", "#7a2a0a"]} className="!absolute inset-0 opacity-50" />
           </div>
           <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,var(--bg)_70%)]" />
 
@@ -57,8 +57,11 @@ export default function Portfolio() {
             </ul>
           </div>
 
-          {/* Clients */}
-          <div className={`${sectionPad}`} id="clients">
+        </section>
+
+        {/* Clients — light band */}
+        <section className="section-light relative z-[2] overflow-hidden" id="clients">
+          <div className={`${sectionPad} py-[clamp(3rem,6vw,5rem)]`}>
             <Reveal className="mb-10 md:mb-14">
               <Eyebrow dot={false}>Clients</Eyebrow>
             </Reveal>
@@ -86,8 +89,10 @@ export default function Portfolio() {
               </ul>
             </Reveal>
           </div>
+        </section>
 
-          {/* Case studies — each card opens its own page with reels, photography and graphic design */}
+        {/* Case studies — each card opens its own page with reels, photography and graphic design */}
+        <section className="relative z-[2] overflow-hidden">
           <div className={`${sectionPad}`} id="case-studies">
             <div className="flex flex-col gap-16 md:gap-24">
               {caseStudies.map((study, i) => (

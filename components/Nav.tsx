@@ -1,12 +1,40 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { navLinks, site } from "@/lib/content";
 import { Logo, Media } from "./ui";
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
   const [hovered, setHovered] = useState(0);
+  const [onLight, setOnLight] = useState(false);
+  const logoRef = useRef<HTMLAnchorElement>(null);
+
+  // Flip the logo to dark ink while it sits over a light band (.section-light / .section-white).
+  useEffect(() => {
+    let raf = 0;
+    const check = () => {
+      raf = 0;
+      const el = logoRef.current;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const under = document
+        .elementsFromPoint(r.left + r.width / 2, r.top + r.height / 2)
+        .find((n) => !n.closest("header"));
+      setOnLight(!!under?.closest(".section-light, .section-white"));
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(check);
+    };
+    check();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
 
   useEffect(() => {
     document.documentElement.style.overflow = open ? "hidden" : "";
@@ -16,9 +44,9 @@ export default function Nav() {
   }, [open]);
 
   const palettes = [
-    ["#5c4a78", "#241c32"],
-    ["#8a74b0", "#30283c"],
-    ["#9b9bc8", "#241c32"],
+    ["#ff4d00", "#3a1208"],
+    ["#ff7a33", "#2a0f06"],
+    ["#ff9a5c", "#1a0c08"],
   ];
 
   return (
@@ -28,8 +56,8 @@ export default function Nav() {
       </a>
 
       <div className="fixed inset-x-0 top-[var(--margin)] z-50 flex items-center justify-between gap-6 px-[calc(var(--margin)*2)] py-5">
-        <a href="/" aria-label={`${site.name} home`} className="t-h5 text-white">
-          <Logo className="!text-white" />
+        <a ref={logoRef} href="/" aria-label={`${site.name} home`} className="t-h5">
+          <Logo className={`transition-colors duration-300 ${onLight ? "!text-[#1c1410]" : "!text-white"}`} />
         </a>
       </div>
 
@@ -37,7 +65,7 @@ export default function Nav() {
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
         aria-controls="site-menu"
-        className="theme-violet fixed right-[calc(var(--margin)*2)] top-[calc(var(--margin)+1rem)] z-[55] flex cursor-pointer items-center gap-3 rounded-[var(--radius-xs)] !bg-accent !bg-none px-4 py-2.5 text-sm font-semibold uppercase tracking-[0.08em] !text-bg transition-colors hover:!bg-heading"
+        className="fixed right-[calc(var(--margin)*2)] top-[calc(var(--margin)+1rem)] z-[55] flex cursor-pointer items-center gap-3 rounded-[var(--radius-xs)] !bg-accent !bg-none px-4 py-2.5 text-sm font-semibold uppercase tracking-[0.08em] !text-bg transition-colors hover:!bg-heading"
       >
         <span className="relative block h-[1.2em] overflow-hidden">
           <span className={`block transition-transform duration-500 ${open ? "-translate-y-full" : ""}`}>Menu</span>
@@ -56,7 +84,7 @@ export default function Nav() {
       <nav
         id="site-menu"
         aria-label="Main"
-        className={`theme-violet fixed inset-0 z-50 transition-[clip-path] duration-700 ease-[var(--ease)] ${open ? "[clip-path:inset(0_0_0_0)]" : "pointer-events-none [clip-path:inset(0_0_100%_0)]"}`}
+        className={`theme-dark fixed inset-0 z-50 transition-[clip-path] duration-700 ease-[var(--ease)] ${open ? "[clip-path:inset(0_0_0_0)]" : "pointer-events-none [clip-path:inset(0_0_100%_0)]"}`}
         inert={!open}
       >
         <div className="absolute inset-0 bg-bg/60" />

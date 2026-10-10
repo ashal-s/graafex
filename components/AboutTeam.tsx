@@ -3,7 +3,7 @@
 import ProfileCard from "@/components/profile-card/ProfileCard";
 import { site } from "@/lib/content";
 
-const INNER = "linear-gradient(145deg,#60496e8c 0%,#71C4FF44 100%)" as const;
+const INNER = "linear-gradient(145deg,#8a3a148c 0%,#ff9a5c44 100%)" as const;
 const ICON_PATTERN = "/team/profile-card-pattern.svg";
 
 const contact = () => {
@@ -24,7 +24,7 @@ export default function AboutTeam() {
         showUserInfo={false}
         onContactClick={contact}
         behindGlowEnabled
-        behindGlowColor="rgba(125, 190, 255, 0.67)"
+        behindGlowColor="rgba(255, 122, 51, 0.67)"
         innerGradient={INNER}
         className="w-full max-w-[250px] [&_.pc-card]:!aspect-[0.56] [&_.pc-details_h3]:!text-[1.75rem] [&_.pc-card]:!h-auto [&_.pc-card]:!max-h-none"
       />
@@ -39,7 +39,7 @@ export default function AboutTeam() {
         showUserInfo={false}
         onContactClick={contact}
         behindGlowEnabled
-        behindGlowColor="rgba(125, 190, 255, 0.67)"
+        behindGlowColor="rgba(255, 122, 51, 0.67)"
         innerGradient={INNER}
         className="w-full max-w-[250px] [&_.pc-card]:!aspect-[0.56] [&_.pc-details_h3]:!text-[1.75rem] [&_.pc-card]:!h-auto [&_.pc-card]:!max-h-none"
       />
@@ -54,7 +54,7 @@ export default function AboutTeam() {
         showUserInfo={false}
         onContactClick={contact}
         behindGlowEnabled
-        behindGlowColor="rgba(125, 190, 255, 0.67)"
+        behindGlowColor="rgba(255, 122, 51, 0.67)"
         innerGradient={INNER}
         className="w-full max-w-[250px] [&_.pc-card]:!aspect-[0.56] [&_.pc-details_h3]:!text-[1.75rem] [&_.pc-card]:!h-auto [&_.pc-card]:!max-h-none"
       />

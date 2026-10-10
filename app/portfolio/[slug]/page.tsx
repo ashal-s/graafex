@@ -30,9 +30,9 @@ export default async function CaseStudyPage({ params }: PageProps<"/portfolio/[s
       <Nav />
       <ScrollParallax />
       <main id="main">
-        <section className="theme-violet relative z-[2] overflow-hidden">
+        <section className="relative z-[2] overflow-hidden">
           <div className="parallax absolute inset-x-0 -inset-y-[20%]" style={{ "--y": "-140px" } as CSSProperties}>
-            <Media seed={5} palette={["#5c4a78", "#8a74b0"]} className="!absolute inset-0 opacity-50" />
+            <Media seed={5} palette={["#ff4d00", "#7a2a0a"]} className="!absolute inset-0 opacity-50" />
           </div>
           <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,var(--bg)_70%)]" />
 
@@ -47,7 +47,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/portfolio/[s
               />
               <div
                 aria-hidden
-                className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgb(12_10_18/0.55)_0%,transparent_22%)]"
+                className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgb(12_8_7/0.55)_0%,transparent_22%)]"
               />
             </div>
           </div>

@@ -58,7 +58,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={wrap} className="theme-violet theme-violet-hero relative z-[2] h-[280svh]">
+    <section ref={wrap} className="theme-dark theme-dark-hero relative z-[2] h-[280svh]">
       {/* Intro loader */}
       <div className="loader fixed inset-0 z-[70] flex items-center justify-center bg-bg">
         <div className="t-h3 flex items-center gap-5 font-semibold text-heading">
@@ -76,7 +76,7 @@ export default function Hero() {
       {/* Sticky hero — padded so page bg shows around the rounded frame */}
       <div className="sticky top-0 flex h-[100svh] items-stretch overflow-hidden p-[var(--margin)]">
         <div
-          className="relative h-full w-full overflow-hidden rounded-[var(--radius-main)] bg-[#0c0a12]"
+          className="relative h-full w-full overflow-hidden rounded-[var(--radius-main)] bg-[#0c0807]"
         >
           <video
             ref={videoRef}
@@ -91,7 +91,7 @@ export default function Hero() {
             aria-label="Graafex brand video"
           />
           <div className="hero-wash pointer-events-none absolute inset-0" aria-hidden />
-          <div ref={overlay} className="pointer-events-none absolute inset-0 bg-[#0c0a12] opacity-0" aria-hidden />
+          <div ref={overlay} className="pointer-events-none absolute inset-0 bg-[#0c0807] opacity-0" aria-hidden />
           <div className="absolute inset-x-0 bottom-0 overflow-hidden p-[var(--margin)] pb-[calc(var(--margin)*2)] md:px-[calc(var(--margin)*2)]">
             <div ref={text} className="opacity-0 will-change-transform">
               <h1 className="ink-fade t-h2 max-w-[22ch] font-semibold">{hero.heading}</h1>

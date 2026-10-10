@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { Media } from "./ui";
 
-const DEFAULT_PALETTE = ["#5c4a78", "#8a74b0"];
+const DEFAULT_PALETTE = ["#ff4d00", "#7a2a0a"];
 
 /**
  * Muted looping video. `trigger="view"` plays while on screen; `trigger="hover"`

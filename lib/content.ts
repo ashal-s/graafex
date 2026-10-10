@@ -102,10 +102,20 @@ export const portfolioVideos: {
   poster?: string;
   palette: Palette;
 }[] = [
-  { title: "Northwind Gallery", src: HERO_VIDEO, palette: ["#5c4a78", "#8a74b0"] },
-  { title: "Harbour Collective", src: HERO_VIDEO, palette: ["#8a74b0", "#30283c"] },
-  { title: "Atlas Athletics", src: HERO_VIDEO, palette: ["#9b9bc8", "#3a2e52"] },
-  { title: "Lumen Studio", src: HERO_VIDEO, palette: ["#6e5a94", "#241c32"] },
-  { title: "Fieldhouse", src: HERO_VIDEO, palette: ["#7e6ea8", "#c6c6e2"] },
-  { title: "Meridian Health", src: HERO_VIDEO, palette: ["#4a3a68", "#9b9bc8"] },
+  { title: "Northwind Gallery", src: HERO_VIDEO, palette: ["#ff4d00", "#7a2a0a"] },
+  { title: "Harbour Collective", src: HERO_VIDEO, palette: ["#ff7a33", "#3a1208"] },
+  { title: "Atlas Athletics", src: HERO_VIDEO, palette: ["#ff9a5c", "#4a1a08"] },
+  { title: "Lumen Studio", src: HERO_VIDEO, palette: ["#e03d00", "#2a0f06"] },
+  { title: "Fieldhouse", src: HERO_VIDEO, palette: ["#ff7a33", "#ffd9bf"] },
+  { title: "Meridian Health", src: HERO_VIDEO, palette: ["#c23a00", "#ff9a5c"] },
 ];
+
+export const aboutProcess = {
+  title: "A clear process, from first conversation to final cut.",
+  steps: [
+    { title: "Discover", body: "We learn your organisation, your audience and what success looks like." },
+    { title: "Define", body: "Strategy, story and a creative direction everyone can get behind." },
+    { title: "Create", body: "Design, film and photography, produced with care and shaped with you." },
+    { title: "Deliver", body: "Polished assets in every format you need, ready to launch and grow." },
+  ],
+};

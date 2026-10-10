@@ -4,7 +4,7 @@ import React, { useCallback, useMemo } from "react";
 import "./ProfileCard.css";
 
 const DEFAULT_INNER_GRADIENT =
-  "linear-gradient(145deg,#60496e8c 0%,#71C4FF44 100%)";
+  "linear-gradient(145deg,#8a3a148c 0%,#ff9a5c44 100%)";
 
 export type ProfileCardProps = {
   avatarUrl?: string;
@@ -50,7 +50,7 @@ const ProfileCardComponent = ({
         "--grain": grainUrl ? `url(${grainUrl})` : "none",
         "--inner-gradient": innerGradient ?? DEFAULT_INNER_GRADIENT,
         "--behind-glow-color":
-          behindGlowColor ?? "rgba(125, 190, 255, 0.67)",
+          behindGlowColor ?? "rgba(255, 122, 51, 0.67)",
         "--behind-glow-size": behindGlowSize ?? "50%",
       }) as React.CSSProperties,
     [iconUrl, grainUrl, innerGradient, behindGlowColor, behindGlowSize],

@@ -6,8 +6,8 @@ import Footer from "@/components/Footer";
 import ScrollParallax from "@/components/ScrollParallax";
 import { CaseStudyDetail, seedFor } from "@/components/CaseStudy";
 import PortfolioVideo from "@/components/PortfolioVideo";
-import { Eyebrow, Media, Reveal, SwooshButton } from "@/components/ui";
-import { caseStudies, site } from "@/lib/content";
+import { Eyebrow, Media, Reveal } from "@/components/ui";
+import { caseStudies } from "@/lib/content";
 
 export function generateStaticParams() {
   return caseStudies.map((s) => ({ slug: s.slug }));
@@ -62,14 +62,6 @@ export default async function CaseStudyPage({ params }: PageProps<"/portfolio/[s
             </Reveal>
 
             <CaseStudyDetail study={study} index={index} />
-
-            <Reveal className="mt-20 flex flex-col gap-8 border-t border-line pt-12 md:flex-row md:items-end md:justify-between">
-              <div>
-                <Eyebrow>Start a project</Eyebrow>
-                <h2 className="t-h2 max-w-[18ch] font-semibold text-heading">Have a story worth telling?</h2>
-              </div>
-              <SwooshButton href={`mailto:${site.email}`}>Get in touch</SwooshButton>
-            </Reveal>
           </div>
         </section>
       </main>

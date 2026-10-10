@@ -47,13 +47,7 @@ export default function Footer() {
       <div className="absolute inset-0 bg-[linear-gradient(180deg,var(--bg)_0%,#241c32cc_42%,transparent_100%)]" />
 
       <div className="container-x relative py-[clamp(2rem,3.5vw,3rem)]">
-        <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
-          <h2 className="ink-fade t-h5 max-w-[34rem] font-semibold">
-            The best results start with a good conversation. Let’s have ours.
-          </h2>
-        </div>
-
-        <div className="mt-8 grid gap-6 border-t border-line pt-6 md:grid-cols-3 md:items-center">
+        <div className="grid gap-6 md:grid-cols-3 md:items-center">
           <Logo className="t-h6" />
           <ul className="flex gap-6 md:justify-center">
             {footerLinks.map((l) => (

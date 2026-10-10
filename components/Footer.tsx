@@ -2,7 +2,7 @@
 
 import { navLinks, site } from "@/lib/content";
 import { Logo, Media } from "./ui";
-import { socialIcons } from "./social-icons";
+import { SocialLinks } from "./social-icons";
 
 const footerLinks = navLinks;
 
@@ -26,18 +26,7 @@ export default function Footer() {
           </ul>
           <div className="flex flex-wrap items-center gap-4 md:justify-end">
             <a href={`mailto:${site.email}`} className={linkCls}>{site.email}</a>
-            <div className="flex gap-1">
-              {site.socials.map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  aria-label={s.label}
-                  className="flex h-9 w-9 items-center justify-center text-white transition-opacity hover:opacity-70"
-                >
-                  {socialIcons[s.label]}
-                </a>
-              ))}
-            </div>
+            <SocialLinks />
           </div>
         </div>
       </div>

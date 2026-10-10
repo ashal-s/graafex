@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { site } from "@/lib/content";
 
 /** Line icons for the social links, keyed by the label in `site.socials`. */
 export const socialIcons: Record<string, ReactNode> = {
@@ -33,3 +34,23 @@ export const socialIcons: Record<string, ReactNode> = {
     </svg>
   ),
 };
+
+/** Round social buttons used in both the menu and the footer. */
+export function SocialLinks({ className = "" }: { className?: string }) {
+  return (
+    <ul className={`flex flex-wrap gap-3 ${className}`}>
+      {site.socials.map((s) => (
+        <li key={s.label}>
+          <a
+            href={s.href}
+            aria-label={s.label}
+            title={s.label}
+            className="grid h-12 w-12 place-items-center rounded-full border border-line text-heading transition-colors duration-300 hover:border-[#c23a00] hover:bg-[#c23a00]"
+          >
+            {socialIcons[s.label]}
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
+}

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { navLinks, site } from "@/lib/content";
 import { Logo, Media } from "./ui";
-import { socialIcons } from "./social-icons";
+import { SocialLinks } from "./social-icons";
 
 const EASE = "cubic-bezier(0.645, 0.045, 0.355, 1)";
 const REVEAL_MS = 900;
@@ -199,20 +199,7 @@ export default function Nav() {
                   {site.email}
                 </a>
                 <p className="mb-4 mt-8 text-xs font-medium uppercase tracking-[0.12em] text-accent">Follow</p>
-                <ul className="flex flex-wrap gap-3">
-                  {site.socials.map((sc) => (
-                    <li key={sc.label}>
-                      <a
-                        href={sc.href}
-                        aria-label={sc.label}
-                        title={sc.label}
-                        className="grid h-12 w-12 place-items-center rounded-full border border-line text-heading transition-colors duration-300 hover:border-[#c23a00] hover:bg-[#c23a00]"
-                      >
-                        {socialIcons[sc.label]}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
+                <SocialLinks />
               </div>
             </div>
 

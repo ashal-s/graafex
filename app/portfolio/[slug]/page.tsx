@@ -1,12 +1,10 @@
-import type { CSSProperties } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
-import ScrollParallax from "@/components/ScrollParallax";
 import { CaseStudyDetail, seedFor } from "@/components/CaseStudy";
 import PortfolioVideo from "@/components/PortfolioVideo";
-import { Media, Reveal } from "@/components/ui";
+import { Reveal } from "@/components/ui";
 import { caseStudies } from "@/lib/case-studies";
 
 export function generateStaticParams() {
@@ -28,14 +26,8 @@ export default async function CaseStudyPage({ params }: PageProps<"/portfolio/[s
   return (
     <>
       <Nav />
-      <ScrollParallax />
       <main id="main">
         <section className="relative z-[2] overflow-hidden">
-          <div className="parallax absolute inset-x-0 -inset-y-[20%]" style={{ "--y": "-140px" } as CSSProperties}>
-            <Media seed={5} palette={["#ff4d00", "#7a2a0a"]} className="!absolute inset-0 opacity-50" />
-          </div>
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,var(--bg)_70%)]" />
-
           {/* Main film first — same container as the content below, nav sits over it */}
           <div className="container-x relative py-[var(--margin)]">
             <div className="relative aspect-video min-h-[20rem] w-full overflow-hidden rounded-[var(--radius-main)] bg-bg-2 md:aspect-auto md:h-[calc(100svh-var(--margin)*2)]">

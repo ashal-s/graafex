@@ -1,10 +1,8 @@
-import type { CSSProperties } from "react";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
-import ScrollParallax from "@/components/ScrollParallax";
 import PortfolioVideo from "@/components/PortfolioVideo";
 import { CaseStudyCard } from "@/components/CaseStudy";
-import { Eyebrow, Media, Reveal } from "@/components/ui";
+import { Eyebrow, Reveal } from "@/components/ui";
 import { caseStudies } from "@/lib/case-studies";
 import { clientLogos, portfolioVideos } from "@/lib/content";
 
@@ -16,14 +14,8 @@ export default function Portfolio() {
   return (
     <>
       <Nav />
-      <ScrollParallax />
       <main id="main">
         <section className="relative z-[2] overflow-hidden">
-          <div className="parallax absolute inset-x-0 -inset-y-[20%]" style={{ "--y": "-140px" } as CSSProperties}>
-            <Media seed={5} palette={["#ff4d00", "#7a2a0a"]} className="!absolute inset-0 opacity-50" />
-          </div>
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,var(--bg)_70%)]" />
-
           {/* 3x2 video grid — plays on hover */}
           <h1 className="sr-only">Portfolio</h1>
           <div className="container-x relative pb-[clamp(1.75rem,3.5vw,3rem)] pt-28 md:pt-36" id="films">

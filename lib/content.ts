@@ -113,7 +113,8 @@ export const portfolioVideos: {
 
 type Still = {
   title: string;
-  ratio: "portrait" | "landscape" | "square";
+  /** Only used for placeholders without a `src`; real images keep their own proportions. */
+  ratio?: "portrait" | "landscape" | "square";
   src?: string;
   palette: Palette;
 };
@@ -152,16 +153,16 @@ export const caseStudies: CaseStudyData[] = [
       { title: "Reel 4", src: HERO_VIDEO, palette: ["#6e5a94", "#e2e2f0"] },
     ],
     gallery: [
-      { title: "Image 1", ratio: "portrait", src: HERO_THUMB, palette: ["#5c4a78", "#c6c6e2"] },
-      { title: "Image 2", ratio: "landscape", src: HERO_THUMB, palette: ["#8a74b0", "#241c32"] },
-      { title: "Image 3", ratio: "square", src: HERO_THUMB, palette: ["#4a3a68", "#e2e2f0"] },
-      { title: "Image 4", ratio: "landscape", src: HERO_THUMB, palette: ["#6e5a94", "#9b9bc8"] },
-      { title: "Image 5", ratio: "portrait", src: HERO_THUMB, palette: ["#9b9bc8", "#3a2e52"] },
-      { title: "Image 6", ratio: "square", src: HERO_THUMB, palette: ["#7e6ea8", "#241c32"] },
-      { title: "Image 7", ratio: "landscape", src: HERO_THUMB, palette: ["#6e5a94", "#30283c"] },
-      { title: "Image 8", ratio: "portrait", src: HERO_THUMB, palette: ["#5c4a78", "#9b9bc8"] },
-      { title: "Image 9", ratio: "square", src: HERO_THUMB, palette: ["#8a74b0", "#c6c6e2"] },
-      { title: "Image 10", ratio: "landscape", src: HERO_THUMB, palette: ["#8a74b0", "#241c32"] },
+      { title: "Image 1", src: HERO_THUMB, palette: ["#5c4a78", "#c6c6e2"] },
+      { title: "Image 2", src: HERO_THUMB, palette: ["#8a74b0", "#241c32"] },
+      { title: "Image 3", src: HERO_THUMB, palette: ["#4a3a68", "#e2e2f0"] },
+      { title: "Image 4", src: HERO_THUMB, palette: ["#6e5a94", "#9b9bc8"] },
+      { title: "Image 5", src: HERO_THUMB, palette: ["#9b9bc8", "#3a2e52"] },
+      { title: "Image 6", src: HERO_THUMB, palette: ["#7e6ea8", "#241c32"] },
+      { title: "Image 7", src: HERO_THUMB, palette: ["#6e5a94", "#30283c"] },
+      { title: "Image 8", src: HERO_THUMB, palette: ["#5c4a78", "#9b9bc8"] },
+      { title: "Image 9", src: HERO_THUMB, palette: ["#8a74b0", "#c6c6e2"] },
+      { title: "Image 10", src: HERO_THUMB, palette: ["#8a74b0", "#241c32"] },
     ],
   },
 ];

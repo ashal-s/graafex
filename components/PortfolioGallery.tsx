@@ -1,4 +1,5 @@
 import type { CaseStudyData } from "@/lib/content";
+import { imageSize, type Size } from "@/lib/image-size";
 import { Media } from "./ui";
 
 const ratios = {
@@ -16,7 +17,19 @@ function split(items: Item[], n: number) {
   return cols;
 }
 
-function Columns({ items, n, seed, className }: { items: Item[]; n: number; seed: number; className: string }) {
+function Columns({
+  items,
+  n,
+  seed,
+  sizes,
+  className,
+}: {
+  items: Item[];
+  n: number;
+  seed: number;
+  sizes: (Size | null)[];
+  className: string;
+}) {
   return (
     <div className={`gap-4 ${className}`}>
       {split(items, n).map((col, c) => (
@@ -24,14 +37,22 @@ function Columns({ items, n, seed, className }: { items: Item[]; n: number; seed
           {col.map(({ item: g, i }) => (
             <li key={g.title}>
               <figure className="relative overflow-hidden rounded-[var(--radius-small)] ring-1 ring-line">
-                <div className={`relative ${ratios[g.ratio]}`}>
-                  {g.src ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={g.src} alt={g.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
-                  ) : (
+                {g.src ? (
+                  // Natural proportions: width/height reserve the right space before the image loads.
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={g.src}
+                    alt={g.title}
+                    width={sizes[i]?.width}
+                    height={sizes[i]?.height}
+                    loading="lazy"
+                    className="block h-auto w-full"
+                  />
+                ) : (
+                  <div className={`relative ${ratios[g.ratio ?? "landscape"]}`}>
                     <Media palette={g.palette} seed={seed + i} className="!absolute inset-0" />
-                  )}
-                </div>
+                  </div>
+                )}
               </figure>
             </li>
           ))}
@@ -42,16 +63,18 @@ function Columns({ items, n, seed, className }: { items: Item[]; n: number; seed
 }
 
 /**
- * Masonry built from explicit flex columns (no CSS multi-column, which can drop
- * a column's paint while an ancestor animates). One layout per breakpoint; the
- * others are display:none, so their lazy images are never fetched.
+ * Masonry of explicit flex columns, with every image at its own aspect ratio.
+ * No CSS multi-column (it can drop a column's paint while an ancestor animates).
+ * One layout per breakpoint; the others are display:none, so their lazy images
+ * are never fetched.
  */
 export default function PortfolioGallery({ items, seed = 0 }: { items: Item[]; seed?: number }) {
+  const sizes = items.map((g) => (g.src ? imageSize(g.src) : null));
   return (
     <>
-      <Columns items={items} n={1} seed={seed} className="flex sm:hidden" />
-      <Columns items={items} n={2} seed={seed} className="hidden sm:flex lg:hidden" />
-      <Columns items={items} n={3} seed={seed} className="hidden lg:flex" />
+      <Columns items={items} n={1} seed={seed} sizes={sizes} className="flex sm:hidden" />
+      <Columns items={items} n={2} seed={seed} sizes={sizes} className="hidden sm:flex lg:hidden" />
+      <Columns items={items} n={3} seed={seed} sizes={sizes} className="hidden lg:flex" />
     </>
   );
 }

@@ -31,7 +31,7 @@ export function CaseStudyCard({ study, index }: { study: CaseStudyData; index: n
           <h3 className="t-h3 font-semibold text-heading">{study.title}</h3>
           <p className="t-small mt-6 flex items-center gap-2 font-semibold text-heading">
             View case study
-            <span aria-hidden className="transition-transform duration-500 group-hover:translate-x-2">→</span>
+            <span aria-hidden>→</span>
           </p>
         </div>
       </Link>

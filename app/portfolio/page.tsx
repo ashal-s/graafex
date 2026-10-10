@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactNode } from "react";
+import type { CSSProperties } from "react";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import ScrollParallax from "@/components/ScrollParallax";

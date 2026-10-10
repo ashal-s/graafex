@@ -9,18 +9,6 @@ import { caseStudies, clientLogos, portfolioVideos, site } from "@/lib/content";
 
 export const metadata = { title: "Portfolio" };
 
-function SectionHead({ eyebrow, title, children }: { eyebrow: string; title: string; children?: ReactNode }) {
-  return (
-    <Reveal className="mb-10 grid gap-6 md:mb-14 md:grid-cols-[1fr_minmax(0,24rem)] md:items-end md:gap-16">
-      <div>
-        <Eyebrow>{eyebrow}</Eyebrow>
-        <h2 className="t-h2 font-semibold text-heading">{title}</h2>
-      </div>
-      {children && <p className="t-small">{children}</p>}
-    </Reveal>
-  );
-}
-
 const sectionPad = "container-x relative py-[clamp(3.5rem,7vw,6.5rem)]";
 
 export default function Portfolio() {
@@ -79,9 +67,6 @@ export default function Portfolio() {
 
           {/* Case studies — each card opens its own page with reels, photography and graphic design */}
           <div className={`${sectionPad} border-t border-line`} id="case-studies">
-            <SectionHead eyebrow="Case studies" title="In depth">
-              A closer look at selected projects, from the main film to the reels, photography and design around it.
-            </SectionHead>
             <div className="flex flex-col gap-16 md:gap-24">
               {caseStudies.map((study, i) => (
                 <CaseStudyCard key={study.slug} study={study} index={i} />

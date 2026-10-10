@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { CaseStudyData } from "@/lib/content";
-import { Eyebrow, Reveal } from "./ui";
+import { Reveal } from "./ui";
 import PortfolioVideo from "./PortfolioVideo";
 import PortfolioGallery from "./PortfolioGallery";
 
@@ -28,9 +28,7 @@ export function CaseStudyCard({ study, index }: { study: CaseStudyData; index: n
           </div>
         </div>
         <div>
-          <Eyebrow>{`Case study ${String(index + 1).padStart(2, "0")}`}</Eyebrow>
           <h3 className="t-h3 font-semibold text-heading">{study.title}</h3>
-          <p className="t-small mt-4 max-w-[28rem]">{study.summary}</p>
           <p className="t-small mt-6 flex items-center gap-2 font-semibold text-heading">
             View case study
             <span aria-hidden className="transition-transform duration-500 group-hover:translate-x-2">→</span>

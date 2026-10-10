@@ -57,18 +57,6 @@ export function CaseStudyDetail({ study, index }: { study: CaseStudyData; index:
         ))}
       </Reveal>
 
-      <div className="mt-10 grid gap-8 md:grid-cols-3 md:gap-12">
-        {study.narrative.map((n, i) => (
-          <Reveal key={n.label} delay={i * 90}>
-            <h2 className="t-h5 mb-3 flex items-baseline gap-3 font-semibold text-heading">
-              <span className="t-small text-accent">{String(i + 1).padStart(2, "0")}</span>
-              {n.label}
-            </h2>
-            <p className="t-small">{n.body}</p>
-          </Reveal>
-        ))}
-      </div>
-
       <Reveal className="mt-14">
         <Label>Vertical reels</Label>
         <ul className="-mx-[var(--margin)] flex snap-x snap-mandatory gap-4 overflow-x-auto px-[var(--margin)] pb-2 md:mx-0 md:grid md:grid-cols-4 md:overflow-visible md:px-0 md:pb-0">

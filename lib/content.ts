@@ -125,7 +125,6 @@ export type CaseStudyData = {
   palette: Palette;
   video: { src?: string; poster?: string };
   meta: { label: string; value: string }[];
-  narrative: { label: string; body: string }[];
   reels: { title: string; src?: string; palette: Palette }[];
   photos: Still[];
   designs: Still[];
@@ -145,11 +144,6 @@ export const caseStudies: CaseStudyData[] = [
       { label: "Client", value: "Pharmaceutical Development Conference" },
       { label: "Year", value: "2025" },
       { label: "Services", value: "Videography, Content Creation" },
-    ],
-    narrative: [
-      { label: "The brief", body: "Placeholder: what the conference needed from us." },
-      { label: "The approach", body: "Placeholder: how we planned, shot and shaped the content." },
-      { label: "The result", body: "Placeholder: what the work achieved for the event." },
     ],
     reels: [
       { title: "Reel 1", palette: ["#5c4a78", "#c6c6e2"] },

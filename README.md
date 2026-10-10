@@ -46,6 +46,7 @@ Case studies are data-driven. Add one object to `entries` in `lib/case-studies.t
 ```ts
 {
   name: "Project name",
+  logo: "/case-studies/project/logo.svg",        // optional client logo
   description: "Short summary shown under the video.",
   services: ["Videography", "Content Creation"],
   year: "2025",

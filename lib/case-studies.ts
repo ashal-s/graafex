@@ -5,7 +5,9 @@
  * as a card, and each one gets its own page at /portfolio/<slug> built from the
  * template (hero video, name, description, services, year, reels, photos).
  *
- *   name         Project name, shown on the hero video and the portfolio card.
+ *   name         Project name, shown under the hero video and on the portfolio card.
+ *   logo         Optional client logo (file in /public or link). Shown on a light tile
+ *                above the name so any logo stays legible. SVG or PNG works best.
  *   description  Short summary shown under the video.
  *   services     List of services, e.g. ["Videography", "Content Creation"].
  *   year         e.g. "2025".
@@ -25,6 +27,7 @@
  */
 export type CaseStudyInput = {
   name: string;
+  logo?: string;
   description: string;
   services: string[];
   year: string;
@@ -44,6 +47,7 @@ const HERO_THUMB = "/videos/hero-poster.jpg";
 const entries: CaseStudyInput[] = [
   {
     name: "Pharmaceutical Development Conference",
+    logo: "/case-studies/logo-placeholder.svg",
     description:
       "Placeholder: a short summary of what we made for the Pharmaceutical Development Conference and why it mattered.",
     services: ["Videography", "Photography", "Graphic Design", "Content Creation"],

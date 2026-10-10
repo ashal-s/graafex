@@ -47,28 +47,48 @@ export default async function CaseStudyPage({ params }: PageProps<"/portfolio/[s
               />
               <div
                 aria-hidden
-                className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgb(12_10_18/0.55)_0%,transparent_22%,transparent_65%,rgb(12_10_18/0.7)_100%)]"
+                className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgb(12_10_18/0.55)_0%,transparent_22%)]"
               />
-              <h1 className="absolute inset-x-0 bottom-0 truncate p-[var(--margin)] text-[clamp(1rem,0.7rem+1.6vw,2.25rem)] font-semibold leading-tight tracking-tight text-heading md:px-[calc(var(--margin)*1.5)] md:pb-[calc(var(--margin)*1.25)]">
-                {study.name}
-              </h1>
             </div>
           </div>
 
           <div className="container-x relative pb-[clamp(3.5rem,7vw,6.5rem)] pt-[clamp(1.5rem,3vw,2.5rem)]">
-            {/* Summary on the left, year and services on the same line to the right */}
-            <Reveal className="flex flex-col gap-8 border-b border-line pb-8 font-[family-name:var(--font-body)] md:flex-row md:items-start md:justify-between md:gap-16">
-              <p className="t-large max-w-[40rem] tracking-[-0.005em]">{study.description}</p>
-              <dl className="flex shrink-0 flex-wrap gap-x-10 gap-y-6">
-                {[
-                  { label: "Services", value: study.services.join(", ") },
-                  { label: "Year", value: study.year },
-                ].map((m) => (
-                  <div key={m.label}>
-                    <dt className="mb-1 text-xs font-medium uppercase tracking-[0.12em] text-accent">{m.label}</dt>
-                    <dd className="t-small font-medium tabular-nums text-heading">{m.value}</dd>
+            {/* Logo, name and description on the left; services and year on the right */}
+            <Reveal
+              className="grid gap-10 font-[family-name:var(--font-body)] md:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] md:gap-16"
+            >
+              <div>
+                {study.logo && (
+                  <div className="mb-6 inline-flex h-16 items-center rounded-[var(--radius-small)] bg-white px-5 md:mb-8 md:h-20 md:px-6">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={study.logo} alt={`${study.name} logo`} className="h-8 w-auto max-w-[12rem] object-contain md:h-10" />
                   </div>
-                ))}
+                )}
+                <h1 className="t-h2 max-w-[22ch] font-[family-name:var(--font-primary)] font-semibold text-heading">
+                  {study.name}
+                </h1>
+                <p className="t-large mt-5 max-w-[40rem] tracking-[-0.005em]">{study.description}</p>
+              </div>
+              <dl className="grid gap-8">
+                <div>
+                  <dt className="mb-3 text-xs font-medium uppercase tracking-[0.12em] text-accent">Services</dt>
+                  <dd>
+                    <ul className="flex flex-wrap gap-2">
+                      {study.services.map((service) => (
+                        <li
+                          key={service}
+                          className="t-small rounded-full border border-accent bg-accent/15 px-4 py-2 font-medium text-heading"
+                        >
+                          {service}
+                        </li>
+                      ))}
+                    </ul>
+                  </dd>
+                </div>
+                <div>
+                  <dt className="mb-1 text-xs font-medium uppercase tracking-[0.12em] text-accent">Year</dt>
+                  <dd className="t-h2 font-semibold tabular-nums text-heading">{study.year}</dd>
+                </div>
               </dl>
             </Reveal>
 

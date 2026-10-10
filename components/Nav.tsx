@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { navLinks, site } from "@/lib/content";
 import { Logo, Media } from "./ui";
+import { socialIcons } from "./social-icons";
 
 const EASE = "cubic-bezier(0.645, 0.045, 0.355, 1)";
 const REVEAL_MS = 900;
@@ -177,24 +178,11 @@ export default function Nav() {
                           onMouseEnter={() => setHovered(i % palettes.length)}
                           onFocus={() => setHovered(i % palettes.length)}
                           aria-current={active ? "page" : undefined}
-                          className="group/link flex items-baseline gap-4 py-1 transition-opacity duration-300 group-hover/list:opacity-35 hover:!opacity-100 focus-visible:!opacity-100 md:gap-6"
+                          className="group/link block py-1 transition-opacity duration-300 group-hover/list:opacity-35 hover:!opacity-100 focus-visible:!opacity-100"
                         >
-                          <span className="t-h6 w-8 shrink-0 font-semibold tabular-nums text-accent">
-                            {String(i + 1).padStart(2, "0")}
-                          </span>
                           <span className="text-[clamp(2.75rem,9vw,7rem)] font-bold leading-[1.02] tracking-[-0.03em] text-heading transition-transform duration-500 ease-[var(--ease-out)] group-hover/link:translate-x-3">
                             {l.label}
                           </span>
-                          {active ? (
-                            <span aria-hidden className="h-3 w-3 shrink-0 self-center rounded-full bg-accent" />
-                          ) : (
-                            <span
-                              aria-hidden
-                              className="t-h3 -translate-x-3 self-center text-accent opacity-0 transition-[opacity,transform] duration-500 ease-[var(--ease-out)] group-hover/link:translate-x-0 group-hover/link:opacity-100"
-                            >
-                              →
-                            </span>
-                          )}
                         </Link>
                       </div>
                     </li>
@@ -210,19 +198,17 @@ export default function Nav() {
                 >
                   {site.email}
                 </a>
-                <address className="t-small mt-5 not-italic">
-                  {site.address.map((line) => (
-                    <span key={line} className="block">
-                      {line}
-                    </span>
-                  ))}
-                </address>
-                <p className="mb-3 mt-8 text-xs font-medium uppercase tracking-[0.12em] text-accent">Follow</p>
-                <ul className="flex flex-wrap gap-x-6 gap-y-2">
-                  {site.socials.map((s) => (
-                    <li key={s.label}>
-                      <a href={s.href} className="t-small text-heading transition-colors hover:text-accent">
-                        {s.label} <span aria-hidden>↗</span>
+                <p className="mb-4 mt-8 text-xs font-medium uppercase tracking-[0.12em] text-accent">Follow</p>
+                <ul className="flex flex-wrap gap-3">
+                  {site.socials.map((sc) => (
+                    <li key={sc.label}>
+                      <a
+                        href={sc.href}
+                        aria-label={sc.label}
+                        title={sc.label}
+                        className="grid h-12 w-12 place-items-center rounded-full border border-line text-heading transition-colors duration-300 hover:border-[#c23a00] hover:bg-[#c23a00]"
+                      >
+                        {socialIcons[sc.label]}
                       </a>
                     </li>
                   ))}

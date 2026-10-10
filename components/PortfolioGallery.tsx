@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import { ParallaxScroll } from "@/components/aceternity/parallax-scroll";
 import { imageSize, type Size } from "@/lib/image-size";
 
 type Item = { src: string; alt: string };
@@ -10,6 +10,7 @@ function split(items: Item[], n: number) {
   return cols;
 }
 
+/** Plain stacked columns for phones and tablets, where parallax would make columns collide. */
 function Columns({
   items,
   n,
@@ -28,23 +29,16 @@ function Columns({
           {col.map(({ item, i }) => (
             <li key={`${item.src}-${i}`}>
               <figure className="group relative overflow-hidden rounded-[var(--radius-small)] bg-bg-2 ring-1 ring-line">
-                {/*
-                  Natural proportions: width/height reserve the right space before the image loads.
-                  The photo is scaled slightly past its frame and drifts inside it on scroll
-                  (.parallax is driven by <ScrollParallax />). 5% travel x 1.5 clamp stays within
-                  the 8% overscan of scale 1.16.
-                */}
-                <div className="parallax" style={{ "--y": "5%" } as CSSProperties}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={item.src}
-                    alt={item.alt}
-                    width={sizes[i]?.width}
-                    height={sizes[i]?.height}
-                    loading="lazy"
-                    className="block h-auto w-full scale-[1.16] transition-transform duration-700 ease-[var(--ease-out)] group-hover:scale-[1.22]"
-                  />
-                </div>
+                {/* Natural proportions: width/height reserve the right space before the image loads. */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={item.src}
+                  alt={item.alt}
+                  width={sizes[i]?.width}
+                  height={sizes[i]?.height}
+                  loading="lazy"
+                  className="block h-auto w-full transition-transform duration-700 ease-[var(--ease-out)] group-hover:scale-[1.03]"
+                />
               </figure>
             </li>
           ))}
@@ -55,7 +49,8 @@ function Columns({
 }
 
 /**
- * Masonry of explicit flex columns, with every image at its own aspect ratio.
+ * Case study photos. Desktop: Aceternity parallax-scroll (3 columns drifting in
+ * opposite directions). Smaller screens: simple 1/2 column stacks.
  * No CSS multi-column (it can drop a column's paint while an ancestor animates).
  * One layout per breakpoint; the others are display:none, so their lazy images
  * are never fetched.
@@ -66,7 +61,11 @@ export default function PortfolioGallery({ items }: { items: Item[] }) {
     <>
       <Columns items={items} n={1} sizes={sizes} className="flex sm:hidden" />
       <Columns items={items} n={2} sizes={sizes} className="hidden sm:flex lg:hidden" />
-      <Columns items={items} n={3} sizes={sizes} className="hidden lg:flex" />
+      <div className="hidden lg:block">
+        <ParallaxScroll
+          images={items.map((item, i) => ({ ...item, width: sizes[i]?.width, height: sizes[i]?.height }))}
+        />
+      </div>
     </>
   );
 }

@@ -37,6 +37,17 @@ export default function Portfolio() {
                       <div className="absolute inset-0 transition-transform duration-700 ease-[var(--ease-out)] group-hover:scale-[1.04]">
                         <PortfolioVideo trigger="hover" src={v.src} poster={v.poster} palette={v.palette} seed={i + 1} label={v.title} />
                       </div>
+                      {/* Play icon — fades out while the tile is hovered or focused */}
+                      <span
+                        aria-hidden
+                        className="pointer-events-none absolute inset-0 flex items-center justify-center transition-[opacity,transform] duration-300 ease-[var(--ease-out)] group-hover:scale-90 group-hover:opacity-0 group-focus-within:opacity-0"
+                      >
+                        <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[#141018]/55 text-white ring-1 ring-white/40 backdrop-blur-sm md:h-20 md:w-20">
+                          <svg viewBox="0 0 24 24" className="ml-1 h-6 w-6 md:h-7 md:w-7" fill="currentColor">
+                            <path d="M8 5.14v13.72a1 1 0 0 0 1.52.85l10.9-6.86a1 1 0 0 0 0-1.7L9.52 4.29A1 1 0 0 0 8 5.14z" />
+                          </svg>
+                        </span>
+                      </span>
                     </div>
                   </Reveal>
                 </li>

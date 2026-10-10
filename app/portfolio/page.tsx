@@ -58,9 +58,9 @@ export default function Portfolio() {
 
           {/* Clients */}
           <div className={`${sectionPad} border-t border-line`} id="clients">
-            <SectionHead eyebrow="Clients" title="Trusted by organisations we admire">
-              From cultural institutions to growing brands, these are some of the teams we have worked with.
-            </SectionHead>
+            <Reveal className="mb-10 md:mb-14">
+              <Eyebrow dot={false}>Clients</Eyebrow>
+            </Reveal>
             <Reveal>
               <ul className="grid grid-cols-2 border-l border-t border-line sm:grid-cols-3 lg:grid-cols-5">
                 {clientLogos.map((c) => (

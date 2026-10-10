@@ -126,10 +126,10 @@ export function Logo({ className = "" }: { className?: string }) {
   );
 }
 
-export function Eyebrow({ children }: { children: ReactNode }) {
+export function Eyebrow({ children, dot = true }: { children: ReactNode; dot?: boolean }) {
   return (
     <p className="t-small mb-4 flex items-center gap-2 font-medium uppercase tracking-[0.12em] text-accent">
-      <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+      {dot && <span className="h-1.5 w-1.5 rounded-full bg-accent" />}
       {children}
     </p>
   );

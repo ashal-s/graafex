@@ -46,7 +46,7 @@ export function CaseStudyDetail({ study, index }: { study: CaseStudy; index: num
     <>
       {study.reels.length > 0 && (
         <Reveal className="mt-14">
-          <ul className="-mx-[var(--margin)] flex snap-x snap-mandatory gap-4 overflow-x-auto px-[var(--margin)] pb-2 md:mx-0 md:grid md:grid-cols-4 md:overflow-visible md:px-0 md:pb-10 md:[&>li:nth-child(even)]:translate-y-10">
+          <ul className="-mx-[var(--margin)] flex snap-x snap-mandatory gap-4 overflow-x-auto px-[var(--margin)] pb-2 md:mx-0 md:grid md:grid-cols-4 md:overflow-visible md:px-0 md:pb-0">
             {study.reels.map((src, i) => (
               <li key={`${src}-${i}`} className="w-[58%] shrink-0 snap-start sm:w-[38%] md:w-auto">
                 <div className="relative aspect-[9/16] overflow-hidden rounded-[var(--radius-small)] bg-bg-2 ring-1 ring-line">

@@ -142,8 +142,8 @@ export const caseStudies: CaseStudyData[] = [
     palette: ["#5c4a78", "#8a74b0"],
     video: { src: HERO_VIDEO },
     meta: [
-      { label: "Year", value: "2025" },
       { label: "Services", value: "Videography, Content Creation" },
+      { label: "Year", value: "2025" },
     ],
     reels: [
       { title: "Reel 1", src: HERO_VIDEO, palette: ["#5c4a78", "#c6c6e2"] },

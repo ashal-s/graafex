@@ -42,9 +42,10 @@ export default function Portfolio() {
                         aria-hidden
                         className="pointer-events-none absolute inset-0 flex items-center justify-center transition-[opacity,transform] duration-300 ease-[var(--ease-out)] group-hover:scale-90 group-hover:opacity-0 group-focus-within:opacity-0"
                       >
-                        <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[#141018]/55 text-white ring-1 ring-white/40 backdrop-blur-sm md:h-20 md:w-20">
-                          <svg viewBox="0 0 24 24" className="ml-1 h-6 w-6 md:h-7 md:w-7" fill="currentColor">
-                            <path d="M8 5.14v13.72a1 1 0 0 0 1.52.85l10.9-6.86a1 1 0 0 0 0-1.7L9.52 4.29A1 1 0 0 0 8 5.14z" />
+                        <span className="grid h-20 w-20 place-items-center rounded-full bg-white/90 text-[#241c32] shadow-[0_8px_30px_rgb(0_0_0/0.35)] md:h-24 md:w-24">
+                          {/* Triangle's centroid sits on the viewBox centre, so it reads as optically centred */}
+                          <svg viewBox="0 0 24 24" className="h-9 w-9 md:h-11 md:w-11" fill="currentColor">
+                            <path d="M8 5 20 12 8 19Z" />
                           </svg>
                         </span>
                       </span>

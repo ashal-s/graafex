@@ -145,7 +145,6 @@ export const caseStudies: CaseStudyData[] = [
       { label: "Client", value: "Pharmaceutical Development Conference" },
       { label: "Year", value: "2025" },
       { label: "Services", value: "Videography, Content Creation" },
-      { label: "Deliverables", value: "Main film, 4 vertical reels, photography, graphic design" },
     ],
     narrative: [
       { label: "The brief", body: "Placeholder: what the conference needed from us." },

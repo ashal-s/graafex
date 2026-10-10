@@ -1,6 +1,5 @@
 import type { CSSProperties } from "react";
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
@@ -59,10 +58,6 @@ export default async function CaseStudyPage({ params }: PageProps<"/portfolio/[s
 
           <div className="container-x relative pb-[clamp(3.5rem,7vw,6.5rem)] pt-[clamp(1.5rem,3vw,2.5rem)]">
             <Reveal className="mb-12 md:mb-16">
-              <Link href="/portfolio#case-studies" className="t-small mb-8 inline-flex items-center gap-2 text-heading hover:text-accent">
-                <span aria-hidden>←</span> Back to portfolio
-              </Link>
-              <Eyebrow>{`Case study ${String(index + 1).padStart(2, "0")}`}</Eyebrow>
               <p className="t-large max-w-[40rem]">{study.summary}</p>
             </Reveal>
 

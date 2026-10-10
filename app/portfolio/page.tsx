@@ -5,7 +5,7 @@ import ScrollParallax from "@/components/ScrollParallax";
 import PortfolioVideo from "@/components/PortfolioVideo";
 import PortfolioGallery from "@/components/PortfolioGallery";
 import { Eyebrow, Media, Reveal, SwooshButton } from "@/components/ui";
-import { caseStudy, clientLogos, portfolioIntro, portfolioVideos, site } from "@/lib/content";
+import { caseStudy, clientLogos, portfolioVideos, site } from "@/lib/content";
 
 export const metadata = { title: "Portfolio" };
 
@@ -35,47 +35,21 @@ export default function Portfolio() {
           </div>
           <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,var(--bg)_70%)]" />
 
-          {/* Intro */}
-          <div className="container-x relative pb-[clamp(3rem,6vw,5rem)] pt-[clamp(9rem,16vw,14rem)]">
-            <Reveal className="max-w-[60rem]">
-              <Eyebrow>Portfolio</Eyebrow>
-              <h1 className="ink-fade parallax t-h1 font-semibold" style={{ "--y": "-24px" } as CSSProperties}>
-                {portfolioIntro.title}
-              </h1>
-              <p className="t-large mt-8 max-w-[36rem]">{portfolioIntro.body}</p>
-            </Reveal>
-            <Reveal className="mt-14 grid grid-cols-3 border-t border-line">
-              {portfolioIntro.stats.map((s) => (
-                <div key={s.label} className="border-b border-line py-6 pr-4 [&:not(:first-child)]:pl-4 md:[&:not(:first-child)]:pl-8 [&:not(:last-child)]:border-r border-line">
-                  <p className="t-h2 font-semibold text-heading">{s.value}</p>
-                  <p className="t-small mt-1">{s.label}</p>
-                </div>
-              ))}
-            </Reveal>
-          </div>
-
-          {/* 3x2 video grid */}
-          <div className={sectionPad} id="films">
-            <SectionHead eyebrow="Films" title="Recent films">
-              Six pieces from across our film and campaign work, playing as they come into view.
-            </SectionHead>
-            <ul className="grid gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+          {/* 3x2 video grid — plays on hover */}
+          <h1 className="sr-only">Portfolio</h1>
+          <div className="container-x relative pb-[clamp(3.5rem,7vw,6.5rem)] pt-28 md:pt-36" id="films">
+            <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {portfolioVideos.map((v, i) => (
                 <li key={v.title}>
                   <Reveal delay={(i % 3) * 90}>
-                    <figure className="group">
-                      <div className="relative aspect-video overflow-hidden rounded-[var(--radius-small)] bg-bg-2 ring-1 ring-line">
-                        <div className="absolute inset-0 transition-transform duration-700 ease-[var(--ease-out)] group-hover:scale-[1.04]">
-                          <PortfolioVideo src={v.src} poster={v.poster} palette={v.palette} seed={i + 1} label={`${v.title} — ${v.category}`} />
-                        </div>
+                    <div
+                      data-hover-play
+                      className="group relative aspect-video overflow-hidden rounded-[var(--radius-small)] bg-bg-2 ring-1 ring-line"
+                    >
+                      <div className="absolute inset-0 transition-transform duration-700 ease-[var(--ease-out)] group-hover:scale-[1.04]">
+                        <PortfolioVideo trigger="hover" src={v.src} poster={v.poster} palette={v.palette} seed={i + 1} label={v.title} />
                       </div>
-                      <figcaption className="mt-4 flex items-baseline justify-between gap-4">
-                        <span className="t-h6 font-semibold text-heading">{v.title}</span>
-                        <span className="t-small shrink-0">
-                          {v.category} · {v.year}
-                        </span>
-                      </figcaption>
-                    </figure>
+                    </div>
                   </Reveal>
                 </li>
               ))}

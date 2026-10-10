@@ -93,30 +93,21 @@ export const aboutServices = [
 
 type Palette = [string, string];
 
-export const portfolioIntro = {
-  title: "Selected work.",
-  body: "Films, campaigns and identities made for organisations that want to be understood. A look at what we have been making lately.",
-  stats: [
-    { value: "120+", label: "Projects delivered" },
-    { value: "40", label: "Clients served" },
-    { value: "8", label: "Years in practice" },
-  ],
-};
+// Temporary: every tile uses the hero video until real films are supplied.
+const HERO_VIDEO = "/videos/hero_video.mp4";
 
 export const portfolioVideos: {
   title: string;
-  category: string;
-  year: string;
   src?: string;
   poster?: string;
   palette: Palette;
 }[] = [
-  { title: "Northwind Gallery", category: "Brand film", year: "2025", palette: ["#5c4a78", "#8a74b0"] },
-  { title: "Harbour Collective", category: "Documentary", year: "2025", palette: ["#8a74b0", "#30283c"] },
-  { title: "Atlas Athletics", category: "Campaign", year: "2024", palette: ["#9b9bc8", "#3a2e52"] },
-  { title: "Lumen Studio", category: "Social video", year: "2024", palette: ["#6e5a94", "#241c32"] },
-  { title: "Fieldhouse", category: "Product film", year: "2024", palette: ["#7e6ea8", "#c6c6e2"] },
-  { title: "Meridian Health", category: "Animation", year: "2023", palette: ["#4a3a68", "#9b9bc8"] },
+  { title: "Northwind Gallery", src: HERO_VIDEO, palette: ["#5c4a78", "#8a74b0"] },
+  { title: "Harbour Collective", src: HERO_VIDEO, palette: ["#8a74b0", "#30283c"] },
+  { title: "Atlas Athletics", src: HERO_VIDEO, palette: ["#9b9bc8", "#3a2e52"] },
+  { title: "Lumen Studio", src: HERO_VIDEO, palette: ["#6e5a94", "#241c32"] },
+  { title: "Fieldhouse", src: HERO_VIDEO, palette: ["#7e6ea8", "#c6c6e2"] },
+  { title: "Meridian Health", src: HERO_VIDEO, palette: ["#4a3a68", "#9b9bc8"] },
 ];
 
 export const caseStudy = {

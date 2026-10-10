@@ -1,7 +1,7 @@
 "use client";
 
 import { navLinks, site } from "@/lib/content";
-import { Logo, Media, SwooshButton } from "./ui";
+import { Logo, Media } from "./ui";
 
 const footerLinks = navLinks;
 
@@ -51,9 +51,6 @@ export default function Footer() {
           <h2 className="ink-fade t-h5 max-w-[34rem] font-semibold">
             The best results start with a good conversation. Let’s have ours.
           </h2>
-          <div className="self-start md:self-auto">
-            <SwooshButton href="/extras#work">View our portfolio</SwooshButton>
-          </div>
         </div>
 
         <div className="mt-8 grid gap-6 border-t border-line pt-6 md:grid-cols-3 md:items-center">

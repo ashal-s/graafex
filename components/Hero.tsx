@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { hero } from "@/lib/content";
 import { LogoMark } from "./ui";
 
-/** Web MP4 derived from public/videos/hero_video.mov (browsers do not reliably play .mov). */
+/** Web MP4 (browsers do not reliably play .mov, so keep the source file out of the repo). */
 const HERO_VIDEO = "/videos/hero_video.mp4";
 
 export default function Hero() {

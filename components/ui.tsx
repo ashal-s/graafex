@@ -42,26 +42,6 @@ export function Reveal({
   );
 }
 
-/** Heading whose characters un-blur one by one. */
-export function BlurText({ text, className = "" }: { text: string; className?: string }) {
-  const ref = useInView<HTMLHeadingElement>(0.3);
-  let i = 0;
-  return (
-    <h2 ref={ref} className={className} aria-label={text}>
-      {text.split(" ").map((word, w) => (
-        <span key={w} aria-hidden className="inline-block whitespace-nowrap">
-          {[...word].map((ch, c) => (
-            <span key={c} className="char" style={{ "--i": i++ } as CSSProperties}>
-              {ch}
-            </span>
-          ))}
-          {" "}
-        </span>
-      ))}
-    </h2>
-  );
-}
-
 export function SwooshButton({ href, children, className = "" }: { href: string; children: string; className?: string }) {
   return (
     <a href={href} className={`swoosh t-small ${className}`}>

@@ -26,7 +26,7 @@ export default function Nav() {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
 
-  // Flip the logo to dark ink while it sits over a light band (.section-light / .section-white).
+  // Flip the logo to dark ink while it sits over a light band (.section-white).
   useEffect(() => {
     let raf = 0;
     const check = () => {
@@ -37,7 +37,7 @@ export default function Nav() {
       const under = document
         .elementsFromPoint(r.left + r.width / 2, r.top + r.height / 2)
         .find((n) => !n.closest("header"));
-      setOnLight(!!under?.closest(".section-light, .section-white"));
+      setOnLight(!!under?.closest(".section-white"));
     };
     const onScroll = () => {
       if (!raf) raf = requestAnimationFrame(check);

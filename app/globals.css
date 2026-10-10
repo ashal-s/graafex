@@ -8,7 +8,6 @@
   --heading: #fff5ed;
   --accent: #ff4d00;
   --accent-deep: #ff7a33;
-  --accent-soft: #ff9a5c;
   --border: rgb(255 120 50 / 0.22);
   --margin: clamp(1rem, 0.6rem + 2vw, 3rem);
   --radius-main: 1.5rem;
@@ -75,7 +74,6 @@ body {
 }
 
 /* Fluid type scale (20rem → 120rem viewport) */
-.t-display { font-size: clamp(4rem, 3.4rem + 3vw, 7rem); line-height: 0.95; letter-spacing: -0.03em; }
 .t-h1 { font-size: clamp(3rem, 2.15rem + 4.25vw, 7.25rem); line-height: 0.95; letter-spacing: -0.035em; }
 .t-h2 { font-size: clamp(1.75rem, 1.425rem + 1.625vw, 3.375rem); line-height: 1.08; letter-spacing: -0.025em; }
 .t-h3 { font-size: clamp(1.85rem, 1.62rem + 1.15vw, 3rem); line-height: 1.1; letter-spacing: -0.02em; }
@@ -160,23 +158,8 @@ body {
   --border: rgb(28 20 16 / 0.12);
   --accent: #c23a00;
   --accent-deep: #a03000;
-  --accent-soft: #d9531a;
   color: var(--text);
   background: #fff;
-}
-
-/* One light contrast band (e.g. testimonials) */
-.section-light {
-  --heading: #1c1410;
-  --text: rgb(40 28 22 / 0.75);
-  --border: rgb(28 20 16 / 0.14);
-  --accent: #e03d00;
-  --accent-deep: #ff4d00;
-  color: var(--text);
-  background:
-    radial-gradient(80% 60% at 10% 0%, rgb(255 77 0 / 0.2), transparent 50%),
-    radial-gradient(70% 50% at 100% 100%, rgb(255 122 51 / 0.22), transparent 55%),
-    linear-gradient(160deg, #fff8f4 0%, #ffe9db 48%, #ffd8c2 100%);
 }
 
 /* Reveal on scroll */
@@ -186,17 +169,6 @@ body {
   transition: opacity 1s var(--ease-out), transform 1s var(--ease-out);
 }
 .reveal.is-in { opacity: 1; transform: none; }
-
-/* Per-character blur reveal */
-.char {
-  display: inline-block;
-  opacity: 0;
-  filter: blur(10px);
-  transform: translateY(0.2em);
-  transition: opacity 0.8s var(--ease-out), filter 0.8s var(--ease-out), transform 0.8s var(--ease-out);
-  transition-delay: calc(var(--i) * 12ms);
-}
-.is-in .char { opacity: 1; filter: blur(0); transform: none; }
 
 /* Swoosh button: two colour layers wipe across on hover */
 .swoosh {
@@ -241,16 +213,6 @@ body {
 .swoosh:hover .swoosh__text--a { transform: translateY(-150%); }
 .swoosh:hover .swoosh__text--b { transform: none; }
 
-/* Marquee */
-.marquee {
-  display: flex;
-  width: max-content;
-  animation: marquee 40s linear infinite;
-}
-@keyframes marquee {
-  to { transform: translateX(-50%); }
-}
-
 /* Loader */
 .loader {
   animation: loader-out 0.9s var(--ease) 2.2s forwards;
@@ -274,12 +236,6 @@ body {
     animation-delay: 0s !important;
     transition-duration: 0.001ms !important;
   }
-  .marquee { animation: none; }
-}
-
-@keyframes progress {
-  from { transform: scaleX(0); }
-  to { transform: scaleX(1); }
 }
 
 /* Scroll-linked parallax: --p runs -1 → 1 as the element crosses the viewport */

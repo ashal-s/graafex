@@ -58,16 +58,18 @@ export default async function CaseStudyPage({ params }: PageProps<"/portfolio/[s
               className="grid gap-10 font-[family-name:var(--font-body)] md:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] md:gap-16"
             >
               <div>
-                {study.logo && (
-                  <div className="mb-6 inline-flex h-16 items-center rounded-[var(--radius-small)] bg-white px-5 md:mb-8 md:h-20 md:px-6">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={study.logo} alt={`${study.name} logo`} className="h-8 w-auto max-w-[12rem] object-contain md:h-10" />
-                  </div>
-                )}
-                <h1 className="t-h2 max-w-[22ch] font-[family-name:var(--font-primary)] font-semibold text-heading">
-                  {study.name}
-                </h1>
-                <p className="t-large mt-5 max-w-[40rem] tracking-[-0.005em]">{study.description}</p>
+                <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-8">
+                  {study.logo && (
+                    <div className="inline-flex h-16 shrink-0 items-center self-start rounded-[var(--radius-small)] bg-white px-5 sm:self-auto md:h-20 md:px-6">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={study.logo} alt={`${study.name} logo`} className="h-8 w-auto max-w-[12rem] object-contain md:h-10" />
+                    </div>
+                  )}
+                  <h1 className="t-h2 max-w-[22ch] font-[family-name:var(--font-primary)] font-semibold text-heading">
+                    {study.name}
+                  </h1>
+                </div>
+                <p className="t-large mt-6 max-w-[40rem] tracking-[-0.005em]">{study.description}</p>
               </div>
               <dl className="grid gap-8">
                 <div>

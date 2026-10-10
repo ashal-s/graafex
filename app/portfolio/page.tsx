@@ -4,12 +4,12 @@ import Footer from "@/components/Footer";
 import ScrollParallax from "@/components/ScrollParallax";
 import PortfolioVideo from "@/components/PortfolioVideo";
 import { CaseStudyCard } from "@/components/CaseStudy";
-import { Eyebrow, Media, Reveal, SwooshButton } from "@/components/ui";
-import { caseStudies, clientLogos, portfolioVideos, site } from "@/lib/content";
+import { Eyebrow, Media, Reveal } from "@/components/ui";
+import { caseStudies, clientLogos, portfolioVideos } from "@/lib/content";
 
 export const metadata = { title: "Portfolio" };
 
-const sectionPad = "container-x relative py-[clamp(3.5rem,7vw,6.5rem)]";
+const sectionPad = "container-x relative py-[clamp(1.75rem,3.5vw,3rem)]";
 
 export default function Portfolio() {
   return (
@@ -25,7 +25,7 @@ export default function Portfolio() {
 
           {/* 3x2 video grid — plays on hover */}
           <h1 className="sr-only">Portfolio</h1>
-          <div className="container-x relative pb-[clamp(3.5rem,7vw,6.5rem)] pt-28 md:pt-36" id="films">
+          <div className="container-x relative pb-[clamp(1.75rem,3.5vw,3rem)] pt-28 md:pt-36" id="films">
             <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {portfolioVideos.map((v, i) => (
                 <li key={v.title}>
@@ -45,7 +45,7 @@ export default function Portfolio() {
           </div>
 
           {/* Clients */}
-          <div className={`${sectionPad} border-t border-line`} id="clients">
+          <div className={`${sectionPad}`} id="clients">
             <Reveal className="mb-10 md:mb-14">
               <Eyebrow dot={false}>Clients</Eyebrow>
             </Reveal>
@@ -66,23 +66,12 @@ export default function Portfolio() {
           </div>
 
           {/* Case studies — each card opens its own page with reels, photography and graphic design */}
-          <div className={`${sectionPad} border-t border-line`} id="case-studies">
+          <div className={`${sectionPad}`} id="case-studies">
             <div className="flex flex-col gap-16 md:gap-24">
               {caseStudies.map((study, i) => (
                 <CaseStudyCard key={study.slug} study={study} index={i} />
               ))}
             </div>
-          </div>
-
-          {/* CTA */}
-          <div className={`${sectionPad} border-t border-line`}>
-            <Reveal className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-              <div>
-                <Eyebrow>Start a project</Eyebrow>
-                <h2 className="t-h2 max-w-[18ch] font-semibold text-heading">Have a story worth telling?</h2>
-              </div>
-              <SwooshButton href={`mailto:${site.email}`}>Get in touch</SwooshButton>
-            </Reveal>
           </div>
         </section>
       </main>

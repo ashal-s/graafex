@@ -45,7 +45,7 @@ export function CaseStudyDetail({ study, index }: { study: CaseStudyData; index:
   const seed = seedFor(index);
   return (
     <>
-      <Reveal as="dl" className="mt-8 grid grid-cols-1 gap-x-6 gap-y-6 border-b border-line pb-8 sm:grid-cols-3">
+      <Reveal as="dl" className="mt-8 grid grid-cols-1 gap-x-6 gap-y-6 border-b border-line pb-8 sm:grid-cols-2">
         {study.meta.map((m) => (
           <div key={m.label}>
             <dt className="mb-1 text-xs font-medium uppercase tracking-[0.12em] text-accent">{m.label}</dt>

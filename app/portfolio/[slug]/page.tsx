@@ -5,7 +5,8 @@ import { notFound } from "next/navigation";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import ScrollParallax from "@/components/ScrollParallax";
-import { CaseStudyDetail } from "@/components/CaseStudy";
+import { CaseStudyDetail, seedFor } from "@/components/CaseStudy";
+import PortfolioVideo from "@/components/PortfolioVideo";
 import { Eyebrow, Media, Reveal, SwooshButton } from "@/components/ui";
 import { caseStudies, site } from "@/lib/content";
 
@@ -36,7 +37,22 @@ export default async function CaseStudyPage({ params }: PageProps<"/portfolio/[s
           </div>
           <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,var(--bg)_70%)]" />
 
-          <div className="container-x relative pb-[clamp(3.5rem,7vw,6.5rem)] pt-[clamp(8rem,14vw,12rem)]">
+          {/* Main film first — runs from the very top of the screen, nav sits over it */}
+          <div className="relative h-[56.25vw] min-h-[20rem] w-full bg-bg-2 md:h-[100svh]">
+            <PortfolioVideo
+              src={study.video.src}
+              poster={study.video.poster}
+              palette={study.palette}
+              seed={seedFor(index)}
+              label={`${study.client} main film`}
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#0c0a12]/70 to-transparent"
+            />
+          </div>
+
+          <div className="container-x relative pb-[clamp(3.5rem,7vw,6.5rem)] pt-[clamp(2.5rem,5vw,4.5rem)]">
             <Reveal className="mb-12 md:mb-16">
               <Link href="/portfolio#case-studies" className="t-small mb-8 inline-flex items-center gap-2 text-heading hover:text-accent">
                 <span aria-hidden>←</span> Back to portfolio

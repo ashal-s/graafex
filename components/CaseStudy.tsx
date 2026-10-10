@@ -4,7 +4,7 @@ import { Reveal } from "./ui";
 import PortfolioVideo from "./PortfolioVideo";
 import PortfolioGallery from "./PortfolioGallery";
 
-const seedFor = (index: number) => 20 + index * 40;
+export const seedFor = (index: number) => 20 + index * 40;
 
 /** Portfolio-page teaser: cover film, title and summary, linking to the full case study. */
 export function CaseStudyCard({ study, index }: { study: CaseStudyData; index: number }) {
@@ -43,23 +43,11 @@ function Label({ children }: { children: string }) {
   return <p className="mb-5 text-xs font-medium uppercase tracking-[0.12em] text-accent">{children}</p>;
 }
 
-/** Full case study: main film, details, vertical reels, photography and graphic design. */
+/** Case study body below the main film: details, vertical reels, photography and graphic design. */
 export function CaseStudyDetail({ study, index }: { study: CaseStudyData; index: number }) {
   const seed = seedFor(index);
   return (
     <>
-      <Reveal>
-        <div className="relative aspect-video overflow-hidden rounded-[var(--radius-main)] bg-bg-2 ring-1 ring-line">
-          <PortfolioVideo
-            src={study.video.src}
-            poster={study.video.poster}
-            palette={study.palette}
-            seed={seed}
-            label={`${study.client} main film`}
-          />
-        </div>
-      </Reveal>
-
       <Reveal as="dl" className="mt-8 grid grid-cols-2 gap-x-6 gap-y-6 border-b border-line pb-8 lg:grid-cols-4">
         {study.meta.map((m) => (
           <div key={m.label}>

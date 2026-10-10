@@ -39,6 +39,24 @@ Open [http://localhost:3000](http://localhost:3000).
 
 Hero video assets live under `public/videos/` (MP4 for playback; browsers do not reliably play `.mov`). Team photos are under `public/team/`.
 
+## Adding a case study
+
+Case studies are data-driven. Add one object to `entries` in `lib/case-studies.ts`:
+
+```ts
+{
+  name: "Project name",
+  description: "Short summary shown under the video.",
+  services: ["Videography", "Content Creation"],
+  year: "2025",
+  video: "/case-studies/project/hero.mp4",       // hero video (file in /public or an https link)
+  reels: ["/case-studies/project/reel-1.mp4"],   // vertical 9:16 videos
+  photos: ["/case-studies/project/photo-1.jpg"], // each keeps its own aspect ratio
+}
+```
+
+It appears as a card on `/portfolio` and gets its own page at `/portfolio/<slug>` (the slug defaults to the name). Reels and photos are optional; an empty list hides that section.
+
 ## Deploy
 
 Deploy on [Vercel](https://vercel.com) — connect the repo and use the default Next.js settings.

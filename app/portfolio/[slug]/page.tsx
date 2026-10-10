@@ -7,7 +7,7 @@ import ScrollParallax from "@/components/ScrollParallax";
 import { CaseStudyDetail, seedFor } from "@/components/CaseStudy";
 import PortfolioVideo from "@/components/PortfolioVideo";
 import { Media, Reveal } from "@/components/ui";
-import { caseStudies } from "@/lib/content";
+import { caseStudies } from "@/lib/case-studies";
 
 export function generateStaticParams() {
   return caseStudies.map((s) => ({ slug: s.slug }));
@@ -16,7 +16,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/portfolio/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const study = caseStudies.find((s) => s.slug === slug);
-  return { title: study ? study.title : "Case study" };
+  return { title: study ? study.name : "Case study" };
 }
 
 export default async function CaseStudyPage({ params }: PageProps<"/portfolio/[slug]">) {
@@ -40,18 +40,17 @@ export default async function CaseStudyPage({ params }: PageProps<"/portfolio/[s
           <div className="container-x relative py-[var(--margin)]">
             <div className="relative aspect-video min-h-[20rem] w-full overflow-hidden rounded-[var(--radius-main)] bg-bg-2 md:aspect-auto md:h-[calc(100svh-var(--margin)*2)]">
               <PortfolioVideo
-                src={study.video.src}
-                poster={study.video.poster}
-                palette={study.palette}
+                src={study.video}
+                poster={study.poster}
                 seed={seedFor(index)}
-                label={`${study.client} main film`}
+                label={`${study.name} main film`}
               />
               <div
                 aria-hidden
                 className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgb(12_10_18/0.55)_0%,transparent_22%,transparent_65%,rgb(12_10_18/0.7)_100%)]"
               />
               <h1 className="absolute inset-x-0 bottom-0 truncate p-[var(--margin)] text-[clamp(1rem,0.7rem+1.6vw,2.25rem)] font-semibold leading-tight tracking-tight text-heading md:px-[calc(var(--margin)*1.5)] md:pb-[calc(var(--margin)*1.25)]">
-                {study.title}
+                {study.name}
               </h1>
             </div>
           </div>
@@ -59,9 +58,12 @@ export default async function CaseStudyPage({ params }: PageProps<"/portfolio/[s
           <div className="container-x relative pb-[clamp(3.5rem,7vw,6.5rem)] pt-[clamp(1.5rem,3vw,2.5rem)]">
             {/* Summary on the left, year and services on the same line to the right */}
             <Reveal className="flex flex-col gap-8 border-b border-line pb-8 font-[family-name:var(--font-body)] md:flex-row md:items-start md:justify-between md:gap-16">
-              <p className="t-large max-w-[40rem] tracking-[-0.005em]">{study.summary}</p>
+              <p className="t-large max-w-[40rem] tracking-[-0.005em]">{study.description}</p>
               <dl className="flex shrink-0 flex-wrap gap-x-10 gap-y-6">
-                {study.meta.map((m) => (
+                {[
+                  { label: "Services", value: study.services.join(", ") },
+                  { label: "Year", value: study.year },
+                ].map((m) => (
                   <div key={m.label}>
                     <dt className="mb-1 text-xs font-medium uppercase tracking-[0.12em] text-accent">{m.label}</dt>
                     <dd className="t-small font-medium tabular-nums text-heading">{m.value}</dd>

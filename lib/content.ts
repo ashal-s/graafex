@@ -93,9 +93,8 @@ export const aboutServices = [
 
 type Palette = [string, string];
 
-// Temporary: every tile uses the hero video (and its thumbnail for stills) until real media is supplied.
+// Temporary: every tile uses the hero video until real films are supplied.
 const HERO_VIDEO = "/videos/hero_video.mp4";
-const HERO_THUMB = "/videos/hero-poster.jpg";
 
 export const portfolioVideos: {
   title: string;
@@ -109,59 +108,4 @@ export const portfolioVideos: {
   { title: "Lumen Studio", src: HERO_VIDEO, palette: ["#6e5a94", "#241c32"] },
   { title: "Fieldhouse", src: HERO_VIDEO, palette: ["#7e6ea8", "#c6c6e2"] },
   { title: "Meridian Health", src: HERO_VIDEO, palette: ["#4a3a68", "#9b9bc8"] },
-];
-
-type Still = {
-  title: string;
-  /** Only used for placeholders without a `src`; real images keep their own proportions. */
-  ratio?: "portrait" | "landscape" | "square";
-  src?: string;
-  palette: Palette;
-};
-
-export type CaseStudyData = {
-  slug: string;
-  client: string;
-  title: string;
-  summary: string;
-  palette: Palette;
-  video: { src?: string; poster?: string };
-  meta: { label: string; value: string }[];
-  reels: { title: string; src?: string; palette: Palette }[];
-  gallery: Still[];
-};
-
-// One entry per case study — each carries its own film, reels and a gallery of photography and graphic design.
-export const caseStudies: CaseStudyData[] = [
-  {
-    slug: "pharmaceutical-development-conference",
-    client: "Pharmaceutical Development Conference",
-    title: "Pharmaceutical Development Conference",
-    summary:
-      "Placeholder: a short summary of what we made for the Pharmaceutical Development Conference and why it mattered.",
-    palette: ["#5c4a78", "#8a74b0"],
-    video: { src: HERO_VIDEO },
-    meta: [
-      { label: "Services", value: "Videography, Content Creation" },
-      { label: "Year", value: "2025" },
-    ],
-    reels: [
-      { title: "Reel 1", src: HERO_VIDEO, palette: ["#5c4a78", "#c6c6e2"] },
-      { title: "Reel 2", src: HERO_VIDEO, palette: ["#8a74b0", "#241c32"] },
-      { title: "Reel 3", src: HERO_VIDEO, palette: ["#9b9bc8", "#5c4a78"] },
-      { title: "Reel 4", src: HERO_VIDEO, palette: ["#6e5a94", "#e2e2f0"] },
-    ],
-    gallery: [
-      { title: "Image 1", src: HERO_THUMB, palette: ["#5c4a78", "#c6c6e2"] },
-      { title: "Image 2", src: HERO_THUMB, palette: ["#8a74b0", "#241c32"] },
-      { title: "Image 3", src: HERO_THUMB, palette: ["#4a3a68", "#e2e2f0"] },
-      { title: "Image 4", src: HERO_THUMB, palette: ["#6e5a94", "#9b9bc8"] },
-      { title: "Image 5", src: HERO_THUMB, palette: ["#9b9bc8", "#3a2e52"] },
-      { title: "Image 6", src: HERO_THUMB, palette: ["#7e6ea8", "#241c32"] },
-      { title: "Image 7", src: HERO_THUMB, palette: ["#6e5a94", "#30283c"] },
-      { title: "Image 8", src: HERO_THUMB, palette: ["#5c4a78", "#9b9bc8"] },
-      { title: "Image 9", src: HERO_THUMB, palette: ["#8a74b0", "#c6c6e2"] },
-      { title: "Image 10", src: HERO_THUMB, palette: ["#8a74b0", "#241c32"] },
-    ],
-  },
 ];

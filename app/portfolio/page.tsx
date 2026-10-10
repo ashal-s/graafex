@@ -5,7 +5,8 @@ import ScrollParallax from "@/components/ScrollParallax";
 import PortfolioVideo from "@/components/PortfolioVideo";
 import { CaseStudyCard } from "@/components/CaseStudy";
 import { Eyebrow, Media, Reveal } from "@/components/ui";
-import { caseStudies, clientLogos, portfolioVideos } from "@/lib/content";
+import { caseStudies } from "@/lib/case-studies";
+import { clientLogos, portfolioVideos } from "@/lib/content";
 
 export const metadata = { title: "Portfolio" };
 

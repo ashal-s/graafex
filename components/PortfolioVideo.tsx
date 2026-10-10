@@ -3,6 +3,8 @@
 import { useEffect, useRef } from "react";
 import { Media } from "./ui";
 
+const DEFAULT_PALETTE = ["#5c4a78", "#8a74b0"];
+
 /**
  * Muted looping video. `trigger="view"` plays while on screen; `trigger="hover"`
  * plays while the pointer is over the nearest `[data-hover-play]` ancestor
@@ -12,7 +14,7 @@ import { Media } from "./ui";
 export default function PortfolioVideo({
   src,
   poster,
-  palette,
+  palette = DEFAULT_PALETTE,
   seed = 0,
   label,
   className = "",
@@ -20,7 +22,7 @@ export default function PortfolioVideo({
 }: {
   src?: string;
   poster?: string;
-  palette: string[];
+  palette?: string[];
   seed?: number;
   label: string;
   className?: string;

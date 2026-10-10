@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Media } from "./ui";
 
+const DEFAULT_PALETTE = ["#5c4a78", "#8a74b0"];
+
 /**
  * Click-to-play vertical reel. The play button shows while paused and hides
  * while playing; starting one reel pauses any other on the page.
@@ -10,13 +12,13 @@ import { Media } from "./ui";
 export default function ReelPlayer({
   src,
   poster,
-  palette,
+  palette = DEFAULT_PALETTE,
   seed = 0,
   label,
 }: {
   src?: string;
   poster?: string;
-  palette: string[];
+  palette?: string[];
   seed?: number;
   label: string;
 }) {

@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${primary.variable} ${body.variable} antialiased`}>
+    <html lang="en" data-scroll-behavior="smooth" className={`${primary.variable} ${body.variable} antialiased`}>
       <body className="min-h-full">
         {children}
         <Cursor />

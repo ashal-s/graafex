@@ -31,7 +31,7 @@ export function CaseStudyCard({ study, index }: { study: CaseStudy; index: numbe
             </Link>
           </h3>
           <div className="mt-6">
-            <SwooshButton href={href} className="!text-white">
+            <SwooshButton href={href} className="!text-white hover:!text-bg">
               View case study
             </SwooshButton>
           </div>

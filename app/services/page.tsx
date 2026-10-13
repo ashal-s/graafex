@@ -42,28 +42,51 @@ const serviceIcons = [
 function PricingCard({ pkg, index }: { pkg: PricingPackage; index: number }) {
   return (
     <Reveal delay={(index % 3) * 80}>
-      <article className="group relative flex h-full flex-col overflow-hidden rounded-[var(--radius-main)] bg-[#f7f2ec] px-7 py-8 shadow-[inset_0_1px_0_rgb(255_255_255/0.7)] ring-1 ring-[rgb(28_20_16/0.08)] transition-[transform,box-shadow,ring-color] duration-500 ease-[var(--ease-out)] hover:-translate-y-1 hover:shadow-[0_28px_50px_-28px_rgb(28_20_16/0.35)] hover:ring-accent/35 md:px-9 md:py-10">
+      <article className="group relative flex h-full flex-col overflow-hidden rounded-[var(--radius-main)] border border-accent/25 bg-[linear-gradient(160deg,#fff8f2_0%,#ffdcc8_48%,#ffc4a3_100%)] px-7 py-8 md:px-9 md:py-10">
+        {/* Deep then bright orange sweep — colour only, no scale or border change */}
+        <span
+          aria-hidden
+          className="absolute inset-0 translate-y-full bg-accent-deep transition-transform duration-500 ease-[var(--ease)] group-hover:translate-y-0"
+        />
+        <span
+          aria-hidden
+          className="absolute inset-0 translate-y-full bg-accent transition-transform delay-75 duration-500 ease-[var(--ease)] group-hover:translate-y-0"
+        />
         <div
           aria-hidden
-          className="absolute inset-x-8 top-0 h-px bg-[linear-gradient(90deg,transparent,var(--accent),transparent)] opacity-70 md:inset-x-10"
+          className="absolute bottom-0 left-0 top-0 w-1 bg-accent transition-colors duration-500 group-hover:bg-white/40"
         />
-        <div className="flex items-baseline justify-between gap-4">
-          <span className="t-small font-medium uppercase tracking-[0.14em] text-accent">
+
+        <div className="relative flex items-baseline justify-between gap-4 pl-3">
+          <span className="t-small font-medium uppercase tracking-[0.14em] text-accent transition-colors duration-500 group-hover:text-white/75">
             {String(index + 1).padStart(2, "0")}
           </span>
           <p className="flex items-baseline gap-1 text-right">
-            <span className="t-h2 font-semibold tabular-nums tracking-tight text-heading">{pkg.price}</span>
-            {pkg.period && <span className="t-small font-medium text-heading/55">{pkg.period}</span>}
+            <span className="t-h2 font-semibold tabular-nums tracking-tight text-accent transition-colors duration-500 group-hover:text-white">
+              {pkg.price}
+            </span>
+            {pkg.period && (
+              <span className="t-small font-medium text-heading/55 transition-colors duration-500 group-hover:text-white/75">
+                {pkg.period}
+              </span>
+            )}
           </p>
         </div>
-        <h3 className="t-h4 mt-8 max-w-[14ch] font-semibold text-heading">{pkg.name}</h3>
-        <ul className="mt-8 flex flex-1 flex-col gap-0 border-t border-[rgb(28_20_16/0.1)] pt-2">
+
+        <h3 className="relative mt-10 max-w-[14ch] pl-3 t-h4 font-semibold text-heading transition-colors duration-500 group-hover:text-white">
+          {pkg.name}
+        </h3>
+
+        <ul className="relative mt-8 flex flex-1 flex-col gap-0 border-t border-accent/20 pl-3 pt-2 transition-colors duration-500 group-hover:border-white/25">
           {pkg.features.map((feature) => (
             <li
               key={feature}
-              className="t-small flex gap-3 border-b border-[rgb(28_20_16/0.08)] py-3.5 text-heading/75 last:border-b-0"
+              className="t-small flex gap-3 border-b border-accent/15 py-3.5 text-heading/75 transition-colors duration-500 last:border-b-0 group-hover:border-white/20 group-hover:text-white/90"
             >
-              <span aria-hidden className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent" />
+              <span
+                aria-hidden
+                className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent transition-colors duration-500 group-hover:bg-white"
+              />
               {feature}
             </li>
           ))}

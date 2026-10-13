@@ -49,30 +49,32 @@ function PricingCard({ pkg, index }: { pkg: PricingPackage; index: number }) {
           className="absolute inset-0 translate-y-full bg-bg transition-transform duration-500 ease-[var(--ease)] group-hover:translate-y-0"
         />
 
-        <p className="relative flex items-baseline gap-1.5 font-[Arial,Helvetica,sans-serif] [font-variant-numeric:lining-nums_tabular-nums]">
-          <span className="text-[clamp(2rem,1.55rem+1.6vw,2.75rem)] font-semibold leading-none tracking-normal text-white">
-            {pkg.price}
-          </span>
-          {pkg.period && (
-            <span className="text-[0.95rem] font-medium leading-none tracking-normal text-white/70">
-              {pkg.period}
+        <div className="relative font-[family-name:var(--font-body)] [font-variant-numeric:lining-nums_tabular-nums]">
+          <p className="flex items-baseline gap-1.5">
+            <span className="text-[clamp(2rem,1.55rem+1.6vw,2.75rem)] font-semibold leading-none tracking-normal text-white">
+              {pkg.price}
             </span>
-          )}
-        </p>
+            {pkg.period && (
+              <span className="text-[0.95rem] font-medium leading-none tracking-normal text-white/70">
+                {pkg.period}
+              </span>
+            )}
+          </p>
 
-        <h3 className="relative mt-8 max-w-[14ch] t-h4 font-semibold text-white">{pkg.name}</h3>
+          <h3 className="mt-8 max-w-[14ch] t-h4 font-semibold text-white">{pkg.name}</h3>
 
-        <ul className="relative mt-8 flex flex-1 flex-col gap-0 border-t border-white/25 pt-2">
-          {pkg.features.map((feature) => (
-            <li
-              key={feature}
-              className="t-small flex gap-3 border-b border-white/20 py-3.5 text-white/90 last:border-b-0"
-            >
-              <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-white" />
-              {feature}
-            </li>
-          ))}
-        </ul>
+          <ul className="mt-8 flex flex-1 flex-col gap-0 border-t border-white/25 pt-2">
+            {pkg.features.map((feature) => (
+              <li
+                key={feature}
+                className="t-small flex gap-3 border-b border-white/20 py-3.5 text-white/90 last:border-b-0"
+              >
+                <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-white" />
+                {feature}
+              </li>
+            ))}
+          </ul>
+        </div>
       </article>
     </Reveal>
   );

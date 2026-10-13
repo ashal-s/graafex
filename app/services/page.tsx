@@ -120,7 +120,7 @@ export default function Services() {
                 {aboutServices.map((sv, i) => (
                   <li key={sv.title}>
                     <Reveal delay={(i % 2) * 90}>
-                      <article className="group relative flex min-h-[17rem] flex-col justify-between overflow-hidden rounded-[var(--radius-small)] border border-line p-6 md:min-h-[19rem] md:p-8">
+                      <article className="group relative flex min-h-[17rem] flex-col justify-between overflow-hidden rounded-[var(--radius-small)] border border-line p-6 font-[family-name:var(--font-body)] md:min-h-[19rem] md:p-8">
                         <span
                           aria-hidden
                           className="absolute inset-0 translate-y-full bg-accent transition-transform duration-500 ease-[var(--ease)] group-hover:translate-y-0"
@@ -140,7 +140,7 @@ export default function Services() {
                               {serviceIcons[i % serviceIcons.length]}
                             </svg>
                           </span>
-                          <span className="t-h5 font-semibold tabular-nums text-accent transition-colors duration-500 group-hover:text-white">
+                          <span className="t-h5 font-semibold tabular-nums [font-variant-numeric:lining-nums_tabular-nums] text-accent transition-colors duration-500 group-hover:text-white">
                             {String(i + 1).padStart(2, "0")}
                           </span>
                         </div>

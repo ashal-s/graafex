@@ -52,7 +52,7 @@ const entries: CaseStudyInput[] = [
       "Placeholder: a short summary of what we made for the Pharmaceutical Development Conference and why it mattered.",
     services: ["Videography", "Photography", "Graphic Design", "Content Creation"],
     year: "2026",
-    video: HERO_VIDEO,
+    video: "/videos/pdc_casestudy.mov",
     reels: [HERO_VIDEO, HERO_VIDEO, HERO_VIDEO, HERO_VIDEO],
     photos: Array.from({ length: 10 }, () => HERO_THUMB),
   },

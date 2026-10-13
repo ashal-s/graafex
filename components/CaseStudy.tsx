@@ -45,7 +45,7 @@ export function CaseStudyDetail({ study, index }: { study: CaseStudy; index: num
   return (
     <>
       {study.reels.length > 0 && (
-        <Reveal className="mt-14">
+        <Reveal className="py-20 md:py-28">
           <ul className="-mx-[var(--margin)] flex snap-x snap-mandatory gap-4 overflow-x-auto px-[var(--margin)] pb-2 md:mx-0 md:grid md:grid-cols-4 md:overflow-visible md:px-0 md:pb-0">
             {study.reels.map((src, i) => (
               <li key={`${src}-${i}`} className="w-[58%] shrink-0 snap-start sm:w-[38%] md:w-auto">

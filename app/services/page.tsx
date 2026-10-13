@@ -49,17 +49,12 @@ function PricingCard({ pkg, index }: { pkg: PricingPackage; index: number }) {
           className="absolute inset-0 translate-y-full bg-bg transition-transform duration-500 ease-[var(--ease)] group-hover:translate-y-0"
         />
 
-        <div className="relative flex items-baseline justify-between gap-4">
-          <span className="t-small font-medium uppercase tracking-[0.14em] text-white/70">
-            {String(index + 1).padStart(2, "0")}
-          </span>
-          <p className="flex items-baseline gap-1 text-right">
-            <span className="t-h2 font-semibold tabular-nums tracking-tight text-white">{pkg.price}</span>
-            {pkg.period && <span className="t-small font-medium text-white/70">{pkg.period}</span>}
-          </p>
-        </div>
+        <p className="relative flex items-baseline gap-1 font-[family-name:var(--font-body)]">
+          <span className="t-h2 font-semibold tabular-nums tracking-tight text-white">{pkg.price}</span>
+          {pkg.period && <span className="t-small font-medium text-white/70">{pkg.period}</span>}
+        </p>
 
-        <h3 className="relative mt-10 max-w-[14ch] t-h4 font-semibold text-white">{pkg.name}</h3>
+        <h3 className="relative mt-8 max-w-[14ch] t-h4 font-semibold text-white">{pkg.name}</h3>
 
         <ul className="relative mt-8 flex flex-1 flex-col gap-0 border-t border-white/25 pt-2">
           {pkg.features.map((feature) => (

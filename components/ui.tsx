@@ -49,14 +49,7 @@ export function SwooshButton({ href, children, className = "" }: { href: string;
         <span className="swoosh__layer swoosh__layer--1" />
         <span className="swoosh__layer swoosh__layer--2" />
       </span>
-      <span className="swoosh__inner">
-        <span className="swoosh__clip">
-          <span className="swoosh__text swoosh__text--a">{children}</span>
-          <span className="swoosh__text swoosh__text--b" aria-hidden>
-            {children}
-          </span>
-        </span>
-      </span>
+      <span className="swoosh__inner">{children}</span>
     </a>
   );
 }

@@ -202,17 +202,6 @@ body {
   z-index: 1;
   padding: 1rem 1.5rem;
 }
-.swoosh__clip {
-  display: grid;
-  overflow: clip;
-}
-.swoosh__text {
-  grid-area: 1 / 1;
-  transition: transform 0.5s var(--ease);
-}
-.swoosh__text--b { transform: translateY(150%); }
-.swoosh:hover .swoosh__text--a { transform: translateY(-150%); }
-.swoosh:hover .swoosh__text--b { transform: none; }
 
 /* Loader */
 .loader {

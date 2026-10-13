@@ -42,36 +42,28 @@ const serviceIcons = [
 function PricingCard({ pkg, index }: { pkg: PricingPackage; index: number }) {
   return (
     <Reveal delay={(index % 3) * 80}>
-      <article className="group relative flex h-full flex-col overflow-hidden rounded-[var(--radius-small)] border border-line p-6 md:p-8">
-        <span
+      <article className="group relative flex h-full flex-col overflow-hidden rounded-[var(--radius-main)] bg-[#f7f2ec] px-7 py-8 shadow-[inset_0_1px_0_rgb(255_255_255/0.7)] ring-1 ring-[rgb(28_20_16/0.08)] transition-[transform,box-shadow,ring-color] duration-500 ease-[var(--ease-out)] hover:-translate-y-1 hover:shadow-[0_28px_50px_-28px_rgb(28_20_16/0.35)] hover:ring-accent/35 md:px-9 md:py-10">
+        <div
           aria-hidden
-          className="absolute inset-0 translate-y-full bg-accent transition-transform duration-500 ease-[var(--ease)] group-hover:translate-y-0"
+          className="absolute inset-x-8 top-0 h-px bg-[linear-gradient(90deg,transparent,var(--accent),transparent)] opacity-70 md:inset-x-10"
         />
-        <div className="relative">
-          <span className="t-small font-medium uppercase tracking-[0.12em] text-accent transition-colors duration-500 group-hover:text-white/80">
+        <div className="flex items-baseline justify-between gap-4">
+          <span className="t-small font-medium uppercase tracking-[0.14em] text-accent">
             {String(index + 1).padStart(2, "0")}
           </span>
-          <h3 className="t-h4 mt-4 font-semibold text-heading transition-colors duration-500 group-hover:text-white">
-            {pkg.name}
-          </h3>
-          <p className="mt-4 flex items-baseline gap-1">
-            <span className="t-h2 font-semibold tabular-nums text-accent transition-colors duration-500 group-hover:text-white">
-              {pkg.price}
-            </span>
-            {pkg.period && (
-              <span className="t-small font-medium text-heading/70 transition-colors duration-500 group-hover:text-white/80">
-                {pkg.period}
-              </span>
-            )}
+          <p className="flex items-baseline gap-1 text-right">
+            <span className="t-h2 font-semibold tabular-nums tracking-tight text-heading">{pkg.price}</span>
+            {pkg.period && <span className="t-small font-medium text-heading/55">{pkg.period}</span>}
           </p>
         </div>
-        <ul className="relative mt-8 flex flex-1 flex-col gap-3 border-t border-line pt-6 transition-colors duration-500 group-hover:border-white/25">
+        <h3 className="t-h4 mt-8 max-w-[14ch] font-semibold text-heading">{pkg.name}</h3>
+        <ul className="mt-8 flex flex-1 flex-col gap-0 border-t border-[rgb(28_20_16/0.1)] pt-2">
           {pkg.features.map((feature) => (
             <li
               key={feature}
-              className="t-small flex gap-3 text-heading/80 transition-colors duration-500 group-hover:text-white/90"
+              className="t-small flex gap-3 border-b border-[rgb(28_20_16/0.08)] py-3.5 text-heading/75 last:border-b-0"
             >
-              <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent transition-colors duration-500 group-hover:bg-white" />
+              <span aria-hidden className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent" />
               {feature}
             </li>
           ))}
@@ -99,8 +91,8 @@ export default function Services() {
           </div>
         </section>
 
-        {/* Disciplines — moved from About */}
-        <section className="section-white relative z-[2] overflow-hidden" id="what-we-offer">
+        {/* Disciplines — dark theme */}
+        <section className="relative z-[2] overflow-hidden" id="what-we-offer">
           <div className="container-x relative py-[clamp(4rem,8vw,7rem)]">
             <div className="grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-20">
               <Reveal className="lg:sticky lg:top-32 lg:self-start">
@@ -162,8 +154,8 @@ export default function Services() {
           </div>
         </section>
 
-        {/* One-off packages */}
-        <section className="relative z-[2] overflow-hidden" id="packages">
+        {/* Pricing — white band for both tiers */}
+        <section className="section-white relative z-[2] overflow-hidden" id="packages">
           <div className="container-x relative py-[clamp(4rem,8vw,7rem)]">
             <Reveal className="mb-12 max-w-[40rem] md:mb-16">
               <Eyebrow>One-off packages</Eyebrow>
@@ -172,39 +164,35 @@ export default function Services() {
                 Clear scopes for social content, events and brand film — pick a package or tell us what you need.
               </p>
             </Reveal>
-            <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
               {oneOffPackages.map((pkg, i) => (
                 <li key={pkg.name}>
                   <PricingCard pkg={pkg} index={i} />
                 </li>
               ))}
             </ul>
-          </div>
-        </section>
 
-        {/* Monthly packages */}
-        <section className="section-white relative z-[2] overflow-hidden" id="monthly">
-          <div className="container-x relative py-[clamp(4rem,8vw,7rem)]">
-            <Reveal className="mb-12 max-w-[40rem] md:mb-16">
+            <Reveal className="mb-12 mt-[clamp(4rem,8vw,7rem)] max-w-[40rem] md:mb-16">
               <Eyebrow>Monthly packages</Eyebrow>
               <h2 className="t-h2 font-semibold text-heading">A content engine on retainer.</h2>
               <p className="t-large mt-6">
                 Ongoing reels, strategy and calendars so your channels stay consistent without the scramble.
               </p>
             </Reveal>
-            <ul className="grid gap-4 md:grid-cols-2">
+            <ul className="grid gap-5 md:grid-cols-2 lg:gap-6">
               {monthlyPackages.map((pkg, i) => (
                 <li key={pkg.name}>
                   <PricingCard pkg={pkg} index={i} />
                 </li>
               ))}
             </ul>
+
             <Reveal className="mt-14 md:mt-16">
               <p className="t-large max-w-[32rem]">
                 Need something outside these packages? We build custom scopes around your brief.
               </p>
               <div className="mt-8">
-                <SwooshButton href={`mailto:${site.email}`} className="!text-white hover:!text-bg">
+                <SwooshButton href={`mailto:${site.email}`} className="!text-white hover:!text-white">
                   Talk to us
                 </SwooshButton>
               </div>

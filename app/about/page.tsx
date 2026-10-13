@@ -39,7 +39,7 @@ export default function About() {
         </section>
 
         {/* Team */}
-        <section className="relative z-[2] overflow-hidden">
+        <section className="section-white relative z-[2] overflow-hidden">
           <div className="container-x relative py-[clamp(4rem,8vw,7rem)]">
             <Reveal className="mb-12">
               <Eyebrow>The team</Eyebrow>

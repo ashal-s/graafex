@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { CaseStudy } from "@/lib/case-studies";
-import { Reveal } from "./ui";
+import { Reveal, SwooshButton } from "./ui";
 import PortfolioVideo from "./PortfolioVideo";
 import ReelPlayer from "./ReelPlayer";
 import PortfolioGallery from "./PortfolioGallery";
@@ -9,28 +9,32 @@ export const seedFor = (index: number) => 20 + index * 40;
 
 /** Portfolio-page teaser: cover film, title and summary, linking to the full case study. */
 export function CaseStudyCard({ study, index }: { study: CaseStudy; index: number }) {
+  const href = `/portfolio/${study.slug}`;
   return (
     <Reveal>
-      <Link
-        href={`/portfolio/${study.slug}`}
-        className="group grid gap-6 md:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] md:items-end md:gap-12"
-      >
-        <div className="relative aspect-video overflow-hidden rounded-[var(--radius-main)] bg-bg-2 ring-1 ring-line">
+      <article className="grid gap-6 md:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] md:items-end md:gap-12">
+        <Link
+          href={href}
+          className="relative aspect-video overflow-hidden rounded-[var(--radius-main)] bg-bg-2 ring-1 ring-line"
+        >
           <PortfolioVideo
             src={study.video}
             poster={study.poster}
             seed={seedFor(index)}
             label={`${study.name} case study`}
           />
-        </div>
+        </Link>
         <div>
-          <h3 className="t-h3 font-semibold text-heading">{study.name}</h3>
-          <p className="t-small mt-6 flex items-center gap-2 font-semibold text-heading">
-            View case study
-            <span aria-hidden>→</span>
-          </p>
+          <h3 className="t-h3 font-semibold text-heading">
+            <Link href={href} className="transition-colors hover:text-accent">
+              {study.name}
+            </Link>
+          </h3>
+          <div className="mt-6">
+            <SwooshButton href={href}>View case study</SwooshButton>
+          </div>
         </div>
-      </Link>
+      </article>
     </Reveal>
   );
 }

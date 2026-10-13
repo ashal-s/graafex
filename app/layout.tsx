@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Sans, Inter, Syne } from "next/font/google";
+import { Inter, Syne } from "next/font/google";
 import "./globals.css";
 import Cursor from "@/components/Cursor";
 
@@ -17,13 +17,6 @@ const body = Inter({
   weight: ["400", "500", "600"],
 });
 
-// Lining tabular figures for prices and metrics — stays even on one baseline.
-const figures = IBM_Plex_Sans({
-  variable: "--font-figures",
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-});
-
 export const metadata: Metadata = {
   title: "Graafex — Strategy, Design & Film",
   description:
@@ -32,11 +25,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      data-scroll-behavior="smooth"
-      className={`${primary.variable} ${body.variable} ${figures.variable} antialiased`}
-    >
+    <html lang="en" data-scroll-behavior="smooth" className={`${primary.variable} ${body.variable} antialiased`}>
       <body className="min-h-full">
         {children}
         <Cursor />

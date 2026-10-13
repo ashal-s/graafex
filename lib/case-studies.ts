@@ -54,15 +54,15 @@ const entries: CaseStudyInput[] = [
     video: "/videos/pdc_casestudy.mov",
     reels: [HERO_VIDEO, HERO_VIDEO, HERO_VIDEO, HERO_VIDEO],
     photos: [
-      "/case-studies/pdc/pdc_1.JPG",
       "/case-studies/pdc/pdc_2.JPG",
       "/case-studies/pdc/pdc_3.JPG",
       "/case-studies/pdc/pdc_4.JPG",
-      "/case-studies/pdc/pdc_5.JPG",
       "/case-studies/pdc/pdc_6.JPG",
       "/case-studies/pdc/pdc_7.JPG",
       "/case-studies/pdc/pdc_8.JPG",
       "/case-studies/pdc/pdc_9.png",
+      "/case-studies/pdc/pdc_1.JPG",
+      "/case-studies/pdc/pdc_5.JPG",
     ],
   },
 ];

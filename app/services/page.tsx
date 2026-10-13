@@ -43,10 +43,10 @@ function PricingCard({ pkg, index }: { pkg: PricingPackage; index: number }) {
   return (
     <Reveal delay={(index % 3) * 80}>
       <article className="group relative flex h-full flex-col overflow-hidden rounded-[var(--radius-main)] bg-accent px-7 py-8 md:px-9 md:py-10">
-        {/* Deeper orange sweep on hover — colour only, no scale or border change */}
+        {/* Black sweep on hover — colour only, no scale or border change */}
         <span
           aria-hidden
-          className="absolute inset-0 translate-y-full bg-[#8f2a00] transition-transform duration-500 ease-[var(--ease)] group-hover:translate-y-0"
+          className="absolute inset-0 translate-y-full bg-bg transition-transform duration-500 ease-[var(--ease)] group-hover:translate-y-0"
         />
 
         <div className="relative flex items-baseline justify-between gap-4">

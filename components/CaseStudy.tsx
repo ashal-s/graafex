@@ -13,19 +13,15 @@ export function CaseStudyCard({ study, index }: { study: CaseStudy; index: numbe
     <Reveal>
       <Link
         href={`/portfolio/${study.slug}`}
-        data-hover-play
         className="group grid gap-6 md:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] md:items-end md:gap-12"
       >
         <div className="relative aspect-video overflow-hidden rounded-[var(--radius-main)] bg-bg-2 ring-1 ring-line">
-          <div className="absolute inset-0 transition-transform duration-700 ease-[var(--ease-out)] group-hover:scale-[1.03]">
-            <PortfolioVideo
-              trigger="hover"
-              src={study.video}
-              poster={study.poster}
-              seed={seedFor(index)}
-              label={`${study.name} case study`}
-            />
-          </div>
+          <PortfolioVideo
+            src={study.video}
+            poster={study.poster}
+            seed={seedFor(index)}
+            label={`${study.name} case study`}
+          />
         </div>
         <div>
           <h3 className="t-h3 font-semibold text-heading">{study.name}</h3>

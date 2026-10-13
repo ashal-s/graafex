@@ -36,6 +36,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/portfolio/[s
                 poster={study.poster}
                 seed={seedFor(index)}
                 label={`${study.name} main film`}
+                toggleOnClick
               />
               <div
                 aria-hidden

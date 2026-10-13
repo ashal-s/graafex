@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Syne } from "next/font/google";
+import { IBM_Plex_Sans, Inter, Syne } from "next/font/google";
 import "./globals.css";
 import Cursor from "@/components/Cursor";
 
@@ -10,11 +10,18 @@ const primary = Syne({
   weight: ["400", "500", "600", "700", "800"],
 });
 
-// Neutral text face for copy and figures where Syne's numerals read too stylised.
+// Neutral text face for copy where Syne is too stylised.
 const body = Inter({
   variable: "--font-body",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
+});
+
+// Lining tabular figures for prices and metrics — stays even on one baseline.
+const figures = IBM_Plex_Sans({
+  variable: "--font-figures",
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -25,7 +32,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" data-scroll-behavior="smooth" className={`${primary.variable} ${body.variable} antialiased`}>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${primary.variable} ${body.variable} ${figures.variable} antialiased`}
+    >
       <body className="min-h-full">
         {children}
         <Cursor />

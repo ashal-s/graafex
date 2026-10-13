@@ -49,9 +49,15 @@ function PricingCard({ pkg, index }: { pkg: PricingPackage; index: number }) {
           className="absolute inset-0 translate-y-full bg-bg transition-transform duration-500 ease-[var(--ease)] group-hover:translate-y-0"
         />
 
-        <p className="relative flex items-baseline gap-1 font-[family-name:var(--font-body)]">
-          <span className="t-h2 font-semibold tabular-nums tracking-tight text-white">{pkg.price}</span>
-          {pkg.period && <span className="t-small font-medium text-white/70">{pkg.period}</span>}
+        <p className="relative flex items-baseline gap-1.5 font-[family-name:var(--font-figures)] [font-variant-numeric:lining-nums_tabular-nums]">
+          <span className="text-[clamp(2rem,1.55rem+1.6vw,2.75rem)] font-semibold leading-none tracking-normal text-white">
+            {pkg.price}
+          </span>
+          {pkg.period && (
+            <span className="text-[0.95rem] font-medium leading-none tracking-normal text-white/70">
+              {pkg.period}
+            </span>
+          )}
         </p>
 
         <h3 className="relative mt-8 max-w-[14ch] t-h4 font-semibold text-white">{pkg.name}</h3>

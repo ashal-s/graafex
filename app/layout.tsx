@@ -10,7 +10,7 @@ const primary = Syne({
   weight: ["400", "500", "600", "700", "800"],
 });
 
-// Neutral text face for copy and figures where Syne's numerals read too stylised.
+// Neutral text face for copy where Syne is too stylised.
 const body = Inter({
   variable: "--font-body",
   subsets: ["latin"],

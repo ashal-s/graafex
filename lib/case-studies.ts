@@ -40,9 +40,8 @@ export type CaseStudyInput = {
 
 export type CaseStudy = CaseStudyInput & { slug: string };
 
-// Temporary media — every slot uses the hero video / thumbnail until real files are supplied.
+// Temporary media — reels still use the hero video until real films are supplied.
 const HERO_VIDEO = "/videos/hero_video.mp4";
-const HERO_THUMB = "/videos/hero-poster.jpg";
 
 const entries: CaseStudyInput[] = [
   {
@@ -52,9 +51,19 @@ const entries: CaseStudyInput[] = [
       "Placeholder: a short summary of what we made for the Pharmaceutical Development Conference and why it mattered.",
     services: ["Videography", "Photography", "Graphic Design", "Content Creation"],
     year: "2026",
-    video: HERO_VIDEO,
+    video: "/videos/pdc_casestudy.mov",
     reels: [HERO_VIDEO, HERO_VIDEO, HERO_VIDEO, HERO_VIDEO],
-    photos: Array.from({ length: 10 }, () => HERO_THUMB),
+    photos: [
+      "/case-studies/pdc/pdc_2.JPG",
+      "/case-studies/pdc/pdc_3.JPG",
+      "/case-studies/pdc/pdc_4.JPG",
+      "/case-studies/pdc/pdc_6.JPG",
+      "/case-studies/pdc/pdc_7.JPG",
+      "/case-studies/pdc/pdc_8.JPG",
+      "/case-studies/pdc/pdc_9.png",
+      "/case-studies/pdc/pdc_1.JPG",
+      "/case-studies/pdc/pdc_5.JPG",
+    ],
   },
 ];
 

@@ -10,6 +10,9 @@ export default function SignInPage() {
     <main className="flex min-h-screen items-center justify-center bg-bg px-4">
       <form action={formAction} className="flex w-full max-w-sm flex-col gap-4">
         <h1 className="t-h3 font-semibold text-heading">Admin sign in</h1>
+        <p className="text-sm text-body">
+          Accounts are created by an existing admin in the portal.
+        </p>
         <label className="flex flex-col gap-1 text-sm text-body">
           Email
           <input

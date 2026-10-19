@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { requireAdmin } from "@/lib/admin/session";
+import { getSessionUser } from "@/lib/admin/session";
 import { uploadToR2 } from "@/lib/r2";
 
 export const runtime = "nodejs";
@@ -13,9 +13,8 @@ function sanitizeKeyPart(value: string) {
 }
 
 export async function POST(request: Request) {
-  try {
-    await requireAdmin();
-  } catch {
+  const user = await getSessionUser();
+  if (!user?.email) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

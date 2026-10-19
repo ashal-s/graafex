@@ -1,5 +1,7 @@
-import Link from "next/link";
 import { deletePortfolioVideo } from "@/app/admin/actions";
+import { IconLink, IconButton } from "@/components/admin/IconButton";
+import { IconBack, IconEdit, IconPlus, IconTrash } from "@/components/admin/icons";
+import VideoThumb from "@/components/admin/VideoThumb";
 import { listAllPortfolioVideos } from "@/lib/data/portfolio";
 
 export default async function AdminPortfolioPage() {
@@ -9,19 +11,16 @@ export default async function AdminPortfolioPage() {
     <div className="grid gap-8">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="t-h3 font-semibold text-heading">Portfolio videos</h1>
+          <h1 className="t-h3 font-semibold text-heading">Videos</h1>
           <p className="mt-1 text-sm text-body">Hover-play tiles on /portfolio.</p>
         </div>
-        <div className="flex gap-3">
-          <Link href="/admin" className="text-sm underline">
-            Back
-          </Link>
-          <Link
-            href="/admin/portfolio/new"
-            className="rounded bg-accent px-4 py-2 text-sm font-semibold text-bg-2"
-          >
-            Add video
-          </Link>
+        <div className="flex gap-2">
+          <IconLink href="/admin" label="Back">
+            <IconBack />
+          </IconLink>
+          <IconLink href="/admin/portfolio/new" label="Add video" variant="accent">
+            <IconPlus />
+          </IconLink>
         </div>
       </div>
 
@@ -30,28 +29,28 @@ export default async function AdminPortfolioPage() {
       ) : (
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {videos.map((v) => (
-            <li key={v.id} className="overflow-hidden rounded-[var(--radius-main)] border border-line bg-bg-2">
-              <div className="aspect-video bg-black">
+            <li key={v.id} className="overflow-visible rounded-[var(--radius-main)] border border-line bg-bg-2">
+              <div className="overflow-hidden rounded-t-[var(--radius-main)]">
                 {v.src ? (
-                  <video src={v.src} muted playsInline preload="metadata" className="h-full w-full object-cover" />
+                  <VideoThumb src={v.src} poster={v.poster} aspect="16 / 9" className="w-full" />
                 ) : (
-                  <div className="grid h-full place-items-center text-xs text-body">No film</div>
+                  <div className="grid aspect-video place-items-center text-xs text-body">No film</div>
                 )}
               </div>
-              <div className="flex items-start justify-between gap-2 p-3">
+              <div className="relative z-10 flex items-start justify-between gap-2 overflow-visible p-3">
                 <div>
                   <p className="font-semibold text-heading">{v.title}</p>
                   <p className="text-xs text-body">{v.published ? "Published" : "Draft"}</p>
                 </div>
-                <div className="flex shrink-0 flex-col items-end gap-1">
-                  <Link href={`/admin/portfolio/${v.id}`} className="text-xs text-accent underline">
-                    Edit
-                  </Link>
+                <div className="relative z-20 flex shrink-0 gap-1 overflow-visible">
+                  <IconLink href={`/admin/portfolio/${v.id}`} label="Edit">
+                    <IconEdit />
+                  </IconLink>
                   <form action={deletePortfolioVideo}>
                     <input type="hidden" name="id" value={v.id} />
-                    <button type="submit" className="text-xs text-body underline">
-                      Delete
-                    </button>
+                    <IconButton type="submit" label="Delete" variant="danger">
+                      <IconTrash />
+                    </IconButton>
                   </form>
                 </div>
               </div>

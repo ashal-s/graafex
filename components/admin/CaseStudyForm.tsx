@@ -1,6 +1,8 @@
-import { saveCaseStudy } from "@/app/admin/actions";
+import { LabelButton } from "@/components/admin/IconButton";
+import { IconSave } from "@/components/admin/icons";
 import MediaField from "@/components/admin/MediaField";
 import MediaListField from "@/components/admin/MediaListField";
+import PublishToggle from "@/components/admin/PublishToggle";
 
 export type CaseStudyFormDefaults = {
   name: string;
@@ -10,7 +12,7 @@ export type CaseStudyFormDefaults = {
   services: string;
   year: string;
   video: string;
-  poster: string;
+  thumbnail: string;
   reels: string;
   photos: string;
   sortOrder: number;
@@ -20,14 +22,17 @@ export type CaseStudyFormDefaults = {
 export default function CaseStudyForm({
   id,
   defaults,
+  saveToken,
 }: {
   id?: string;
   defaults?: Partial<CaseStudyFormDefaults>;
+  saveToken: string;
 }) {
   const folder = `case-studies/${defaults?.slug || "new"}`;
 
   return (
-    <form action={saveCaseStudy} className="grid max-w-3xl gap-5">
+    <form action="/api/admin/save-case-study" method="post" className="grid max-w-3xl gap-5">
+      <input type="hidden" name="saveToken" value={saveToken} />
       {id && <input type="hidden" name="id" value={id} />}
       <label className="flex flex-col gap-1 text-sm">
         Name
@@ -88,14 +93,16 @@ export default function CaseStudyForm({
         defaultValue={defaults?.video ?? ""}
         accept="video/*"
         kind="video"
+        fitAspect
       />
       <MediaField
-        name="poster"
-        label="Poster"
-        folder={`${folder}/poster`}
-        defaultValue={defaults?.poster ?? ""}
+        name="thumbnail"
+        label="Thumbnail"
+        folder={`${folder}/thumbnails`}
+        defaultValue={defaults?.thumbnail ?? ""}
         accept="image/*"
         kind="image"
+        hint="Optional still shown before the hero film plays on the case study page."
       />
       <MediaListField
         name="reels"
@@ -122,13 +129,12 @@ export default function CaseStudyForm({
           className="rounded border border-line bg-bg-2 px-3 py-2 text-heading"
         />
       </label>
-      <label className="flex items-center gap-2 text-sm">
-        <input name="published" type="checkbox" defaultChecked={defaults?.published ?? true} />
-        Published
-      </label>
-      <button type="submit" className="w-fit rounded bg-accent px-4 py-2 text-sm font-semibold text-bg-2">
-        {id ? "Save changes" : "Create case study"}
-      </button>
+      <PublishToggle defaultChecked={defaults?.published ?? true} />
+      <div className="flex justify-end">
+        <LabelButton type="submit" label={id ? "Save" : "Create"} variant="accent">
+          <IconSave />
+        </LabelButton>
+      </div>
     </form>
   );
 }

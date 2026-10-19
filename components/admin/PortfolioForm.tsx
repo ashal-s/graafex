@@ -1,25 +1,35 @@
-import { savePortfolioVideo } from "@/app/admin/actions";
+import ColorField from "@/components/admin/ColorField";
+import { LabelButton } from "@/components/admin/IconButton";
+import { IconSave } from "@/components/admin/icons";
 import MediaField from "@/components/admin/MediaField";
+import PublishToggle from "@/components/admin/PublishToggle";
 
 export default function PortfolioForm({
   id,
   defaults,
   defaultSortOrder = 0,
+  saveToken,
 }: {
   id?: string;
   defaults?: {
     title: string;
     src: string;
-    poster: string;
+    thumbnail: string;
     paletteA: string;
     paletteB: string;
     sortOrder: number;
     published: boolean;
   };
   defaultSortOrder?: number;
+  saveToken: string;
 }) {
   return (
-    <form action={savePortfolioVideo} className="grid max-w-xl gap-4">
+    <form
+      action="/api/admin/save-portfolio"
+      method="post"
+      className="grid max-w-xl gap-5"
+    >
+      <input type="hidden" name="saveToken" value={saveToken} />
       {id && <input type="hidden" name="id" value={id} />}
       <label className="flex flex-col gap-1 text-sm">
         Title
@@ -37,32 +47,20 @@ export default function PortfolioForm({
         defaultValue={defaults?.src ?? ""}
         accept="video/*"
         kind="video"
+        fitAspect
       />
       <MediaField
-        name="poster"
-        label="Poster (optional)"
-        folder="portfolio/posters"
-        defaultValue={defaults?.poster ?? ""}
+        name="thumbnail"
+        label="Thumbnail"
+        folder="portfolio/thumbnails"
+        defaultValue={defaults?.thumbnail ?? ""}
         accept="image/*"
         kind="image"
+        hint="Optional still shown on the site before the film starts playing. If empty, the first video frame is used."
       />
       <div className="grid grid-cols-2 gap-3">
-        <label className="flex flex-col gap-1 text-sm">
-          Palette A
-          <input
-            name="paletteA"
-            defaultValue={defaults?.paletteA ?? "#ff4d00"}
-            className="rounded border border-line bg-bg-2 px-3 py-2 text-heading"
-          />
-        </label>
-        <label className="flex flex-col gap-1 text-sm">
-          Palette B
-          <input
-            name="paletteB"
-            defaultValue={defaults?.paletteB ?? "#7a2a0a"}
-            className="rounded border border-line bg-bg-2 px-3 py-2 text-heading"
-          />
-        </label>
+        <ColorField name="paletteA" label="Palette A" defaultValue={defaults?.paletteA ?? "#ff4d00"} />
+        <ColorField name="paletteB" label="Palette B" defaultValue={defaults?.paletteB ?? "#7a2a0a"} />
       </div>
       <label className="flex flex-col gap-1 text-sm">
         Sort order
@@ -73,13 +71,12 @@ export default function PortfolioForm({
           className="rounded border border-line bg-bg-2 px-3 py-2 text-heading"
         />
       </label>
-      <label className="flex items-center gap-2 text-sm">
-        <input name="published" type="checkbox" defaultChecked={defaults?.published ?? true} />
-        Published
-      </label>
-      <button type="submit" className="w-fit rounded bg-accent px-4 py-2 text-sm font-semibold text-bg-2">
-        {id ? "Save changes" : "Create video"}
-      </button>
+      <PublishToggle defaultChecked={defaults?.published ?? true} />
+      <div className="flex justify-end">
+        <LabelButton type="submit" label={id ? "Save" : "Create"} variant="accent">
+          <IconSave />
+        </LabelButton>
+      </div>
     </form>
   );
 }

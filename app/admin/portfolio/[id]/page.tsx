@@ -1,16 +1,24 @@
-import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { eq } from "drizzle-orm";
 import { deletePortfolioVideo } from "@/app/admin/actions";
+import { IconButton, IconLink } from "@/components/admin/IconButton";
+import { IconBack, IconTrash } from "@/components/admin/icons";
 import PortfolioForm from "@/components/admin/PortfolioForm";
 import { getDb } from "@/db";
 import { portfolioVideos } from "@/db/schema";
+import { getSessionUser } from "@/lib/admin/session";
+import { mintSaveToken } from "@/lib/admin/save-token";
+
+export const dynamic = "force-dynamic";
 
 export default async function EditPortfolioVideoPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
+  const user = await getSessionUser();
+  if (!user?.email) redirect("/auth/sign-in");
+
   const { id } = await params;
   const [v] = await getDb().select().from(portfolioVideos).where(eq(portfolioVideos.id, id)).limit(1);
   if (!v) notFound();
@@ -19,27 +27,28 @@ export default async function EditPortfolioVideoPage({
     <div className="grid gap-6">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="t-h3 font-semibold text-heading">Edit video</h1>
+          <h1 className="t-h3 font-semibold text-heading">Edit Video</h1>
           <p className="mt-1 text-sm text-body">{v.title}</p>
         </div>
-        <div className="flex gap-3">
-          <Link href="/admin/portfolio" className="text-sm underline">
-            Back
-          </Link>
+        <div className="flex gap-2">
+          <IconLink href="/admin/portfolio" label="Back">
+            <IconBack />
+          </IconLink>
           <form action={deletePortfolioVideo}>
             <input type="hidden" name="id" value={v.id} />
-            <button type="submit" className="text-sm text-accent underline">
-              Delete
-            </button>
+            <IconButton type="submit" label="Delete" variant="danger">
+              <IconTrash />
+            </IconButton>
           </form>
         </div>
       </div>
       <PortfolioForm
         id={v.id}
+        saveToken={mintSaveToken(user.email)}
         defaults={{
           title: v.title,
           src: v.src ?? "",
-          poster: v.poster ?? "",
+          thumbnail: v.poster ?? "",
           paletteA: v.palette[0],
           paletteB: v.palette[1],
           sortOrder: v.sortOrder,

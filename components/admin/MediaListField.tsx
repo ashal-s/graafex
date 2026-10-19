@@ -1,6 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { IconButton } from "@/components/admin/IconButton";
+import { IconPlus, IconTrash } from "@/components/admin/icons";
+import VideoThumb from "@/components/admin/VideoThumb";
 
 export default function MediaListField({
   name,
@@ -13,7 +16,6 @@ export default function MediaListField({
   name: string;
   label: string;
   folder: string;
-  /** Newline-separated URLs */
   defaultValue?: string;
   accept: string;
   kind: "image" | "video";
@@ -51,13 +53,28 @@ export default function MediaListField({
     }
   }
 
-  function removeAt(index: number) {
-    setItems((prev) => prev.filter((_, i) => i !== index));
-  }
-
   return (
     <div className="grid gap-2 text-sm text-body">
-      <span className="font-medium text-heading">{label}</span>
+      <div className="flex items-center justify-between gap-3">
+        <span className="font-medium text-heading">{label}</span>
+        <label className="group relative inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-[var(--radius-small)] bg-accent text-bg-2">
+          <IconPlus />
+          <span className="pointer-events-none absolute left-1/2 top-[calc(100%+0.4rem)] z-20 -translate-x-1/2 whitespace-nowrap rounded bg-heading px-2 py-1 text-[11px] font-medium text-bg-2 opacity-0 shadow-sm transition-opacity group-hover:opacity-100">
+            {busy ? "Uploading…" : "Add files"}
+          </span>
+          <input
+            type="file"
+            accept={accept}
+            multiple
+            disabled={busy}
+            className="sr-only"
+            onChange={(e) => {
+              void onFiles(e.target.files);
+              e.target.value = "";
+            }}
+          />
+        </label>
+      </div>
       <input type="hidden" name={name} value={items.join("\n")} />
 
       {items.length === 0 ? (
@@ -65,47 +82,26 @@ export default function MediaListField({
           No items yet
         </div>
       ) : (
-        <ul
-          className={
-            kind === "video"
-              ? "grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4"
-              : "grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4"
-          }
-        >
+        <ul className="grid grid-cols-2 gap-3 overflow-visible sm:grid-cols-3 md:grid-cols-4">
           {items.map((url, i) => (
-            <li key={`${url}-${i}`} className="group relative overflow-hidden rounded-[var(--radius-small)] border border-line bg-bg">
-              {kind === "video" ? (
-                <video src={url} muted playsInline preload="metadata" className="aspect-[9/16] w-full object-cover" />
-              ) : (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={url} alt="" className="aspect-square w-full object-cover" />
-              )}
-              <button
-                type="button"
-                onClick={() => removeAt(i)}
-                className="absolute right-1.5 top-1.5 rounded bg-black/70 px-2 py-1 text-[11px] font-medium text-white"
-              >
-                Delete
-              </button>
+            <li key={`${url}-${i}`} className="relative overflow-visible rounded-[var(--radius-small)] border border-line bg-bg">
+              <div className="overflow-hidden rounded-[var(--radius-small)]">
+                {kind === "video" ? (
+                  <VideoThumb src={url} aspect="9 / 16" className="w-full" />
+                ) : (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={url} alt="" className="aspect-square w-full object-cover" />
+                )}
+              </div>
+              <div className="absolute right-1.5 top-1.5 z-20">
+                <IconButton label="Delete" variant="danger" onClick={() => setItems((prev) => prev.filter((_, j) => j !== i))}>
+                  <IconTrash />
+                </IconButton>
+              </div>
             </li>
           ))}
         </ul>
       )}
-
-      <label className="inline-flex w-fit cursor-pointer items-center gap-2 rounded bg-bg-2 px-3 py-2 text-xs font-medium text-heading ring-1 ring-line">
-        <span>{busy ? "Uploading…" : "Add files"}</span>
-        <input
-          type="file"
-          accept={accept}
-          multiple
-          disabled={busy}
-          className="sr-only"
-          onChange={(e) => {
-            void onFiles(e.target.files);
-            e.target.value = "";
-          }}
-        />
-      </label>
       {error && <span className="text-xs text-accent">{error}</span>}
     </div>
   );

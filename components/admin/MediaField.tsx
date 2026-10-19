@@ -1,6 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { IconButton } from "@/components/admin/IconButton";
+import { IconUpload, IconX } from "@/components/admin/icons";
+import VideoThumb from "@/components/admin/VideoThumb";
 
 function isVideo(url: string) {
   return /\.(mp4|webm|mov|m4v)(\?|$)/i.test(url) || url.includes("/videos/") || url.includes("/reels/") || url.includes("/hero");
@@ -17,21 +20,27 @@ export default function MediaField({
   defaultValue = "",
   accept = "*/*",
   kind = "auto",
+  hint,
+  fitAspect = true,
 }: {
   name: string;
   label: string;
   folder: string;
   defaultValue?: string;
   accept?: string;
-  /** Force preview type when URL has no extension. */
   kind?: "auto" | "image" | "video";
+  hint?: string;
+  /** When true, video preview uses the file’s natural aspect ratio. */
+  fitAspect?: boolean;
 }) {
   const [value, setValue] = useState(defaultValue);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const showVideo = value && (kind === "video" || (kind === "auto" && isVideo(value) && !isImage(value)));
-  const showImage = value && (kind === "image" || (kind === "auto" && isImage(value)) || (kind === "auto" && !showVideo));
+  const showVideo = Boolean(value && (kind === "video" || (kind === "auto" && isVideo(value) && !isImage(value))));
+  const showImage = Boolean(
+    value && (kind === "image" || (kind === "auto" && isImage(value)) || (kind === "auto" && value && !showVideo)),
+  );
 
   async function onFile(file: File | null) {
     if (!file) return;
@@ -55,46 +64,50 @@ export default function MediaField({
 
   return (
     <div className="grid gap-2 text-sm text-body">
-      <span className="font-medium text-heading">{label}</span>
+      <div className="flex items-start justify-between gap-3">
+        <span className="grid gap-0.5">
+          <span className="font-medium text-heading">{label}</span>
+          {hint && <span className="text-xs text-body">{hint}</span>}
+        </span>
+        <div className="flex gap-1">
+          {value && (
+            <IconButton label="Remove" variant="danger" onClick={() => setValue("")}>
+              <IconX />
+            </IconButton>
+          )}
+          <label className="group relative inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-[var(--radius-small)] bg-bg-2 text-heading ring-1 ring-line transition-colors hover:text-accent">
+            <IconUpload />
+            <span className="pointer-events-none absolute left-1/2 top-[calc(100%+0.4rem)] z-20 -translate-x-1/2 whitespace-nowrap rounded bg-heading px-2 py-1 text-[11px] font-medium text-bg-2 opacity-0 shadow-sm transition-opacity group-hover:opacity-100">
+              {busy ? "Uploading…" : value ? "Replace" : "Upload"}
+            </span>
+            <input
+              type="file"
+              accept={accept}
+              disabled={busy}
+              className="sr-only"
+              onChange={(e) => onFile(e.target.files?.[0] ?? null)}
+            />
+          </label>
+        </div>
+      </div>
       <input type="hidden" name={name} value={value} />
 
       {value ? (
-        <div className="relative overflow-hidden rounded-[var(--radius-small)] border border-line bg-bg">
+        <div className="overflow-hidden rounded-[var(--radius-small)] border border-line bg-bg">
           {showVideo ? (
-            <video src={value} controls playsInline className="max-h-56 w-full bg-black object-contain" />
+            <VideoThumb src={value} fit="contain" className="w-full max-h-[28rem]" aspect={fitAspect ? undefined : "16 / 9"} />
           ) : showImage ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={value} alt="" className="max-h-56 w-full object-contain" />
+            <img src={value} alt="" className="max-h-72 w-full object-contain" />
           ) : (
             <p className="break-all p-3 font-mono text-xs">{value}</p>
           )}
-          <div className="flex items-center justify-between gap-2 border-t border-line px-3 py-2">
-            <span className="truncate font-mono text-[11px] text-body">{value}</span>
-            <button
-              type="button"
-              onClick={() => setValue("")}
-              className="shrink-0 text-xs text-accent underline"
-            >
-              Remove
-            </button>
-          </div>
         </div>
       ) : (
         <div className="flex min-h-28 items-center justify-center rounded-[var(--radius-small)] border border-dashed border-line bg-bg px-4 py-6 text-center text-xs text-body">
-          No media yet — upload a file below
+          No media yet
         </div>
       )}
-
-      <label className="inline-flex w-fit cursor-pointer items-center gap-2 rounded bg-bg-2 px-3 py-2 text-xs font-medium text-heading ring-1 ring-line hover:border-accent">
-        <span>{busy ? "Uploading…" : value ? "Replace file" : "Upload file"}</span>
-        <input
-          type="file"
-          accept={accept}
-          disabled={busy}
-          className="sr-only"
-          onChange={(e) => onFile(e.target.files?.[0] ?? null)}
-        />
-      </label>
       {error && <span className="text-xs text-accent">{error}</span>}
     </div>
   );

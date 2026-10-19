@@ -55,3 +55,14 @@ export const caseStudyPhotos = pgTable("case_study_photos", {
   alt: text("alt"),
   sortOrder: integer("sort_order").notNull().default(0),
 });
+
+/** Admin portal access requests — Neon Auth handles passwords; we gate the CMS. */
+export const adminMembers = pgTable("admin_members", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  email: varchar("email", { length: 320 }).notNull().unique(),
+  name: varchar("name", { length: 200 }).notNull().default(""),
+  status: varchar("status", { length: 32 }).notNull().default("pending"), // pending | approved | rejected
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  reviewedAt: timestamp("reviewed_at", { withTimezone: true }),
+  reviewedByEmail: varchar("reviewed_by_email", { length: 320 }),
+});

@@ -10,9 +10,10 @@ export default function SignUpPage() {
   return (
     <main className="flex min-h-screen items-center justify-center bg-bg px-4">
       <form action={formAction} className="flex w-full max-w-sm flex-col gap-4">
-        <h1 className="t-h3 font-semibold text-heading">Create admin account</h1>
+        <h1 className="t-h3 font-semibold text-heading">Request admin access</h1>
         <p className="text-sm text-body">
-          One-time setup. Prefer setting <code className="text-heading">ADMIN_EMAIL_ALLOWLIST</code> in env.
+          After you create an account, a current admin must approve your request before you can use
+          the portal.
         </p>
         <label className="flex flex-col gap-1 text-sm text-body">
           Name
@@ -48,7 +49,7 @@ export default function SignUpPage() {
           disabled={isPending}
           className="rounded-[var(--radius-small)] bg-accent px-4 py-2 text-sm font-semibold text-bg-2 disabled:opacity-60"
         >
-          {isPending ? "Creating…" : "Create account"}
+          {isPending ? "Submitting…" : "Submit request"}
         </button>
         <Link href="/auth/sign-in" className="text-sm text-body underline">
           Already have an account? Sign in

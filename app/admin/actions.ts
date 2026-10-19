@@ -2,9 +2,11 @@
 
 import { eq } from "drizzle-orm";
 import { revalidateTag } from "next/cache";
+import { redirect } from "next/navigation";
 import { getDb } from "@/db";
 import { caseStudies, caseStudyPhotos, caseStudyReels, portfolioVideos } from "@/db/schema";
 import { requireAdmin } from "@/lib/admin/session";
+import { setAdminStatus } from "@/lib/admin/members";
 import { CASE_STUDIES_TAG } from "@/lib/data/case-studies";
 import { PORTFOLIO_TAG } from "@/lib/data/portfolio";
 import { slugify } from "@/lib/data/types";
@@ -49,11 +51,13 @@ export async function savePortfolioVideo(formData: FormData) {
 
   if (id) {
     await db.update(portfolioVideos).set(values).where(eq(portfolioVideos.id, id));
-  } else {
-    await db.insert(portfolioVideos).values(values);
+    revalidateTag(PORTFOLIO_TAG, "max");
+    redirect(`/admin/portfolio/${id}`);
   }
 
+  const [row] = await db.insert(portfolioVideos).values(values).returning({ id: portfolioVideos.id });
   revalidateTag(PORTFOLIO_TAG, "max");
+  redirect(`/admin/portfolio/${row.id}`);
 }
 
 export async function deletePortfolioVideo(formData: FormData) {
@@ -62,6 +66,7 @@ export async function deletePortfolioVideo(formData: FormData) {
   if (!id) return;
   await getDb().delete(portfolioVideos).where(eq(portfolioVideos.id, id));
   revalidateTag(PORTFOLIO_TAG, "max");
+  redirect("/admin/portfolio");
 }
 
 export async function saveCaseStudy(formData: FormData) {
@@ -126,6 +131,7 @@ export async function saveCaseStudy(formData: FormData) {
   }
 
   revalidateTag(CASE_STUDIES_TAG, "max");
+  redirect(`/admin/case-studies/${studyId}`);
 }
 
 export async function deleteCaseStudy(formData: FormData) {
@@ -134,4 +140,19 @@ export async function deleteCaseStudy(formData: FormData) {
   if (!id) return;
   await getDb().delete(caseStudies).where(eq(caseStudies.id, id));
   revalidateTag(CASE_STUDIES_TAG, "max");
+  redirect("/admin/case-studies");
+}
+
+export async function approveAdminRequest(formData: FormData) {
+  const { user } = await requireAdmin();
+  const id = String(formData.get("id") ?? "");
+  if (!id) return;
+  await setAdminStatus(id, "approved", user.email!);
+}
+
+export async function rejectAdminRequest(formData: FormData) {
+  const { user } = await requireAdmin();
+  const id = String(formData.get("id") ?? "");
+  if (!id) return;
+  await setAdminStatus(id, "rejected", user.email!);
 }

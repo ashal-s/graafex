@@ -11,6 +11,10 @@ const r2Host = (() => {
 })();
 
 const nextConfig: NextConfig = {
+  // Next 16.3 defaults this on; it has caused unbounded RSC prefetch loops.
+  experimental: {
+    optimisticRouting: false,
+  },
   images: {
     remotePatterns: r2Host
       ? [

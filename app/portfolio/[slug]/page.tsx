@@ -5,30 +5,28 @@ import Footer from "@/components/Footer";
 import { CaseStudyDetail, seedFor } from "@/components/CaseStudy";
 import PortfolioVideo from "@/components/PortfolioVideo";
 import { Reveal } from "@/components/ui";
-import { caseStudies } from "@/lib/case-studies";
+import { getCaseStudies, getCaseStudyBySlug } from "@/lib/data/case-studies";
 
-export function generateStaticParams() {
-  return caseStudies.map((s) => ({ slug: s.slug }));
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: PageProps<"/portfolio/[slug]">): Promise<Metadata> {
   const { slug } = await params;
-  const study = caseStudies.find((s) => s.slug === slug);
+  const study = await getCaseStudyBySlug(slug);
   return { title: study ? study.name : "Case study" };
 }
 
 export default async function CaseStudyPage({ params }: PageProps<"/portfolio/[slug]">) {
   const { slug } = await params;
-  const index = caseStudies.findIndex((s) => s.slug === slug);
+  const studies = await getCaseStudies();
+  const index = studies.findIndex((s) => s.slug === slug);
   if (index === -1) notFound();
-  const study = caseStudies[index];
+  const study = studies[index];
 
   return (
     <>
       <Nav />
       <main id="main">
         <section className="relative z-[2] overflow-hidden">
-          {/* Main film first — same container as the content below, nav sits over it */}
           <div className="container-x relative py-[var(--margin)]">
             <div className="relative aspect-video min-h-[20rem] w-full overflow-hidden rounded-[var(--radius-main)] bg-bg-2 md:aspect-auto md:h-[calc(100svh-var(--margin)*2)]">
               <PortfolioVideo
@@ -46,10 +44,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/portfolio/[s
           </div>
 
           <div className="container-x relative pb-[clamp(1.5rem,2.5vw,2.5rem)] pt-[clamp(1.5rem,3vw,2.5rem)]">
-            {/* Logo, name and description on the left; services and year on the right */}
-            <Reveal
-              className="grid gap-10 font-[family-name:var(--font-body)] md:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] md:gap-16"
-            >
+            <Reveal className="grid gap-10 font-[family-name:var(--font-body)] md:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] md:gap-16">
               <div>
                 <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-8">
                   {study.logo && (

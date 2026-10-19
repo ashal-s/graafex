@@ -11,9 +11,10 @@ Built with [Next.js](https://nextjs.org) (App Router), React, and Tailwind CSS.
 | `/` | Home — video hero with scroll-driven intro |
 | `/about` | Studio story, services, and team |
 | `/portfolio` | Hover-play film grid, clients and case study cards |
-| `/portfolio/<slug>` | A case study (hero film, reels, photos) — see [Adding a case study](#adding-a-case-study) |
+| `/portfolio/<slug>` | A case study (hero film, reels, photos) |
+| `/admin` | CMS for portfolio films and case studies (Neon Auth) |
 
-Site copy, nav, services, and contact details live in [`lib/content.ts`](lib/content.ts). Much of it is still placeholder — swap in real Graafex content there.
+Site copy, nav, services, and contact details live in [`lib/content.ts`](lib/content.ts). Portfolio films and case studies are stored in **Neon** (metadata) with media on **Cloudflare R2**.
 
 ## Getting started
 
@@ -30,6 +31,10 @@ Open [http://localhost:3000](http://localhost:3000).
 | `npm run build` | Production build |
 | `npm run start` | Serve the production build |
 | `npm run lint` | ESLint |
+| `npm run db:push` | Push Drizzle schema to Neon |
+| `npm run media:migrate` | Upload `public/` media to R2 and seed Neon |
+
+Copy [`.env.example`](.env.example) to `.env.local` and fill Neon + R2 values.
 
 ## Stack
 
@@ -37,28 +42,17 @@ Open [http://localhost:3000](http://localhost:3000).
 - **React 19**
 - **Tailwind CSS 4**
 - **TypeScript**
+- **Neon** — Postgres + Managed Better Auth
+- **Cloudflare R2** — media storage
 
-Hero video assets live under `public/videos/` (MP4 for playback; browsers do not reliably play `.mov`). Team photos are under `public/team/`.
+Team photos still live under `public/team/`. Prefer MP4 for video (browsers do not reliably play `.mov`).
 
-## Adding a case study
+## Admin / case studies
 
-Case studies are data-driven. Add one object to `entries` in `lib/case-studies.ts`:
-
-```ts
-{
-  name: "Project name",
-  logo: "/case-studies/project/logo.svg",        // optional client logo
-  description: "Short summary shown under the video.",
-  services: ["Videography", "Content Creation"],
-  year: "2025",
-  video: "/case-studies/project/hero.mp4",       // hero video (file in /public or an https link)
-  reels: ["/case-studies/project/reel-1.mp4"],   // vertical 9:16 videos
-  photos: ["/case-studies/project/photo-1.jpg"], // each keeps its own aspect ratio
-}
-```
-
-It appears as a card on `/portfolio` and gets its own page at `/portfolio/<slug>` (the slug defaults to the name). Reels and photos are optional; an empty list hides that section.
+1. Create an admin user at `/auth/sign-up` (optionally set `ADMIN_EMAIL_ALLOWLIST`).
+2. Sign in at `/auth/sign-in`, then use `/admin` to manage portfolio tiles and case studies.
+3. Uploads go to R2; public pages read from Neon with short cache revalidation.
 
 ## Deploy
 
-Deploy on [Vercel](https://vercel.com) — connect the repo and use the default Next.js settings.
+Deploy on [Vercel](https://vercel.com). Add the same env vars as `.env.local`, and in the Neon Auth console add your production domain to trusted origins.

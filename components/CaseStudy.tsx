@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { CaseStudy } from "@/lib/case-studies";
+import type { CaseStudy } from "@/lib/data/types";
 import { Reveal, SwooshButton } from "./ui";
 import PortfolioVideo from "./PortfolioVideo";
 import ReelPlayer from "./ReelPlayer";

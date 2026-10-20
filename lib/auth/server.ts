@@ -2,7 +2,7 @@ import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "@better-auth/mongo-adapter";
 import { nextCookies } from "better-auth/next-js";
 import { admin } from "better-auth/plugins";
-import { getDb, getMongoClient } from "@/lib/db/mongo";
+import { connectMongo, getDb, getMongoClient } from "@/lib/db/mongo";
 
 function createAuth() {
   const client = getMongoClient();
@@ -35,11 +35,25 @@ declare global {
   var __graafexAuth: Auth | undefined;
 }
 
+let authClient: ReturnType<typeof getMongoClient> | undefined;
+
 function getAuth(): Auth {
-  if (!globalThis.__graafexAuth) {
+  const client = getMongoClient();
+  // A replaced client (after "Topology is closed") must not keep the old adapter.
+  if (!globalThis.__graafexAuth || authClient !== client) {
+    authClient = client;
     globalThis.__graafexAuth = createAuth();
   }
   return globalThis.__graafexAuth;
+}
+
+/** Open Mongo before an auth call so sign-in does not hit a closed topology. */
+export async function ensureAuthDb() {
+  const client = await connectMongo();
+  if (authClient !== client) {
+    authClient = client;
+    globalThis.__graafexAuth = createAuth();
+  }
 }
 
 /**

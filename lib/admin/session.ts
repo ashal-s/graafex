@@ -1,6 +1,6 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { auth } from "@/lib/auth/server";
+import { auth, ensureAuthDb } from "@/lib/auth/server";
 
 export type AuthUser = {
   id?: string;
@@ -25,6 +25,7 @@ function hasAdminRole(user: AuthUser) {
 
 /** Fresh session lookup — do not wrap in React cache. */
 export async function getSessionUser(): Promise<AuthUser | null> {
+  await ensureAuthDb();
   const session = await auth.api.getSession({
     headers: await headers(),
   });

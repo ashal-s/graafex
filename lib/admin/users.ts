@@ -1,5 +1,5 @@
 import { headers } from "next/headers";
-import { auth } from "@/lib/auth/server";
+import { auth, ensureAuthDb } from "@/lib/auth/server";
 
 export type PortalUser = {
   id: string;
@@ -25,6 +25,7 @@ function asUser(raw: unknown): PortalUser | null {
 }
 
 async function sessionHeaders() {
+  await ensureAuthDb();
   return await headers();
 }
 

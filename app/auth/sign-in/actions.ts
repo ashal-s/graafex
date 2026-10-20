@@ -2,13 +2,14 @@
 
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { auth } from "@/lib/auth/server";
+import { auth, ensureAuthDb } from "@/lib/auth/server";
 
 export async function signInWithEmail(
   _prevState: { error: string } | null,
   formData: FormData,
 ) {
   try {
+    await ensureAuthDb();
     await auth.api.signInEmail({
       body: {
         email: String(formData.get("email") ?? ""),

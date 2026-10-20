@@ -24,6 +24,7 @@ export const hero = {
   heading: "Brands built to stand out and strategy built to last.",
 };
 
+/** Fallback names if no logos are published in the admin CMS yet. */
 export const clientLogos = ["Lumen", "Orbitra", "Kestrel", "Nova&Co", "Fieldhouse", "Meridian", "Parallel", "Quarry", "Sable", "Tidewater"];
 
 export const aboutServices = [
@@ -96,25 +97,5 @@ export const monthlyPackages: PricingPackage[] = [
   },
 ];
 
-// ---- Portfolio -------------------------------------------------------------
-// Placeholder media: drop files in /public/videos/portfolio (or /public/portfolio)
-// and set `src` / `poster` — items without one render an animated gradient.
-
-type Palette = [string, string];
-
-// Temporary: remaining tiles use the hero video until real films are supplied.
-const HERO_VIDEO = "/videos/hero_video.mp4";
-
-export const portfolioVideos: {
-  title: string;
-  src?: string;
-  poster?: string;
-  palette: Palette;
-}[] = [
-  { title: "Northwind Gallery", src: "/videos/masjid_video.mov", palette: ["#ff4d00", "#7a2a0a"] },
-  { title: "Harbour Collective", src: "/videos/gym_video.mov", palette: ["#ff7a33", "#3a1208"] },
-  { title: "Atlas Athletics", src: "/videos/hijab_video.mov", palette: ["#ff9a5c", "#4a1a08"] },
-  { title: "Lumen Studio", src: HERO_VIDEO, palette: ["#e03d00", "#2a0f06"] },
-  { title: "Fieldhouse", src: HERO_VIDEO, palette: ["#ff7a33", "#ffd9bf"] },
-  { title: "Meridian Health", src: HERO_VIDEO, palette: ["#c23a00", "#ff9a5c"] },
-];
+// Portfolio films and case studies are stored in MongoDB + R2.
+// Manage them at /admin (see README).

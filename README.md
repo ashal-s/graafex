@@ -11,14 +11,15 @@ Built with [Next.js](https://nextjs.org) (App Router), React, and Tailwind CSS.
 | `/` | Home — video hero with scroll-driven intro |
 | `/about` | Studio story, services, and team |
 | `/portfolio` | Hover-play film grid, clients and case study cards |
-| `/portfolio/<slug>` | A case study (hero film, reels, photos) — see [Adding a case study](#adding-a-case-study) |
+| `/portfolio/<slug>` | A case study (hero film, reels, photos) |
+| `/admin` | CMS for portfolio films and case studies (Better Auth) |
 
-Site copy, nav, services, and contact details live in [`lib/content.ts`](lib/content.ts). Much of it is still placeholder — swap in real Graafex content there.
+Site copy, nav, services, and contact details live in [`lib/content.ts`](lib/content.ts). Portfolio films and case studies are stored in **MongoDB Atlas** (metadata) with media on **Cloudflare R2**.
 
 ## Getting started
 
 ```bash
-npm install
+npm install --legacy-peer-deps
 npm run dev
 ```
 
@@ -30,6 +31,10 @@ Open [http://localhost:3000](http://localhost:3000).
 | `npm run build` | Production build |
 | `npm run start` | Serve the production build |
 | `npm run lint` | ESLint |
+| `npm run seed:admin` | Create the first admin user |
+| `npm run import:neon` | One-shot: copy CMS rows from Neon → Mongo (`DATABASE_URL` required) |
+
+Copy [`.env.example`](.env.example) to `.env.local` and fill MongoDB, Better Auth, and R2 values.
 
 ## Stack
 
@@ -37,28 +42,22 @@ Open [http://localhost:3000](http://localhost:3000).
 - **React 19**
 - **Tailwind CSS 4**
 - **TypeScript**
+- **MongoDB Atlas** — CMS + Better Auth data
+- **Better Auth** — email/password admin auth
+- **Cloudflare R2** — media storage
 
-Hero video assets live under `public/videos/` (MP4 for playback; browsers do not reliably play `.mov`). Team photos are under `public/team/`.
+Team photos still live under `public/team/`. Prefer MP4 for video (browsers do not reliably play `.mov`).
 
-## Adding a case study
+## Admin
 
-Case studies are data-driven. Add one object to `entries` in `lib/case-studies.ts`:
-
-```ts
-{
-  name: "Project name",
-  logo: "/case-studies/project/logo.svg",        // optional client logo
-  description: "Short summary shown under the video.",
-  services: ["Videography", "Content Creation"],
-  year: "2025",
-  video: "/case-studies/project/hero.mp4",       // hero video (file in /public or an https link)
-  reels: ["/case-studies/project/reel-1.mp4"],   // vertical 9:16 videos
-  photos: ["/case-studies/project/photo-1.jpg"], // each keeps its own aspect ratio
-}
-```
-
-It appears as a card on `/portfolio` and gets its own page at `/portfolio/<slug>` (the slug defaults to the name). Reels and photos are optional; an empty list hides that section.
+1. Seed the first admin:
+   ```bash
+   SEED_ADMIN_EMAIL=you@example.com SEED_ADMIN_PASSWORD='your-password' npm run seed:admin
+   ```
+2. Sign in at `/auth/sign-in`, then use `/admin` to manage portfolio tiles, case studies, and users.
+3. Further accounts are invite-only via `/admin/users` (public sign-up is disabled).
+4. Uploads go to R2; public pages read from MongoDB with short cache revalidation.
 
 ## Deploy
 
-Deploy on [Vercel](https://vercel.com) — connect the repo and use the default Next.js settings.
+Deploy on [Vercel](https://vercel.com). Add the same env vars as `.env.local` (`MONGODB_URI`, `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL` for production, and R2). Leave `BETTER_AUTH_URL` unset on Preview so Better Auth infers the deployment URL.

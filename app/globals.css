@@ -236,3 +236,12 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .parallax { transform: none; }
 }
+
+/* Admin portal — quieter canvas so content reads premium and focused */
+.admin-shell {
+  background:
+    radial-gradient(50% 40% at 100% 0%, rgb(255 77 0 / 0.12), transparent 55%),
+    radial-gradient(40% 35% at 0% 100%, rgb(255 122 51 / 0.08), transparent 50%),
+    linear-gradient(180deg, #140e0b 0%, var(--bg) 40%, #100c0a 100%);
+  background-attachment: fixed;
+}

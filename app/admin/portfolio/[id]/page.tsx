@@ -1,13 +1,11 @@
 import { notFound, redirect } from "next/navigation";
-import { eq } from "drizzle-orm";
 import { deletePortfolioVideo } from "@/app/admin/actions";
 import { IconButton, IconLink } from "@/components/admin/IconButton";
 import { IconBack, IconTrash } from "@/components/admin/icons";
 import PortfolioForm from "@/components/admin/PortfolioForm";
-import { getDb } from "@/db";
-import { portfolioVideos } from "@/db/schema";
 import { getSessionUser } from "@/lib/admin/session";
 import { mintSaveToken } from "@/lib/admin/save-token";
+import { getPortfolioVideoById } from "@/lib/data/portfolio";
 
 export const dynamic = "force-dynamic";
 
@@ -20,7 +18,7 @@ export default async function EditPortfolioVideoPage({
   if (!user?.email) redirect("/auth/sign-in");
 
   const { id } = await params;
-  const [v] = await getDb().select().from(portfolioVideos).where(eq(portfolioVideos.id, id)).limit(1);
+  const v = await getPortfolioVideoById(id);
   if (!v) notFound();
 
   return (

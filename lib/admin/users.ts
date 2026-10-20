@@ -1,3 +1,4 @@
+import { headers } from "next/headers";
 import { auth } from "@/lib/auth/server";
 
 export type PortalUser = {
@@ -23,14 +24,15 @@ function asUser(raw: unknown): PortalUser | null {
   };
 }
 
+async function sessionHeaders() {
+  return await headers();
+}
+
 export async function listPortalUsers(): Promise<PortalUser[]> {
-  const { data, error } = await auth.admin.listUsers({
+  const data = await auth.api.listUsers({
     query: { limit: 100, sortBy: "createdAt", sortDirection: "desc" },
+    headers: await sessionHeaders(),
   });
-  if (error) {
-    console.error("[admin] listUsers", error);
-    throw new Error(error.message || "Failed to list users");
-  }
   const users = (data as { users?: unknown[] } | null)?.users ?? [];
   return users.map(asUser).filter(Boolean) as PortalUser[];
 }
@@ -45,13 +47,15 @@ export async function createPortalUser(input: {
   email: string;
   password: string;
 }) {
-  const { data, error } = await auth.admin.createUser({
-    name: input.name.trim(),
-    email: input.email.trim().toLowerCase(),
-    password: input.password,
-    role: "admin",
+  const data = await auth.api.createUser({
+    body: {
+      name: input.name.trim(),
+      email: input.email.trim().toLowerCase(),
+      password: input.password,
+      role: "admin",
+    },
+    headers: await sessionHeaders(),
   });
-  if (error) throw new Error(error.message || "Failed to create user");
   return asUser((data as { user?: unknown } | null)?.user ?? data);
 }
 
@@ -59,26 +63,32 @@ export async function updatePortalUser(
   userId: string,
   input: { name: string; email: string },
 ) {
-  const { data, error } = await auth.admin.updateUser({
-    userId,
-    data: {
-      name: input.name.trim(),
-      email: input.email.trim().toLowerCase(),
+  const data = await auth.api.adminUpdateUser({
+    body: {
+      userId,
+      data: {
+        name: input.name.trim(),
+        email: input.email.trim().toLowerCase(),
+      },
     },
+    headers: await sessionHeaders(),
   });
-  if (error) throw new Error(error.message || "Failed to update user");
   return asUser((data as { user?: unknown } | null)?.user ?? data);
 }
 
 export async function resetPortalUserPassword(userId: string, newPassword: string) {
-  const { error } = await auth.admin.setUserPassword({
-    userId,
-    newPassword,
+  await auth.api.setUserPassword({
+    body: {
+      userId,
+      newPassword,
+    },
+    headers: await sessionHeaders(),
   });
-  if (error) throw new Error(error.message || "Failed to reset password");
 }
 
 export async function deletePortalUser(userId: string) {
-  const { error } = await auth.admin.removeUser({ userId });
-  if (error) throw new Error(error.message || "Failed to delete user");
+  await auth.api.removeUser({
+    body: { userId },
+    headers: await sessionHeaders(),
+  });
 }

@@ -3,8 +3,8 @@ import { createHmac, timingSafeEqual } from "crypto";
 const TTL_MS = 1000 * 60 * 60 * 12; // 12 hours
 
 function secret() {
-  const s = process.env.NEON_AUTH_COOKIE_SECRET;
-  if (!s) throw new Error("NEON_AUTH_COOKIE_SECRET is not set");
+  const s = process.env.BETTER_AUTH_SECRET;
+  if (!s) throw new Error("BETTER_AUTH_SECRET is not set");
   return s;
 }
 
@@ -12,7 +12,7 @@ function sign(payload: string) {
   return createHmac("sha256", secret()).update(payload).digest("base64url");
 }
 
-/** Mint a token for admin form POSTs (avoids Neon cookie gaps on Route Handlers). */
+/** Mint a token for admin form POSTs (avoids cookie gaps on Route Handlers). */
 export function mintSaveToken(email: string) {
   const exp = Date.now() + TTL_MS;
   const body = `${email.trim().toLowerCase()}.${exp}`;

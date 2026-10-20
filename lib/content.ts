@@ -96,5 +96,5 @@ export const monthlyPackages: PricingPackage[] = [
   },
 ];
 
-// Portfolio films and case studies are stored in Neon + R2.
+// Portfolio films and case studies are stored in MongoDB + R2.
 // Manage them at /admin (see README).

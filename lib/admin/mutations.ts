@@ -1,7 +1,11 @@
-import { eq } from "drizzle-orm";
+import { ObjectId } from "mongodb";
 import { revalidateTag } from "next/cache";
-import { getDb } from "@/db";
-import { caseStudies, caseStudyPhotos, caseStudyReels, portfolioVideos } from "@/db/schema";
+import { getDb } from "@/lib/db/mongo";
+import {
+  COLLECTIONS,
+  type CaseStudyDoc,
+  type PortfolioVideoDoc,
+} from "@/lib/db/types";
 import { CASE_STUDIES_TAG } from "@/lib/data/case-studies";
 import { PORTFOLIO_TAG } from "@/lib/data/portfolio";
 import { slugify } from "@/lib/data/types";
@@ -21,7 +25,6 @@ function parseLines(raw: string) {
 }
 
 export async function upsertPortfolioVideo(formData: FormData) {
-  const db = getDb();
   const id = String(formData.get("id") ?? "");
   const title = String(formData.get("title") ?? "").trim();
   const src = String(formData.get("src") ?? "").trim() || null;
@@ -34,6 +37,8 @@ export async function upsertPortfolioVideo(formData: FormData) {
 
   if (!title) throw new Error("Title is required");
 
+  const col = getDb().collection<PortfolioVideoDoc>(COLLECTIONS.portfolioVideos);
+  const now = new Date();
   const values = {
     title,
     src,
@@ -41,20 +46,24 @@ export async function upsertPortfolioVideo(formData: FormData) {
     palette: [paletteA, paletteB] as [string, string],
     sortOrder,
     published,
-    updatedAt: new Date(),
+    updatedAt: now,
   };
 
   if (id) {
-    await db.update(portfolioVideos).set(values).where(eq(portfolioVideos.id, id));
+    if (!ObjectId.isValid(id)) throw new Error("Invalid video id");
+    await col.updateOne({ _id: new ObjectId(id) }, { $set: values });
   } else {
-    await db.insert(portfolioVideos).values(values);
+    await col.insertOne({
+      _id: new ObjectId(),
+      ...values,
+      createdAt: now,
+    } as PortfolioVideoDoc);
   }
 
   revalidateTag(PORTFOLIO_TAG, "max");
 }
 
 export async function upsertCaseStudy(formData: FormData) {
-  const db = getDb();
   const id = String(formData.get("id") ?? "");
   const name = String(formData.get("name") ?? "").trim();
   const slug = String(formData.get("slug") ?? "").trim() || slugify(name);
@@ -65,8 +74,8 @@ export async function upsertCaseStudy(formData: FormData) {
   const video = String(formData.get("video") ?? "").trim();
   const poster =
     String(formData.get("thumbnail") ?? formData.get("poster") ?? "").trim() || null;
-  const reels = parseLines(String(formData.get("reels") ?? ""));
-  const photos = parseLines(String(formData.get("photos") ?? ""));
+  const reelUrls = parseLines(String(formData.get("reels") ?? ""));
+  const photoUrls = parseLines(String(formData.get("photos") ?? ""));
   const sortOrder = Number(formData.get("sortOrder") ?? 0) || 0;
   const published = formData.get("published") === "on";
 
@@ -74,7 +83,16 @@ export async function upsertCaseStudy(formData: FormData) {
     throw new Error("Name, description, year, and video are required");
   }
 
-  const studyValues = {
+  const reels = reelUrls.map((url, i) => ({ url, sortOrder: i }));
+  const photos = photoUrls.map((url, i) => ({
+    url,
+    alt: `${name} — photo ${i + 1}`,
+    sortOrder: i,
+  }));
+
+  const col = getDb().collection<CaseStudyDoc>(COLLECTIONS.caseStudies);
+  const now = new Date();
+  const values = {
     slug,
     name,
     logo,
@@ -83,36 +101,39 @@ export async function upsertCaseStudy(formData: FormData) {
     year,
     video,
     poster,
+    reels,
+    photos,
     sortOrder,
     published,
-    updatedAt: new Date(),
+    updatedAt: now,
   };
 
-  let studyId = id;
   if (id) {
-    await db.update(caseStudies).set(studyValues).where(eq(caseStudies.id, id));
-    await db.delete(caseStudyReels).where(eq(caseStudyReels.caseStudyId, id));
-    await db.delete(caseStudyPhotos).where(eq(caseStudyPhotos.caseStudyId, id));
+    if (!ObjectId.isValid(id)) throw new Error("Invalid case study id");
+    await col.updateOne({ _id: new ObjectId(id) }, { $set: values });
   } else {
-    const [row] = await db.insert(caseStudies).values(studyValues).returning({ id: caseStudies.id });
-    studyId = row.id;
+    await col.insertOne({
+      _id: new ObjectId(),
+      ...values,
+      createdAt: now,
+    } as CaseStudyDoc);
   }
 
-  if (reels.length) {
-    await db.insert(caseStudyReels).values(
-      reels.map((url, i) => ({ caseStudyId: studyId, url, sortOrder: i })),
-    );
-  }
-  if (photos.length) {
-    await db.insert(caseStudyPhotos).values(
-      photos.map((url, i) => ({
-        caseStudyId: studyId,
-        url,
-        alt: `${name} — photo ${i + 1}`,
-        sortOrder: i,
-      })),
-    );
-  }
+  revalidateTag(CASE_STUDIES_TAG, "max");
+}
 
+export async function deletePortfolioVideoById(id: string) {
+  if (!ObjectId.isValid(id)) return;
+  await getDb()
+    .collection(COLLECTIONS.portfolioVideos)
+    .deleteOne({ _id: new ObjectId(id) });
+  revalidateTag(PORTFOLIO_TAG, "max");
+}
+
+export async function deleteCaseStudyById(id: string) {
+  if (!ObjectId.isValid(id)) return;
+  await getDb()
+    .collection(COLLECTIONS.caseStudies)
+    .deleteOne({ _id: new ObjectId(id) });
   revalidateTag(CASE_STUDIES_TAG, "max");
 }

@@ -14,7 +14,7 @@ export default async function AdminUsersPage() {
     error =
       e instanceof Error
         ? e.message
-        : "Could not load users. Ensure your account has the Neon Auth admin role.";
+        : "Could not load users. Ensure your account has the admin role.";
   }
 
   return (
@@ -33,8 +33,9 @@ export default async function AdminUsersPage() {
 
       {error && (
         <p className="rounded border border-line bg-bg-2 px-4 py-3 text-sm text-accent">
-          {error} In the Neon Console, open Auth → Users, and use “Make admin” on your
-          account.
+          {error} Seed the first admin with{" "}
+          <code className="text-heading">npm run seed:admin</code>, then sign in
+          again.
         </p>
       )}
 

@@ -1,56 +1,76 @@
-import { asc, eq } from "drizzle-orm";
 import { unstable_cache } from "next/cache";
-import { getDb } from "@/db";
-import { caseStudies, caseStudyPhotos, caseStudyReels } from "@/db/schema";
+import { getDb } from "@/lib/db/mongo";
+import { COLLECTIONS, type CaseStudyDoc } from "@/lib/db/types";
 import type { CaseStudy } from "./types";
 
 export const CASE_STUDIES_TAG = "case-studies";
 
+export type AdminCaseStudy = {
+  id: string;
+  slug: string;
+  name: string;
+  logo: string | null;
+  description: string;
+  services: string[];
+  year: string;
+  video: string;
+  poster: string | null;
+  reels: { url: string; sortOrder: number }[];
+  photos: { url: string; alt?: string | null; sortOrder: number }[];
+  sortOrder: number;
+  published: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+function toPublic(doc: CaseStudyDoc): CaseStudy {
+  return {
+    id: doc._id.toHexString(),
+    slug: doc.slug,
+    name: doc.name,
+    logo: doc.logo ?? undefined,
+    description: doc.description,
+    services: doc.services ?? [],
+    year: doc.year,
+    video: doc.video,
+    poster: doc.poster ?? undefined,
+    reels: [...(doc.reels ?? [])]
+      .sort((a, b) => a.sortOrder - b.sortOrder)
+      .map((r) => r.url),
+    photos: [...(doc.photos ?? [])]
+      .sort((a, b) => a.sortOrder - b.sortOrder)
+      .map((p) => p.url),
+  };
+}
+
+function toAdmin(doc: CaseStudyDoc): AdminCaseStudy {
+  return {
+    id: doc._id.toHexString(),
+    slug: doc.slug,
+    name: doc.name,
+    logo: doc.logo,
+    description: doc.description,
+    services: doc.services ?? [],
+    year: doc.year,
+    video: doc.video,
+    poster: doc.poster,
+    reels: [...(doc.reels ?? [])].sort((a, b) => a.sortOrder - b.sortOrder),
+    photos: [...(doc.photos ?? [])].sort((a, b) => a.sortOrder - b.sortOrder),
+    sortOrder: doc.sortOrder,
+    published: doc.published,
+    createdAt: doc.createdAt,
+    updatedAt: doc.updatedAt,
+  };
+}
+
 async function fetchCaseStudies(): Promise<CaseStudy[]> {
-  const db = getDb();
-  const rows = await db
-    .select()
-    .from(caseStudies)
-    .where(eq(caseStudies.published, true))
-    .orderBy(asc(caseStudies.sortOrder), asc(caseStudies.name));
+  const rows = await getDb()
+    .collection<CaseStudyDoc>(COLLECTIONS.caseStudies)
+    .find({ published: true })
+    .sort({ sortOrder: 1, name: 1 })
+    .toArray();
 
-  if (rows.length === 0) return [];
-
-  const ids = rows.map((r) => r.id);
-  const [reels, photos] = await Promise.all([
-    db.select().from(caseStudyReels).orderBy(asc(caseStudyReels.sortOrder)),
-    db.select().from(caseStudyPhotos).orderBy(asc(caseStudyPhotos.sortOrder)),
-  ]);
-
-  const reelsByStudy = new Map<string, string[]>();
-  const photosByStudy = new Map<string, string[]>();
-
-  for (const r of reels) {
-    if (!ids.includes(r.caseStudyId)) continue;
-    const list = reelsByStudy.get(r.caseStudyId) ?? [];
-    list.push(r.url);
-    reelsByStudy.set(r.caseStudyId, list);
-  }
-  for (const p of photos) {
-    if (!ids.includes(p.caseStudyId)) continue;
-    const list = photosByStudy.get(p.caseStudyId) ?? [];
-    list.push(p.url);
-    photosByStudy.set(p.caseStudyId, list);
-  }
-
-  return rows.map((r) => ({
-    id: r.id,
-    slug: r.slug,
-    name: r.name,
-    logo: r.logo ?? undefined,
-    description: r.description,
-    services: r.services ?? [],
-    year: r.year,
-    video: r.video,
-    poster: r.poster ?? undefined,
-    reels: reelsByStudy.get(r.id) ?? [],
-    photos: photosByStudy.get(r.id) ?? [],
-  }));
+  return rows.map(toPublic);
 }
 
 export async function getCaseStudies(): Promise<CaseStudy[]> {
@@ -66,7 +86,20 @@ export async function getCaseStudyBySlug(slug: string): Promise<CaseStudy | null
 }
 
 /** Uncached — for admin. */
-export async function listAllCaseStudies() {
-  const db = getDb();
-  return db.select().from(caseStudies).orderBy(asc(caseStudies.sortOrder), asc(caseStudies.name));
+export async function listAllCaseStudies(): Promise<AdminCaseStudy[]> {
+  const rows = await getDb()
+    .collection<CaseStudyDoc>(COLLECTIONS.caseStudies)
+    .find({})
+    .sort({ sortOrder: 1, name: 1 })
+    .toArray();
+  return rows.map(toAdmin);
+}
+
+export async function getCaseStudyById(id: string): Promise<AdminCaseStudy | null> {
+  const { ObjectId } = await import("mongodb");
+  if (!ObjectId.isValid(id)) return null;
+  const doc = await getDb()
+    .collection<CaseStudyDoc>(COLLECTIONS.caseStudies)
+    .findOne({ _id: new ObjectId(id) });
+  return doc ? toAdmin(doc) : null;
 }

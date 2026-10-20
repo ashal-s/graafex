@@ -1,13 +1,11 @@
 import { notFound, redirect } from "next/navigation";
-import { asc, eq } from "drizzle-orm";
 import { deleteCaseStudy } from "@/app/admin/actions";
 import CaseStudyForm from "@/components/admin/CaseStudyForm";
 import { IconButton, IconLink } from "@/components/admin/IconButton";
 import { IconBack, IconTrash } from "@/components/admin/icons";
-import { getDb } from "@/db";
-import { caseStudies, caseStudyPhotos, caseStudyReels } from "@/db/schema";
 import { getSessionUser } from "@/lib/admin/session";
 import { mintSaveToken } from "@/lib/admin/save-token";
+import { getCaseStudyById } from "@/lib/data/case-studies";
 
 export const dynamic = "force-dynamic";
 
@@ -20,22 +18,8 @@ export default async function EditCaseStudyPage({
   if (!user?.email) redirect("/auth/sign-in");
 
   const { id } = await params;
-  const db = getDb();
-  const [s] = await db.select().from(caseStudies).where(eq(caseStudies.id, id)).limit(1);
+  const s = await getCaseStudyById(id);
   if (!s) notFound();
-
-  const [reels, photos] = await Promise.all([
-    db
-      .select()
-      .from(caseStudyReels)
-      .where(eq(caseStudyReels.caseStudyId, id))
-      .orderBy(asc(caseStudyReels.sortOrder)),
-    db
-      .select()
-      .from(caseStudyPhotos)
-      .where(eq(caseStudyPhotos.caseStudyId, id))
-      .orderBy(asc(caseStudyPhotos.sortOrder)),
-  ]);
 
   return (
     <div className="grid gap-6">
@@ -68,8 +52,8 @@ export default async function EditCaseStudyPage({
           year: s.year,
           video: s.video,
           thumbnail: s.poster ?? "",
-          reels: reels.map((r) => r.url).join("\n"),
-          photos: photos.map((p) => p.url).join("\n"),
+          reels: s.reels.map((r) => r.url).join("\n"),
+          photos: s.photos.map((p) => p.url).join("\n"),
           sortOrder: s.sortOrder,
           published: s.published,
         }}

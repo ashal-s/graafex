@@ -12,14 +12,14 @@ Built with [Next.js](https://nextjs.org) (App Router), React, and Tailwind CSS.
 | `/about` | Studio story, services, and team |
 | `/portfolio` | Hover-play film grid, clients and case study cards |
 | `/portfolio/<slug>` | A case study (hero film, reels, photos) |
-| `/admin` | CMS for portfolio films and case studies (Neon Auth) |
+| `/admin` | CMS for portfolio films and case studies (Better Auth) |
 
-Site copy, nav, services, and contact details live in [`lib/content.ts`](lib/content.ts). Portfolio films and case studies are stored in **Neon** (metadata) with media on **Cloudflare R2**.
+Site copy, nav, services, and contact details live in [`lib/content.ts`](lib/content.ts). Portfolio films and case studies are stored in **MongoDB Atlas** (metadata) with media on **Cloudflare R2**.
 
 ## Getting started
 
 ```bash
-npm install
+npm install --legacy-peer-deps
 npm run dev
 ```
 
@@ -31,10 +31,10 @@ Open [http://localhost:3000](http://localhost:3000).
 | `npm run build` | Production build |
 | `npm run start` | Serve the production build |
 | `npm run lint` | ESLint |
-| `npm run db:push` | Push Drizzle schema to Neon |
-| `npm run media:migrate` | Upload `public/` media to R2 and seed Neon |
+| `npm run seed:admin` | Create the first admin user |
+| `npm run import:neon` | One-shot: copy CMS rows from Neon → Mongo (`DATABASE_URL` required) |
 
-Copy [`.env.example`](.env.example) to `.env.local` and fill Neon + R2 values.
+Copy [`.env.example`](.env.example) to `.env.local` and fill MongoDB, Better Auth, and R2 values.
 
 ## Stack
 
@@ -42,17 +42,22 @@ Copy [`.env.example`](.env.example) to `.env.local` and fill Neon + R2 values.
 - **React 19**
 - **Tailwind CSS 4**
 - **TypeScript**
-- **Neon** — Postgres + Managed Better Auth
+- **MongoDB Atlas** — CMS + Better Auth data
+- **Better Auth** — email/password admin auth
 - **Cloudflare R2** — media storage
 
 Team photos still live under `public/team/`. Prefer MP4 for video (browsers do not reliably play `.mov`).
 
-## Admin / case studies
+## Admin
 
-1. Create an admin user at `/auth/sign-up` (optionally set `ADMIN_EMAIL_ALLOWLIST`).
-2. Sign in at `/auth/sign-in`, then use `/admin` to manage portfolio tiles and case studies.
-3. Uploads go to R2; public pages read from Neon with short cache revalidation.
+1. Seed the first admin:
+   ```bash
+   SEED_ADMIN_EMAIL=you@example.com SEED_ADMIN_PASSWORD='your-password' npm run seed:admin
+   ```
+2. Sign in at `/auth/sign-in`, then use `/admin` to manage portfolio tiles, case studies, and users.
+3. Further accounts are invite-only via `/admin/users` (public sign-up is disabled).
+4. Uploads go to R2; public pages read from MongoDB with short cache revalidation.
 
 ## Deploy
 
-Deploy on [Vercel](https://vercel.com). Add the same env vars as `.env.local`, and in the Neon Auth console add your production domain to trusted origins.
+Deploy on [Vercel](https://vercel.com). Add the same env vars as `.env.local` (`MONGODB_URI`, `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL` for production, and R2). Leave `BETTER_AUTH_URL` unset on Preview so Better Auth infers the deployment URL.

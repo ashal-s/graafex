@@ -20,10 +20,15 @@ export function mintSaveToken(email: string) {
 }
 
 export function verifySaveToken(token: string): { email: string } | null {
-  const parts = token.split(".");
-  if (parts.length !== 3) return null;
-  const [email, expStr, sig] = parts;
-  const body = `${email}.${expStr}`;
+  // Emails contain dots, so take the expiry and signature from the right.
+  const sigDot = token.lastIndexOf(".");
+  if (sigDot <= 0) return null;
+  const body = token.slice(0, sigDot);
+  const sig = token.slice(sigDot + 1);
+  const expDot = body.lastIndexOf(".");
+  if (expDot <= 0) return null;
+  const email = body.slice(0, expDot);
+  const expStr = body.slice(expDot + 1);
   const expected = sign(body);
   try {
     const a = Buffer.from(sig);

@@ -32,7 +32,13 @@ async function ensureIndexes(db: Db) {
 export function getMongoClient() {
   if (!globalThis.__graafexMongo) {
     const uri = requireUri();
-    const client = new MongoClient(uri);
+    // Node 20+ (Vercel is on Node 24) tries IPv6 then IPv4. Atlas answers the
+    // IPv6 handshake with TLS alert 80, which surfaces as the SSL error on sign-in.
+    const client = new MongoClient(uri, {
+      autoSelectFamily: false,
+      family: 4,
+      serverMonitoringMode: "poll",
+    });
     const db = client.db(dbNameFromUri(uri));
     globalThis.__graafexMongo = {
       client,

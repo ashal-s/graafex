@@ -75,9 +75,9 @@ export default function MediaField({
               <IconX />
             </IconButton>
           )}
-          <label className="group relative inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-[var(--radius-small)] bg-bg-2 text-heading ring-1 ring-line transition-colors hover:text-accent">
+          <label className="group relative inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-line bg-[color-mix(in_srgb,var(--bg-2)_88%,black)] text-heading shadow-[inset_0_1px_0_rgb(255_245_237_/0.04)] transition-all duration-200 hover:border-accent/40 hover:text-accent">
             <IconUpload />
-            <span className="pointer-events-none absolute left-1/2 top-[calc(100%+0.4rem)] z-20 -translate-x-1/2 whitespace-nowrap rounded bg-heading px-2 py-1 text-[11px] font-medium text-bg-2 opacity-0 shadow-sm transition-opacity group-hover:opacity-100">
+            <span className="pointer-events-none absolute bottom-[calc(100%+0.4rem)] left-1/2 z-20 -translate-x-1/2 whitespace-nowrap rounded-md bg-heading px-2 py-1 text-[11px] font-medium text-bg-2 opacity-0 shadow-[0_8px_20px_rgb(0_0_0_/0.35)] transition-opacity group-hover:opacity-100">
               {busy ? "Uploading…" : value ? "Replace" : "Upload"}
             </span>
             <input
@@ -93,7 +93,7 @@ export default function MediaField({
       <input type="hidden" name={name} value={value} />
 
       {value ? (
-        <div className="overflow-hidden rounded-[var(--radius-small)] border border-line bg-bg">
+        <div className="overflow-hidden rounded-[var(--radius-small)] border border-line bg-[color-mix(in_srgb,var(--bg)_70%,transparent)]">
           {showVideo ? (
             <VideoThumb src={value} fit="contain" className="w-full max-h-[28rem]" aspect={fitAspect ? undefined : "16 / 9"} />
           ) : showImage ? (
@@ -104,7 +104,7 @@ export default function MediaField({
           )}
         </div>
       ) : (
-        <div className="flex min-h-28 items-center justify-center rounded-[var(--radius-small)] border border-dashed border-line bg-bg px-4 py-6 text-center text-xs text-body">
+        <div className="flex min-h-28 items-center justify-center rounded-[var(--radius-small)] border border-dashed border-line bg-[color-mix(in_srgb,var(--bg)_70%,transparent)] px-4 py-6 text-center text-xs text-body">
           No media yet
         </div>
       )}

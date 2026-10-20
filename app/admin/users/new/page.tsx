@@ -2,61 +2,64 @@
 
 import { useActionState } from "react";
 import { createUserAction } from "@/app/admin/users/actions";
-import { IconLink } from "@/components/admin/IconButton";
-import { IconBack } from "@/components/admin/icons";
+import { IconLink, LabelButton } from "@/components/admin/IconButton";
+import { IconBack, IconPlus } from "@/components/admin/icons";
+import {
+  AdminNotice,
+  AdminPageHeader,
+  AdminPanel,
+  adminFieldClass,
+  adminLabelClass,
+} from "@/components/admin/ui";
 
 export default function NewUserPage() {
   const [state, formAction, isPending] = useActionState(createUserAction, null);
 
   return (
-    <div className="grid max-w-md gap-6">
-      <div className="flex items-end justify-between gap-4">
-        <div>
-          <h1 className="t-h3 font-semibold text-heading">Add user</h1>
-          <p className="mt-1 text-sm text-body">Create an admin portal login.</p>
-        </div>
-        <IconLink href="/admin/users" label="Back">
-          <IconBack />
-        </IconLink>
-      </div>
+    <div className="grid max-w-lg gap-8">
+      <AdminPageHeader
+        title="Add user"
+        description="Create an admin portal login for a teammate."
+        actions={
+          <IconLink href="/admin/users" label="Back">
+            <IconBack />
+          </IconLink>
+        }
+      />
 
-      <form action={formAction} className="grid gap-4">
-        <label className="flex flex-col gap-1 text-sm text-body">
-          Name
-          <input
-            name="name"
-            required
-            className="rounded border border-line bg-bg-2 px-3 py-2 text-heading"
-          />
-        </label>
-        <label className="flex flex-col gap-1 text-sm text-body">
-          Email
-          <input
-            name="email"
-            type="email"
-            required
-            className="rounded border border-line bg-bg-2 px-3 py-2 text-heading"
-          />
-        </label>
-        <label className="flex flex-col gap-1 text-sm text-body">
-          Password
-          <input
-            name="password"
-            type="password"
-            required
-            minLength={8}
-            className="rounded border border-line bg-bg-2 px-3 py-2 text-heading"
-          />
-        </label>
-        {state?.error && <p className="text-sm text-accent">{state.error}</p>}
-        <button
-          type="submit"
-          disabled={isPending}
-          className="rounded bg-accent px-4 py-2 text-sm font-semibold text-bg-2 disabled:opacity-60"
-        >
-          {isPending ? "Creating…" : "Create user"}
-        </button>
-      </form>
+      <AdminPanel className="p-5">
+        <form action={formAction} className="grid gap-4">
+          <label className={adminLabelClass}>
+            Name
+            <input name="name" required className={adminFieldClass} />
+          </label>
+          <label className={adminLabelClass}>
+            Email
+            <input name="email" type="email" required className={adminFieldClass} />
+          </label>
+          <label className={adminLabelClass}>
+            Password
+            <input
+              name="password"
+              type="password"
+              required
+              minLength={8}
+              className={adminFieldClass}
+            />
+          </label>
+          {state?.error ? <AdminNotice tone="error">{state.error}</AdminNotice> : null}
+          <div className="pt-1">
+            <LabelButton
+              type="submit"
+              disabled={isPending}
+              label={isPending ? "Creating…" : "Create user"}
+              variant="accent"
+            >
+              <IconPlus />
+            </LabelButton>
+          </div>
+        </form>
+      </AdminPanel>
     </div>
   );
 }

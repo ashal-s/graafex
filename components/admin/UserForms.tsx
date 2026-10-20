@@ -6,6 +6,9 @@ import {
   resetPasswordAction,
   updateUserAction,
 } from "@/app/admin/users/actions";
+import { LabelButton } from "@/components/admin/IconButton";
+import { IconSave, IconTrash } from "@/components/admin/icons";
+import { AdminNotice, adminFieldClass, adminLabelClass } from "@/components/admin/ui";
 
 export function EditUserForm({
   id,
@@ -20,33 +23,31 @@ export function EditUserForm({
   return (
     <form action={action} className="grid gap-4">
       <input type="hidden" name="id" value={id} />
-      <label className="flex flex-col gap-1 text-sm text-body">
+      <label className={adminLabelClass}>
         Name
-        <input
-          name="name"
-          defaultValue={name}
-          required
-          className="rounded border border-line bg-bg-2 px-3 py-2 text-heading"
-        />
+        <input name="name" defaultValue={name} required className={adminFieldClass} />
       </label>
-      <label className="flex flex-col gap-1 text-sm text-body">
+      <label className={adminLabelClass}>
         Email
         <input
           name="email"
           type="email"
           defaultValue={email}
           required
-          className="rounded border border-line bg-bg-2 px-3 py-2 text-heading"
+          className={adminFieldClass}
         />
       </label>
-      {state?.error && <p className="text-sm text-accent">{state.error}</p>}
-      <button
-        type="submit"
-        disabled={pending}
-        className="justify-self-start rounded bg-accent px-4 py-2 text-sm font-semibold text-bg-2 disabled:opacity-60"
-      >
-        {pending ? "Saving…" : "Save details"}
-      </button>
+      {state?.error ? <AdminNotice tone="error">{state.error}</AdminNotice> : null}
+      <div>
+        <LabelButton
+          type="submit"
+          disabled={pending}
+          label={pending ? "Saving…" : "Save details"}
+          variant="accent"
+        >
+          <IconSave />
+        </LabelButton>
+      </div>
     </form>
   );
 }
@@ -56,24 +57,27 @@ export function ResetPasswordForm({ id }: { id: string }) {
   return (
     <form action={action} className="grid gap-4">
       <input type="hidden" name="id" value={id} />
-      <label className="flex flex-col gap-1 text-sm text-body">
+      <label className={adminLabelClass}>
         New password
         <input
           name="password"
           type="password"
           required
           minLength={8}
-          className="rounded border border-line bg-bg-2 px-3 py-2 text-heading"
+          className={adminFieldClass}
         />
       </label>
-      {state?.error && <p className="text-sm text-accent">{state.error}</p>}
-      <button
-        type="submit"
-        disabled={pending}
-        className="justify-self-start rounded border border-line px-4 py-2 text-sm font-semibold text-heading disabled:opacity-60"
-      >
-        {pending ? "Updating…" : "Reset password"}
-      </button>
+      {state?.error ? <AdminNotice tone="error">{state.error}</AdminNotice> : null}
+      <div>
+        <LabelButton
+          type="submit"
+          disabled={pending}
+          label={pending ? "Updating…" : "Reset password"}
+          variant="ghost"
+        >
+          <IconSave />
+        </LabelButton>
+      </div>
     </form>
   );
 }
@@ -82,12 +86,9 @@ export function DeleteUserForm({ id }: { id: string }) {
   return (
     <form action={deleteUserAction}>
       <input type="hidden" name="id" value={id} />
-      <button
-        type="submit"
-        className="rounded border border-accent px-4 py-2 text-sm font-semibold text-accent"
-      >
-        Delete user
-      </button>
+      <LabelButton type="submit" label="Delete user" variant="danger">
+        <IconTrash />
+      </LabelButton>
     </form>
   );
 }

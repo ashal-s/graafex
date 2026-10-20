@@ -57,9 +57,9 @@ export default function MediaListField({
     <div className="grid gap-2 text-sm text-body">
       <div className="flex items-center justify-between gap-3">
         <span className="font-medium text-heading">{label}</span>
-        <label className="group relative inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-[var(--radius-small)] bg-accent text-bg-2">
+        <label className="group relative inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-accent/30 bg-accent text-[#1a0c06] shadow-[0_8px_20px_rgb(255_77_0_/0.25)] transition-all duration-200 hover:brightness-110">
           <IconPlus />
-          <span className="pointer-events-none absolute left-1/2 top-[calc(100%+0.4rem)] z-20 -translate-x-1/2 whitespace-nowrap rounded bg-heading px-2 py-1 text-[11px] font-medium text-bg-2 opacity-0 shadow-sm transition-opacity group-hover:opacity-100">
+          <span className="pointer-events-none absolute bottom-[calc(100%+0.4rem)] left-1/2 z-20 -translate-x-1/2 whitespace-nowrap rounded-md bg-heading px-2 py-1 text-[11px] font-medium text-bg-2 opacity-0 shadow-[0_8px_20px_rgb(0_0_0_/0.35)] transition-opacity group-hover:opacity-100">
             {busy ? "Uploading…" : "Add files"}
           </span>
           <input
@@ -78,7 +78,7 @@ export default function MediaListField({
       <input type="hidden" name={name} value={items.join("\n")} />
 
       {items.length === 0 ? (
-        <div className="flex min-h-24 items-center justify-center rounded-[var(--radius-small)] border border-dashed border-line bg-bg px-4 py-6 text-center text-xs">
+        <div className="flex min-h-24 items-center justify-center rounded-[var(--radius-small)] border border-dashed border-line bg-[color-mix(in_srgb,var(--bg)_70%,transparent)] px-4 py-6 text-center text-xs">
           No items yet
         </div>
       ) : (

@@ -3,6 +3,7 @@ import { deletePortfolioVideo } from "@/app/admin/actions";
 import { IconButton, IconLink } from "@/components/admin/IconButton";
 import { IconBack, IconTrash } from "@/components/admin/icons";
 import PortfolioForm from "@/components/admin/PortfolioForm";
+import { AdminPageHeader } from "@/components/admin/ui";
 import { getSessionUser } from "@/lib/admin/session";
 import { mintSaveToken } from "@/lib/admin/save-token";
 import { getPortfolioVideoById } from "@/lib/data/portfolio";
@@ -22,24 +23,24 @@ export default async function EditPortfolioVideoPage({
   if (!v) notFound();
 
   return (
-    <div className="grid gap-6">
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h1 className="t-h3 font-semibold text-heading">Edit Video</h1>
-          <p className="mt-1 text-sm text-body">{v.title}</p>
-        </div>
-        <div className="flex gap-2">
-          <IconLink href="/admin/portfolio" label="Back">
-            <IconBack />
-          </IconLink>
-          <form action={deletePortfolioVideo}>
-            <input type="hidden" name="id" value={v.id} />
-            <IconButton type="submit" label="Delete" variant="danger">
-              <IconTrash />
-            </IconButton>
-          </form>
-        </div>
-      </div>
+    <div className="grid gap-8">
+      <AdminPageHeader
+        title="Edit video"
+        description={v.title}
+        actions={
+          <>
+            <IconLink href="/admin/portfolio" label="Back">
+              <IconBack />
+            </IconLink>
+            <form action={deletePortfolioVideo}>
+              <input type="hidden" name="id" value={v.id} />
+              <IconButton type="submit" label="Delete" variant="danger">
+                <IconTrash />
+              </IconButton>
+            </form>
+          </>
+        }
+      />
       <PortfolioForm
         id={v.id}
         saveToken={mintSaveToken(user.email)}

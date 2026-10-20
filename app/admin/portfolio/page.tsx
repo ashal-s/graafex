@@ -2,6 +2,12 @@ import { deletePortfolioVideo } from "@/app/admin/actions";
 import { IconLink, IconButton } from "@/components/admin/IconButton";
 import { IconBack, IconEdit, IconPlus, IconTrash } from "@/components/admin/icons";
 import VideoThumb from "@/components/admin/VideoThumb";
+import {
+  AdminEmptyState,
+  AdminPageHeader,
+  AdminStatusBadge,
+  adminPanelClass,
+} from "@/components/admin/ui";
 import { listAllPortfolioVideos } from "@/lib/data/portfolio";
 
 export default async function AdminPortfolioPage() {
@@ -9,40 +15,52 @@ export default async function AdminPortfolioPage() {
 
   return (
     <div className="grid gap-8">
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h1 className="t-h3 font-semibold text-heading">Videos</h1>
-          <p className="mt-1 text-sm text-body">Hover-play tiles on /portfolio.</p>
-        </div>
-        <div className="flex gap-2">
-          <IconLink href="/admin" label="Back">
-            <IconBack />
-          </IconLink>
-          <IconLink href="/admin/portfolio/new" label="Add video" variant="accent">
-            <IconPlus />
-          </IconLink>
-        </div>
-      </div>
+      <AdminPageHeader
+        title="Videos"
+        description="Hover-play tiles shown on the public portfolio grid."
+        actions={
+          <>
+            <IconLink href="/admin" label="Back">
+              <IconBack />
+            </IconLink>
+            <IconLink href="/admin/portfolio/new" label="Add video" variant="accent">
+              <IconPlus />
+            </IconLink>
+          </>
+        }
+      />
 
       {videos.length === 0 ? (
-        <p className="text-sm text-body">No videos yet. Add your first film.</p>
+        <AdminEmptyState
+          title="No videos yet"
+          description="Add your first film to start building the portfolio grid."
+          action={
+            <IconLink href="/admin/portfolio/new" label="Add video" variant="accent">
+              <IconPlus />
+            </IconLink>
+          }
+        />
       ) : (
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {videos.map((v) => (
-            <li key={v.id} className="overflow-visible rounded-[var(--radius-main)] border border-line bg-bg-2">
-              <div className="overflow-hidden rounded-t-[var(--radius-main)]">
+            <li key={v.id} className={`${adminPanelClass} overflow-visible`}>
+              <div className="overflow-hidden rounded-t-[calc(var(--radius-main)-0.3rem)]">
                 {v.src ? (
                   <VideoThumb src={v.src} poster={v.poster} aspect="16 / 9" className="w-full" />
                 ) : (
-                  <div className="grid aspect-video place-items-center text-xs text-body">No film</div>
+                  <div className="grid aspect-video place-items-center text-xs text-body">
+                    No film
+                  </div>
                 )}
               </div>
-              <div className="relative z-10 flex items-start justify-between gap-2 overflow-visible p-3">
-                <div>
-                  <p className="font-semibold text-heading">{v.title}</p>
-                  <p className="text-xs text-body">{v.published ? "Published" : "Draft"}</p>
+              <div className="relative z-10 flex items-start justify-between gap-2 overflow-visible p-3.5">
+                <div className="min-w-0">
+                  <p className="truncate font-medium tracking-[-0.01em] text-heading">{v.title}</p>
+                  <div className="mt-1.5">
+                    <AdminStatusBadge published={v.published} />
+                  </div>
                 </div>
-                <div className="relative z-20 flex shrink-0 gap-1 overflow-visible">
+                <div className="relative z-20 flex shrink-0 gap-1.5 overflow-visible">
                   <IconLink href={`/admin/portfolio/${v.id}`} label="Edit">
                     <IconEdit />
                   </IconLink>

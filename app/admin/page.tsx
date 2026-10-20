@@ -1,7 +1,54 @@
 import Link from "next/link";
+import { AdminPageHeader, adminPanelClass } from "@/components/admin/ui";
 import { listPortalUsers } from "@/lib/admin/users";
 import { listAllCaseStudies } from "@/lib/data/case-studies";
 import { listAllPortfolioVideos } from "@/lib/data/portfolio";
+
+function ArrowIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      className="h-4 w-4 opacity-50 transition-all duration-200 group-hover:translate-x-0.5 group-hover:opacity-100"
+      aria-hidden
+    >
+      <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function DashCard({
+  href,
+  eyebrow,
+  count,
+  label,
+}: {
+  href: string;
+  eyebrow: string;
+  count: number;
+  label: string;
+}) {
+  return (
+    <Link
+      href={href}
+      prefetch={false}
+      className={`group ${adminPanelClass} relative flex flex-col p-5 transition-all duration-200 hover:border-accent/40 hover:shadow-[0_16px_40px_rgb(0_0_0_/0.28)] sm:p-6`}
+    >
+      <div className="flex items-start justify-between gap-3">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-accent">
+          {eyebrow}
+        </p>
+        <ArrowIcon />
+      </div>
+      <p className="mt-5 text-[2.5rem] font-semibold leading-none tracking-[-0.04em] text-heading">
+        {count}
+      </p>
+      <p className="mt-2 text-sm text-body">{label}</p>
+    </Link>
+  );
+}
 
 export default async function AdminHome() {
   const [videos, studies, users] = await Promise.all([
@@ -12,37 +59,29 @@ export default async function AdminHome() {
 
   return (
     <div className="grid gap-8">
-      <div>
-        <h1 className="t-h3 font-semibold text-heading">Dashboard</h1>
-        <p className="mt-2 text-sm text-body">
-          Manage portfolio films, case studies, and admin users.
-        </p>
-      </div>
-      <div className="grid gap-4 sm:grid-cols-3">
-        <Link
+      <AdminPageHeader
+        title="Dashboard"
+        description="Manage portfolio films, case studies, and admin accounts from one place."
+      />
+      <div className="grid gap-3 sm:grid-cols-3 sm:gap-4">
+        <DashCard
           href="/admin/portfolio"
-          className="rounded-[var(--radius-main)] border border-line bg-bg-2 p-6 transition-colors hover:border-accent"
-        >
-          <p className="text-xs uppercase tracking-wider text-accent">Videos</p>
-          <p className="mt-2 text-3xl font-semibold text-heading">{videos.length}</p>
-          <p className="mt-1 text-sm text-body">film tiles</p>
-        </Link>
-        <Link
+          eyebrow="Videos"
+          count={videos.length}
+          label="Portfolio film tiles"
+        />
+        <DashCard
           href="/admin/case-studies"
-          className="rounded-[var(--radius-main)] border border-line bg-bg-2 p-6 transition-colors hover:border-accent"
-        >
-          <p className="text-xs uppercase tracking-wider text-accent">Case studies</p>
-          <p className="mt-2 text-3xl font-semibold text-heading">{studies.length}</p>
-          <p className="mt-1 text-sm text-body">projects</p>
-        </Link>
-        <Link
+          eyebrow="Case studies"
+          count={studies.length}
+          label="Client project pages"
+        />
+        <DashCard
           href="/admin/users"
-          className="rounded-[var(--radius-main)] border border-line bg-bg-2 p-6 transition-colors hover:border-accent"
-        >
-          <p className="text-xs uppercase tracking-wider text-accent">Users</p>
-          <p className="mt-2 text-3xl font-semibold text-heading">{users.length}</p>
-          <p className="mt-1 text-sm text-body">registered</p>
-        </Link>
+          eyebrow="Users"
+          count={users.length}
+          label="Portal accounts"
+        />
       </div>
     </div>
   );

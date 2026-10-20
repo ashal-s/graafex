@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import PortfolioForm from "@/components/admin/PortfolioForm";
 import { IconLink } from "@/components/admin/IconButton";
 import { IconBack } from "@/components/admin/icons";
+import { AdminPageHeader } from "@/components/admin/ui";
 import { listAllPortfolioVideos } from "@/lib/data/portfolio";
 import { getSessionUser } from "@/lib/admin/session";
 import { mintSaveToken } from "@/lib/admin/save-token";
@@ -14,16 +15,16 @@ export default async function NewPortfolioVideoPage() {
   const videos = await listAllPortfolioVideos();
 
   return (
-    <div className="grid gap-6">
-      <div className="flex items-end justify-between gap-4">
-        <div>
-          <h1 className="t-h3 font-semibold text-heading">Add Video</h1>
-          <p className="mt-1 text-sm text-body">Upload a film for the portfolio grid.</p>
-        </div>
-        <IconLink href="/admin/portfolio" label="Back">
-          <IconBack />
-        </IconLink>
-      </div>
+    <div className="grid gap-8">
+      <AdminPageHeader
+        title="Add video"
+        description="Upload a film for the portfolio grid."
+        actions={
+          <IconLink href="/admin/portfolio" label="Back">
+            <IconBack />
+          </IconLink>
+        }
+      />
       <PortfolioForm
         defaultSortOrder={videos.length}
         saveToken={mintSaveToken(user.email)}

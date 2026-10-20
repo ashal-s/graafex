@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import CaseStudyForm from "@/components/admin/CaseStudyForm";
 import { IconLink } from "@/components/admin/IconButton";
 import { IconBack } from "@/components/admin/icons";
+import { AdminPageHeader } from "@/components/admin/ui";
 import { getSessionUser } from "@/lib/admin/session";
 import { mintSaveToken } from "@/lib/admin/save-token";
 
@@ -12,16 +13,16 @@ export default async function NewCaseStudyPage() {
   if (!user?.email) redirect("/auth/sign-in");
 
   return (
-    <div className="grid gap-6">
-      <div className="flex items-end justify-between gap-4">
-        <div>
-          <h1 className="t-h3 font-semibold text-heading">Add Case Study</h1>
-          <p className="mt-1 text-sm text-body">Upload hero film, reels, and photos.</p>
-        </div>
-        <IconLink href="/admin/case-studies" label="Back">
-          <IconBack />
-        </IconLink>
-      </div>
+    <div className="grid gap-8">
+      <AdminPageHeader
+        title="Add case study"
+        description="Upload a hero film, reels, and photos for a client project."
+        actions={
+          <IconLink href="/admin/case-studies" label="Back">
+            <IconBack />
+          </IconLink>
+        }
+      />
       <CaseStudyForm saveToken={mintSaveToken(user.email)} />
     </div>
   );

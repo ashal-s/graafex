@@ -6,7 +6,8 @@
  * 2. npm run import:neon
  * 3. Remove DATABASE_URL when done
  *
- * Safe to re-run: clears portfolio_videos + case_studies first, then inserts.
+ * Refuses to run if Mongo already has portfolio/case-study docs (protects CMS
+ * edits). Pass --force to wipe and re-import from Neon (overwrites CMS edits).
  */
 import { neon } from "@neondatabase/serverless";
 import { MongoClient, ObjectId } from "mongodb";
@@ -176,11 +177,28 @@ async function main() {
     };
   });
 
+  const force = process.argv.includes("--force");
   const client = new MongoClient(mongoUri);
   await client.connect();
   const db = client.db(dbNameFromUri(mongoUri));
 
+  const existingVideos = await db.collection(COLLECTIONS.portfolioVideos).countDocuments();
+  const existingStudies = await db.collection(COLLECTIONS.caseStudies).countDocuments();
+  if ((existingVideos > 0 || existingStudies > 0) && !force) {
+    console.error(
+      `Mongo already has ${existingVideos} video(s) and ${existingStudies} case study(ies).`,
+    );
+    console.error(
+      "Refusing to wipe CMS content. Re-run with --force only if you intend to overwrite edits made in /admin.",
+    );
+    await client.close();
+    process.exit(1);
+  }
+
   console.log(`Writing to MongoDB (${db.databaseName})…`);
+  if (force && (existingVideos > 0 || existingStudies > 0)) {
+    console.warn("--force: clearing existing CMS documents before import.");
+  }
   await db.collection(COLLECTIONS.portfolioVideos).deleteMany({});
   await db.collection(COLLECTIONS.caseStudies).deleteMany({});
 

@@ -1,3 +1,4 @@
+import { randomUUID } from "crypto";
 import { NextResponse } from "next/server";
 import { getSessionUser } from "@/lib/admin/session";
 import { uploadToR2 } from "@/lib/r2";
@@ -30,7 +31,9 @@ export async function POST(request: Request) {
   const safeFolder = sanitizeKeyPart(folder) || "uploads";
   const original = filename || file.name || "upload.bin";
   const safeName = sanitizeKeyPart(original) || `file-${Date.now()}`;
-  const key = `${safeFolder}/${safeName}`;
+  // UUID prefix avoids overwrites when many uploads share folder/filename
+  // (e.g. case-studies/new/logo.png across drafts).
+  const key = `${safeFolder}/${randomUUID()}-${safeName}`;
   const buffer = Buffer.from(await file.arrayBuffer());
   const contentType = file.type || "application/octet-stream";
 

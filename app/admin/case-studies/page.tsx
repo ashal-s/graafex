@@ -4,13 +4,21 @@ import { IconBack, IconEdit, IconPlus, IconTrash } from "@/components/admin/icon
 import VideoThumb from "@/components/admin/VideoThumb";
 import {
   AdminEmptyState,
+  AdminNotice,
   AdminPageHeader,
   AdminStatusBadge,
   adminPanelClass,
 } from "@/components/admin/ui";
 import { listAllCaseStudies } from "@/lib/data/case-studies";
 
-export default async function AdminCaseStudiesPage() {
+export const dynamic = "force-dynamic";
+
+export default async function AdminCaseStudiesPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const sp = await searchParams;
   const studies = await listAllCaseStudies();
 
   return (
@@ -29,6 +37,12 @@ export default async function AdminCaseStudiesPage() {
           </>
         }
       />
+
+      {sp.error === "save" ? (
+        <AdminNotice tone="error">
+          Could not save. Check required fields and try again.
+        </AdminNotice>
+      ) : null}
 
       {studies.length === 0 ? (
         <AdminEmptyState

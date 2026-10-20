@@ -4,13 +4,21 @@ import { IconBack, IconEdit, IconPlus, IconTrash } from "@/components/admin/icon
 import VideoThumb from "@/components/admin/VideoThumb";
 import {
   AdminEmptyState,
+  AdminNotice,
   AdminPageHeader,
   AdminStatusBadge,
   adminPanelClass,
 } from "@/components/admin/ui";
 import { listAllPortfolioVideos } from "@/lib/data/portfolio";
 
-export default async function AdminPortfolioPage() {
+export const dynamic = "force-dynamic";
+
+export default async function AdminPortfolioPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const sp = await searchParams;
   const videos = await listAllPortfolioVideos();
 
   return (
@@ -29,6 +37,12 @@ export default async function AdminPortfolioPage() {
           </>
         }
       />
+
+      {sp.error === "save" ? (
+        <AdminNotice tone="error">
+          Could not save. Check required fields and try again.
+        </AdminNotice>
+      ) : null}
 
       {videos.length === 0 ? (
         <AdminEmptyState

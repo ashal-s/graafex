@@ -4,9 +4,11 @@ import { getDb } from "@/lib/db/mongo";
 import {
   COLLECTIONS,
   type CaseStudyDoc,
+  type ClientLogoDoc,
   type PortfolioVideoDoc,
 } from "@/lib/db/types";
 import { CASE_STUDIES_TAG } from "@/lib/data/case-studies";
+import { CLIENT_LOGOS_TAG } from "@/lib/data/client-logos";
 import { PORTFOLIO_TAG } from "@/lib/data/portfolio";
 import { slugify } from "@/lib/data/types";
 
@@ -122,6 +124,40 @@ export async function upsertCaseStudy(formData: FormData) {
   revalidateTag(CASE_STUDIES_TAG, "max");
 }
 
+export async function upsertClientLogo(formData: FormData) {
+  const id = String(formData.get("id") ?? "");
+  const name = String(formData.get("name") ?? "").trim();
+  const image = String(formData.get("image") ?? "").trim() || null;
+  const sortOrder = Number(formData.get("sortOrder") ?? 0) || 0;
+  const published = formData.get("published") === "on";
+
+  if (!name) throw new Error("Name is required");
+  if (!image) throw new Error("Logo image is required");
+
+  const col = getDb().collection<ClientLogoDoc>(COLLECTIONS.clientLogos);
+  const now = new Date();
+  const values = {
+    name,
+    image,
+    sortOrder,
+    published,
+    updatedAt: now,
+  };
+
+  if (id) {
+    if (!ObjectId.isValid(id)) throw new Error("Invalid logo id");
+    await col.updateOne({ _id: new ObjectId(id) }, { $set: values });
+  } else {
+    await col.insertOne({
+      _id: new ObjectId(),
+      ...values,
+      createdAt: now,
+    } as ClientLogoDoc);
+  }
+
+  revalidateTag(CLIENT_LOGOS_TAG, "max");
+}
+
 export async function deletePortfolioVideoById(id: string) {
   if (!ObjectId.isValid(id)) return;
   await getDb()
@@ -136,4 +172,12 @@ export async function deleteCaseStudyById(id: string) {
     .collection(COLLECTIONS.caseStudies)
     .deleteOne({ _id: new ObjectId(id) });
   revalidateTag(CASE_STUDIES_TAG, "max");
+}
+
+export async function deleteClientLogoById(id: string) {
+  if (!ObjectId.isValid(id)) return;
+  await getDb()
+    .collection(COLLECTIONS.clientLogos)
+    .deleteOne({ _id: new ObjectId(id) });
+  revalidateTag(CLIENT_LOGOS_TAG, "max");
 }

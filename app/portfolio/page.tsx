@@ -4,8 +4,9 @@ import PortfolioVideo from "@/components/PortfolioVideo";
 import { CaseStudyCard } from "@/components/CaseStudy";
 import { Eyebrow, Reveal } from "@/components/ui";
 import { getCaseStudies } from "@/lib/data/case-studies";
+import { getClientLogos } from "@/lib/data/client-logos";
 import { getPortfolioVideos } from "@/lib/data/portfolio";
-import { clientLogos } from "@/lib/content";
+import { clientLogos as fallbackClientNames } from "@/lib/content";
 
 export const metadata = { title: "Portfolio" };
 export const dynamic = "force-dynamic";
@@ -13,7 +14,16 @@ export const dynamic = "force-dynamic";
 const sectionPad = "container-x relative py-[clamp(1.75rem,3.5vw,3rem)]";
 
 export default async function Portfolio() {
-  const [portfolioVideos, caseStudies] = await Promise.all([getPortfolioVideos(), getCaseStudies()]);
+  const [portfolioVideos, caseStudies, clientLogos] = await Promise.all([
+    getPortfolioVideos(),
+    getCaseStudies(),
+    getClientLogos(),
+  ]);
+
+  const clients: { id?: string; name: string; image?: string }[] =
+    clientLogos.length > 0
+      ? clientLogos
+      : fallbackClientNames.map((name) => ({ name }));
 
   return (
     <>
@@ -31,7 +41,14 @@ export default async function Portfolio() {
                       className="group relative aspect-video overflow-hidden rounded-[var(--radius-small)] bg-bg-2 ring-1 ring-line"
                     >
                       <div className="absolute inset-0">
-                        <PortfolioVideo trigger="hover" src={v.src} poster={v.poster} palette={v.palette} seed={i + 1} label={v.title} />
+                        <PortfolioVideo
+                          trigger="hover"
+                          src={v.src}
+                          poster={v.poster}
+                          palette={v.palette}
+                          seed={i + 1}
+                          label={v.title}
+                        />
                       </div>
                       <span
                         aria-hidden
@@ -58,9 +75,9 @@ export default async function Portfolio() {
             </Reveal>
             <Reveal>
               <ul className="grid grid-cols-2 border-l border-t border-line sm:grid-cols-3 lg:grid-cols-5">
-                {clientLogos.map((c) => (
+                {clients.map((c) => (
                   <li
-                    key={c}
+                    key={c.id ?? c.name}
                     className="group relative flex h-28 items-center justify-center overflow-hidden border-b border-r border-line px-4 text-center md:h-36"
                   >
                     <span
@@ -71,9 +88,18 @@ export default async function Portfolio() {
                       aria-hidden
                       className="absolute inset-0 translate-y-full bg-accent transition-transform delay-75 duration-500 ease-[var(--ease)] group-hover:translate-y-0"
                     />
-                    <span className="t-h5 relative font-semibold tracking-tight text-heading opacity-60 transition-[opacity,color,transform] duration-500 ease-[var(--ease-out)] group-hover:-translate-y-0.5 group-hover:scale-105 group-hover:text-bg-2 group-hover:opacity-100">
-                      {c}
-                    </span>
+                    {c.image ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={c.image}
+                        alt={c.name}
+                        className="relative max-h-10 w-auto max-w-[9rem] object-contain opacity-60 transition-[opacity,filter,transform] duration-500 ease-[var(--ease-out)] group-hover:-translate-y-0.5 group-hover:scale-105 group-hover:opacity-100 group-hover:brightness-0 md:max-h-12"
+                      />
+                    ) : (
+                      <span className="t-h5 relative font-semibold tracking-tight text-heading opacity-60 transition-[opacity,color,transform] duration-500 ease-[var(--ease-out)] group-hover:-translate-y-0.5 group-hover:scale-105 group-hover:text-bg-2 group-hover:opacity-100">
+                        {c.name}
+                      </span>
+                    )}
                   </li>
                 ))}
               </ul>

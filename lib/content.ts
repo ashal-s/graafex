@@ -24,6 +24,7 @@ export const hero = {
   heading: "Brands built to stand out and strategy built to last.",
 };
 
+/** Fallback names if no logos are published in the admin CMS yet. */
 export const clientLogos = ["Lumen", "Orbitra", "Kestrel", "Nova&Co", "Fieldhouse", "Meridian", "Parallel", "Quarry", "Sable", "Tidewater"];
 
 export const aboutServices = [

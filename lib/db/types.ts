@@ -12,6 +12,16 @@ export type PortfolioVideoDoc = {
   updatedAt: Date;
 };
 
+export type ClientLogoDoc = {
+  _id: ObjectId;
+  name: string;
+  image: string | null;
+  sortOrder: number;
+  published: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
 export type CaseStudyReel = {
   url: string;
   sortOrder: number;
@@ -44,4 +54,5 @@ export type CaseStudyDoc = {
 export const COLLECTIONS = {
   portfolioVideos: "portfolio_videos",
   caseStudies: "case_studies",
+  clientLogos: "client_logos",
 } as const;

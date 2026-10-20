@@ -2,6 +2,7 @@ import Link from "next/link";
 import { AdminPageHeader, adminPanelClass } from "@/components/admin/ui";
 import { listPortalUsers } from "@/lib/admin/users";
 import { listAllCaseStudies } from "@/lib/data/case-studies";
+import { listAllClientLogos } from "@/lib/data/client-logos";
 import { listAllPortfolioVideos } from "@/lib/data/portfolio";
 
 function ArrowIcon() {
@@ -51,9 +52,10 @@ function DashCard({
 }
 
 export default async function AdminHome() {
-  const [videos, studies, users] = await Promise.all([
+  const [videos, studies, logos, users] = await Promise.all([
     listAllPortfolioVideos(),
     listAllCaseStudies(),
+    listAllClientLogos(),
     listPortalUsers().catch(() => []),
   ]);
 
@@ -61,9 +63,9 @@ export default async function AdminHome() {
     <div className="grid gap-8">
       <AdminPageHeader
         title="Dashboard"
-        description="Manage portfolio films, case studies, and admin accounts from one place."
+        description="Manage portfolio films, case studies, client logos, and admin accounts."
       />
-      <div className="grid gap-3 sm:grid-cols-3 sm:gap-4">
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <DashCard
           href="/admin/portfolio"
           eyebrow="Videos"
@@ -75,6 +77,12 @@ export default async function AdminHome() {
           eyebrow="Case studies"
           count={studies.length}
           label="Client project pages"
+        />
+        <DashCard
+          href="/admin/clients"
+          eyebrow="Clients"
+          count={logos.length}
+          label="Portfolio logos"
         />
         <DashCard
           href="/admin/users"

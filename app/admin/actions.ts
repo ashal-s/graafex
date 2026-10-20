@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import {
   deleteCaseStudyById,
+  deleteClientLogoById,
   deletePortfolioVideoById,
 } from "@/lib/admin/mutations";
 import { requireAdmin } from "@/lib/admin/session";
@@ -21,4 +22,12 @@ export async function deleteCaseStudy(formData: FormData) {
   if (!id) return;
   await deleteCaseStudyById(id);
   redirect("/admin/case-studies");
+}
+
+export async function deleteClientLogo(formData: FormData) {
+  await requireAdmin();
+  const id = String(formData.get("id") ?? "");
+  if (!id) return;
+  await deleteClientLogoById(id);
+  redirect("/admin/clients");
 }

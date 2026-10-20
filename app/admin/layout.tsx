@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import AdminAccountMenu from "@/components/admin/AdminAccountMenu";
 import { getAdminGate } from "@/lib/admin/session";
 
 export const dynamic = "force-dynamic";
@@ -15,7 +16,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           <Link href="/admin" className="font-semibold text-heading">
             Graafex Admin
           </Link>
-          <p className="text-xs text-body">{gate.email}</p>
+          <AdminAccountMenu name={gate.name} email={gate.email} userId={gate.id} />
         </div>
       </header>
       <main className="mx-auto max-w-5xl px-4 py-8">{children}</main>

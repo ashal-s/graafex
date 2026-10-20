@@ -1,8 +1,9 @@
 "use client";
 
 import { useActionState } from "react";
-import Link from "next/link";
 import { createUserAction } from "@/app/admin/users/actions";
+import { IconLink } from "@/components/admin/IconButton";
+import { IconBack } from "@/components/admin/icons";
 
 export default function NewUserPage() {
   const [state, formAction, isPending] = useActionState(createUserAction, null);
@@ -14,9 +15,9 @@ export default function NewUserPage() {
           <h1 className="t-h3 font-semibold text-heading">Add user</h1>
           <p className="mt-1 text-sm text-body">Create an admin portal login.</p>
         </div>
-        <Link href="/admin/users" className="text-sm underline">
-          Back
-        </Link>
+        <IconLink href="/admin/users" label="Back">
+          <IconBack />
+        </IconLink>
       </div>
 
       <form action={formAction} className="grid gap-4">

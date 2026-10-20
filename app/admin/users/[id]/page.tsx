@@ -1,5 +1,6 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
+import { IconLink } from "@/components/admin/IconButton";
+import { IconBack } from "@/components/admin/icons";
 import {
   DeleteUserForm,
   EditUserForm,
@@ -33,9 +34,9 @@ export default async function UserDetailPage({
           <h1 className="t-h3 font-semibold text-heading">{user.name || "User"}</h1>
           <p className="mt-1 text-sm text-body">{user.email}</p>
         </div>
-        <Link href="/admin/users" className="text-sm underline">
-          Back
-        </Link>
+        <IconLink href="/admin/users" label="Back">
+          <IconBack />
+        </IconLink>
       </div>
 
       {sp.saved && <p className="text-sm text-accent">Details saved.</p>}

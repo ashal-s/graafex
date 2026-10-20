@@ -1,6 +1,5 @@
-import Link from "next/link";
 import { IconLink } from "@/components/admin/IconButton";
-import { IconPlus } from "@/components/admin/icons";
+import { IconBack, IconPlus, IconView } from "@/components/admin/icons";
 import { listPortalUsers } from "@/lib/admin/users";
 
 export const dynamic = "force-dynamic";
@@ -26,9 +25,14 @@ export default async function AdminUsersPage() {
             Create and manage admin portal accounts.
           </p>
         </div>
-        <IconLink href="/admin/users/new" label="Add user" variant="accent">
-          <IconPlus />
-        </IconLink>
+        <div className="flex gap-2">
+          <IconLink href="/admin" label="Back">
+            <IconBack />
+          </IconLink>
+          <IconLink href="/admin/users/new" label="Add user" variant="accent">
+            <IconPlus />
+          </IconLink>
+        </div>
       </div>
 
       {error && (
@@ -41,17 +45,19 @@ export default async function AdminUsersPage() {
 
       <ul className="grid gap-2">
         {users.map((u) => (
-          <li key={u.id}>
-            <Link
-              href={`/admin/users/${u.id}`}
-              className="flex items-center justify-between gap-3 rounded-[var(--radius-small)] border border-line bg-bg-2 px-4 py-3 transition-colors hover:border-accent"
-            >
-              <div>
-                <p className="font-medium text-heading">{u.name || "Admin"}</p>
-                <p className="text-sm text-body">{u.email}</p>
-              </div>
-              <span className="text-xs text-body">View</span>
-            </Link>
+          <li
+            key={u.id}
+            className="relative z-10 flex items-center justify-between gap-3 overflow-visible rounded-[var(--radius-small)] border border-line bg-bg-2 px-4 py-3"
+          >
+            <div>
+              <p className="font-medium text-heading">{u.name || "Admin"}</p>
+              <p className="text-sm text-body">{u.email}</p>
+            </div>
+            <div className="relative z-20 shrink-0 overflow-visible">
+              <IconLink href={`/admin/users/${u.id}`} label="View">
+                <IconView />
+              </IconLink>
+            </div>
           </li>
         ))}
         {!error && users.length === 0 && (

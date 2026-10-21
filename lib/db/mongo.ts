@@ -17,9 +17,14 @@ type TopologyLike = {
   s?: { state?: string };
 };
 
-/** A failed connect() closes the topology. Later queries then only say "Topology is closed". */
-function isTopologyClosed(client: MongoClient) {
-  const topology = (client as MongoClient & { topology?: TopologyLike }).topology;
+/** A failed connect() or client.close() must not be reused. */
+function isClientClosed(client: MongoClient) {
+  const internal = client as MongoClient & {
+    topology?: TopologyLike;
+    s?: { hasBeenClosed?: boolean };
+  };
+  if (internal.s?.hasBeenClosed) return true;
+  const topology = internal.topology;
   if (!topology) return false;
   if (topology.isConnected?.()) return false;
   const state = topology.s?.state;
@@ -83,7 +88,7 @@ function dropCache(cache: MongoCache) {
 
 export function getMongoClient() {
   const cached = globalThis.__graafexMongo;
-  if (cached && !isTopologyClosed(cached.client)) return cached.client;
+  if (cached && !isClientClosed(cached.client)) return cached.client;
   if (cached) dropCache(cached);
   return createCache().client;
 }
@@ -91,7 +96,7 @@ export function getMongoClient() {
 /** Connect before auth queries so a closed topology is replaced, not reused. */
 export async function connectMongo() {
   const cached = globalThis.__graafexMongo;
-  if (cached && isTopologyClosed(cached.client)) dropCache(cached);
+  if (cached && isClientClosed(cached.client)) dropCache(cached);
   const cache = globalThis.__graafexMongo ?? createCache();
   try {
     await cache.client.connect();
@@ -102,8 +107,10 @@ export async function connectMongo() {
   if (!cache.indexesReady) {
     cache.indexesReady = ensureIndexes(cache.db).catch((err) => {
       console.error("[mongo] ensureIndexes failed", err);
+      throw err;
     });
   }
+  await cache.indexesReady;
   return cache.client;
 }
 

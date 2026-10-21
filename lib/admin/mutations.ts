@@ -1,6 +1,6 @@
 import { ObjectId } from "mongodb";
 import { revalidateTag } from "next/cache";
-import { getDb } from "@/lib/db/mongo";
+import { connectMongo, getDb } from "@/lib/db/mongo";
 import {
   COLLECTIONS,
   type CaseStudyDoc,
@@ -66,6 +66,7 @@ export async function upsertPortfolioVideo(formData: FormData) {
 }
 
 export async function upsertCaseStudy(formData: FormData) {
+  await connectMongo();
   const id = String(formData.get("id") ?? "");
   const name = String(formData.get("name") ?? "").trim();
   const slug = String(formData.get("slug") ?? "").trim() || slugify(name);
@@ -168,6 +169,7 @@ export async function deletePortfolioVideoById(id: string) {
 
 export async function deleteCaseStudyById(id: string) {
   if (!ObjectId.isValid(id)) return;
+  await connectMongo();
   await getDb()
     .collection(COLLECTIONS.caseStudies)
     .deleteOne({ _id: new ObjectId(id) });

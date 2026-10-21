@@ -1,5 +1,5 @@
 import { headers } from "next/headers";
-import { auth } from "@/lib/auth/server";
+import { auth, ensureAuthDb } from "@/lib/auth/server";
 
 export type PortalUser = {
   id: string;
@@ -25,13 +25,15 @@ function asUser(raw: unknown): PortalUser | null {
 }
 
 async function sessionHeaders() {
+  await ensureAuthDb();
   return await headers();
 }
 
 export async function listPortalUsers(): Promise<PortalUser[]> {
+  const requestHeaders = await sessionHeaders();
   const data = await auth.api.listUsers({
     query: { limit: 100, sortBy: "createdAt", sortDirection: "desc" },
-    headers: await sessionHeaders(),
+    headers: requestHeaders,
   });
   const users = (data as { users?: unknown[] } | null)?.users ?? [];
   return users.map(asUser).filter(Boolean) as PortalUser[];
@@ -47,6 +49,7 @@ export async function createPortalUser(input: {
   email: string;
   password: string;
 }) {
+  const requestHeaders = await sessionHeaders();
   const data = await auth.api.createUser({
     body: {
       name: input.name.trim(),
@@ -54,7 +57,7 @@ export async function createPortalUser(input: {
       password: input.password,
       role: "admin",
     },
-    headers: await sessionHeaders(),
+    headers: requestHeaders,
   });
   return asUser((data as { user?: unknown } | null)?.user ?? data);
 }
@@ -63,6 +66,7 @@ export async function updatePortalUser(
   userId: string,
   input: { name: string; email: string },
 ) {
+  const requestHeaders = await sessionHeaders();
   const data = await auth.api.adminUpdateUser({
     body: {
       userId,
@@ -71,24 +75,26 @@ export async function updatePortalUser(
         email: input.email.trim().toLowerCase(),
       },
     },
-    headers: await sessionHeaders(),
+    headers: requestHeaders,
   });
   return asUser((data as { user?: unknown } | null)?.user ?? data);
 }
 
 export async function resetPortalUserPassword(userId: string, newPassword: string) {
+  const requestHeaders = await sessionHeaders();
   await auth.api.setUserPassword({
     body: {
       userId,
       newPassword,
     },
-    headers: await sessionHeaders(),
+    headers: requestHeaders,
   });
 }
 
 export async function deletePortalUser(userId: string) {
+  const requestHeaders = await sessionHeaders();
   await auth.api.removeUser({
     body: { userId },
-    headers: await sessionHeaders(),
+    headers: requestHeaders,
   });
 }

@@ -4,7 +4,7 @@
  * Usage:
  *   SEED_ADMIN_EMAIL=you@example.com SEED_ADMIN_PASSWORD='...' SEED_ADMIN_NAME='Admin' npm run seed:admin
  */
-import { auth } from "../lib/auth/server";
+import { auth, ensureAuthDb } from "../lib/auth/server";
 
 async function main() {
   const email = process.env.SEED_ADMIN_EMAIL?.trim();
@@ -26,6 +26,7 @@ async function main() {
     process.exit(1);
   }
 
+  await ensureAuthDb();
   // Calling without headers/request allows bootstrap (no existing admin session).
   const result = await auth.api.createUser({
     body: {

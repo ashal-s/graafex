@@ -1,6 +1,6 @@
-# Graafex
+# Studiofex
 
-Marketing site for **Graafex**, a creative studio focused on strategy, design, and film.
+Marketing site for **Studiofex**, a creative studio focused on strategy, design, and film.
 
 Built with [Next.js](https://nextjs.org) (App Router), React, and Tailwind CSS.
 

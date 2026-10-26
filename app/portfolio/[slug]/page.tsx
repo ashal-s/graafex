@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import PageStage from "@/components/PageStage";
 import { CaseStudyDetail, seedFor } from "@/components/CaseStudy";
 import PortfolioVideo from "@/components/PortfolioVideo";
 import { Reveal } from "@/components/ui";
@@ -25,6 +26,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/portfolio/[s
   return (
     <>
       <Nav />
+      <PageStage>
       <main id="main">
         <section className="relative z-[2] overflow-hidden">
           <div className="container-x relative py-[var(--margin)]">
@@ -86,6 +88,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/portfolio/[s
           </div>
         </section>
       </main>
+      </PageStage>
       <Footer />
     </>
   );

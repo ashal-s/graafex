@@ -1,5 +1,6 @@
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import PageStage from "@/components/PageStage";
 import PortfolioVideo from "@/components/PortfolioVideo";
 import { CaseStudyCard } from "@/components/CaseStudy";
 import { Eyebrow, Reveal } from "@/components/ui";
@@ -28,6 +29,7 @@ export default async function Portfolio() {
   return (
     <>
       <Nav />
+      <PageStage>
       <main id="main">
         <section className="relative z-[2] overflow-hidden">
           <h1 className="sr-only">Portfolio</h1>
@@ -117,6 +119,7 @@ export default async function Portfolio() {
           </div>
         </section>
       </main>
+      </PageStage>
       <Footer />
     </>
   );

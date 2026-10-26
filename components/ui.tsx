@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, type CSSProperties, type ElementType, type ReactNode } from "react";
+import { site } from "@/lib/content";
 
 /** Adds `is-in` once the element scrolls into view. */
 export function useInView<T extends HTMLElement>(threshold = 0.2) {
@@ -81,20 +82,24 @@ export function Media({
   );
 }
 
-export function LogoMark({ className = "h-[1.4em] w-[1.4em]" }: { className?: string }) {
+export function LogoMark({ className = "h-[1em] w-[1em]" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 32 32" className={className} aria-hidden>
-      <circle cx="16" cy="16" r="15" fill="none" stroke="currentColor" strokeWidth="2.5" />
-      <path d="M22 11a8 8 0 1 0 1 7h-7" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+    <svg viewBox="0 0 32 32" className={className} fill="none" aria-hidden>
+      <path
+        d="M22.5 7.4H12.8A4.3 4.3 0 0 0 8.5 11.7 4.3 4.3 0 0 0 12.8 16H19.2A4.3 4.3 0 0 1 23.5 20.3 4.3 4.3 0 0 1 19.2 24.6H9.5"
+        stroke="currentColor"
+        strokeWidth="3.6"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
 
 export function Logo({ className = "" }: { className?: string }) {
   return (
-    <span className={`inline-flex items-center gap-2 font-bold tracking-tight text-white ${className}`}>
+    <span className={`inline-flex items-center gap-[0.42em] font-semibold tracking-[-0.065em] text-white ${className}`}>
       <LogoMark />
-      graafex
+      {site.name}
     </span>
   );
 }

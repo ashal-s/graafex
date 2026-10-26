@@ -32,7 +32,7 @@ type Auth = ReturnType<typeof createAuth>;
 
 declare global {
   // eslint-disable-next-line no-var
-  var __graafexAuth: Auth | undefined;
+  var __studiofexAuth: Auth | undefined;
 }
 
 let authClient: ReturnType<typeof getMongoClient> | undefined;
@@ -40,11 +40,11 @@ let authClient: ReturnType<typeof getMongoClient> | undefined;
 function getAuth(): Auth {
   const client = getMongoClient();
   // A replaced client (after "Topology is closed") must not keep the old adapter.
-  if (!globalThis.__graafexAuth || authClient !== client) {
+  if (!globalThis.__studiofexAuth || authClient !== client) {
     authClient = client;
-    globalThis.__graafexAuth = createAuth();
+    globalThis.__studiofexAuth = createAuth();
   }
-  return globalThis.__graafexAuth;
+  return globalThis.__studiofexAuth;
 }
 
 /** Open Mongo before an auth call so sign-in does not hit a closed topology. */
@@ -52,7 +52,7 @@ export async function ensureAuthDb() {
   const client = await connectMongo();
   if (authClient !== client) {
     authClient = client;
-    globalThis.__graafexAuth = createAuth();
+    globalThis.__studiofexAuth = createAuth();
   }
 }
 

@@ -48,14 +48,7 @@ html.has-cursor * {
 }
 
 body {
-  background:
-    radial-gradient(70% 55% at 0% 0%, rgb(255 77 0 / 0.45), transparent 55%),
-    radial-gradient(55% 45% at 100% 5%, rgb(255 122 51 / 0.32), transparent 50%),
-    radial-gradient(60% 50% at 85% 70%, rgb(255 60 0 / 0.22), transparent 55%),
-    radial-gradient(50% 40% at 15% 85%, rgb(255 154 92 / 0.18), transparent 50%),
-    radial-gradient(80% 60% at 50% 40%, rgb(80 25 8 / 0.55), transparent 65%),
-    linear-gradient(165deg, #1a0e08 0%, var(--bg) 35%, #180f0a 70%, #221208 100%);
-  background-attachment: fixed;
+  background: var(--bg);
   color: var(--text);
   font-family: var(--font-primary), Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -117,6 +110,43 @@ body {
 @keyframes drift {
   0% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
   100% { transform: translate3d(6%, -4%, 0) rotate(8deg) scale(1.1); }
+}
+
+/* Footer strip. The shared drift rotates a wide layer; on a short band those
+   corners swing through the clip and read as a tear. This wash only slides an
+   oversized field, and each glow fades in its own hue so the edge never shows. */
+.media--band::before {
+  inset: -160% -50%;
+  background:
+    radial-gradient(ellipse 34% 22% at 18% 58%, var(--c1, #ff4d00) 0%, rgb(from var(--c1, #ff4d00) r g b / 0) 72%),
+    radial-gradient(ellipse 38% 24% at 76% 46%, var(--c2, #ff7a33) 0%, rgb(from var(--c2, #ff7a33) r g b / 0) 74%),
+    radial-gradient(ellipse 26% 20% at 48% 70%, #ff9a5c 0%, rgb(255 154 92 / 0) 72%);
+  animation: band-drift 22s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
+}
+@keyframes band-drift {
+  0% { transform: translate3d(-4%, 6%, 0) scale(1); }
+  100% { transform: translate3d(4%, -8%, 0) scale(1.08); }
+}
+
+/* Ember canvas that sticks for one page, then scrolls away with that page. */
+.page-stage {
+  position: relative;
+  isolation: isolate;
+}
+.page-stage__bg {
+  position: sticky;
+  top: 0;
+  z-index: 0;
+  height: 100svh;
+  margin-bottom: -100svh;
+  pointer-events: none;
+  background:
+    radial-gradient(70% 55% at 0% 0%, rgb(255 77 0 / 0.45), transparent 55%),
+    radial-gradient(55% 45% at 100% 5%, rgb(255 122 51 / 0.32), transparent 50%),
+    radial-gradient(60% 50% at 85% 70%, rgb(255 60 0 / 0.22), transparent 55%),
+    radial-gradient(50% 40% at 15% 85%, rgb(255 154 92 / 0.18), transparent 50%),
+    radial-gradient(80% 60% at 50% 40%, rgb(80 25 8 / 0.55), transparent 65%),
+    linear-gradient(165deg, #1a0e08 0%, var(--bg) 35%, #180f0a 70%, #221208 100%);
 }
 
 /* Dark canvas — page starts, hero, menu overlay and footer. Uses the root ember/orange tokens. */

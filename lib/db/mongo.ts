@@ -9,7 +9,7 @@ type MongoCache = {
 
 declare global {
   // eslint-disable-next-line no-var
-  var __graafexMongo: MongoCache | undefined;
+  var __studiofexMongo: MongoCache | undefined;
 }
 
 type TopologyLike = {
@@ -75,19 +75,19 @@ function createCache(): MongoCache {
   const client = new MongoClient(uri, clientOptions());
   const db = client.db(dbNameFromUri(uri));
   const cache = { client, db };
-  globalThis.__graafexMongo = cache;
+  globalThis.__studiofexMongo = cache;
   return cache;
 }
 
 function dropCache(cache: MongoCache) {
-  if (globalThis.__graafexMongo === cache) {
-    globalThis.__graafexMongo = undefined;
+  if (globalThis.__studiofexMongo === cache) {
+    globalThis.__studiofexMongo = undefined;
   }
   void cache.client.close().catch(() => {});
 }
 
 export function getMongoClient() {
-  const cached = globalThis.__graafexMongo;
+  const cached = globalThis.__studiofexMongo;
   if (cached && !isClientClosed(cached.client)) return cached.client;
   if (cached) dropCache(cached);
   return createCache().client;
@@ -95,9 +95,9 @@ export function getMongoClient() {
 
 /** Connect before auth queries so a closed topology is replaced, not reused. */
 export async function connectMongo() {
-  const cached = globalThis.__graafexMongo;
+  const cached = globalThis.__studiofexMongo;
   if (cached && isClientClosed(cached.client)) dropCache(cached);
-  const cache = globalThis.__graafexMongo ?? createCache();
+  const cache = globalThis.__studiofexMongo ?? createCache();
   try {
     await cache.client.connect();
   } catch (err) {
@@ -115,8 +115,8 @@ export async function connectMongo() {
 }
 
 export function getDb() {
-  if (!globalThis.__graafexMongo) {
+  if (!globalThis.__studiofexMongo) {
     getMongoClient();
   }
-  return globalThis.__graafexMongo!.db;
+  return globalThis.__studiofexMongo!.db;
 }

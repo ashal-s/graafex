@@ -3,13 +3,6 @@
 export const site = {
   name: "Studiofex",
   email: "hello@studiofex.com",
-  socials: [
-    { label: "Instagram", href: "https://instagram.com" },
-    { label: "TikTok", href: "https://tiktok.com" },
-    { label: "Facebook", href: "https://facebook.com" },
-    { label: "YouTube", href: "https://youtube.com" },
-    { label: "LinkedIn", href: "https://linkedin.com" },
-  ],
 };
 
 export const navLinks = [

@@ -1,5 +1,6 @@
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import PageStage from "@/components/PageStage";
 import AboutTeam from "@/components/AboutTeam";
 import ScrollParallax from "@/components/ScrollParallax";
 import { Eyebrow, Media, Reveal, SwooshButton } from "@/components/ui";
@@ -12,6 +13,7 @@ export default function About() {
     <>
       <Nav />
       <ScrollParallax />
+      <PageStage>
       <main id="main">
         {/* Dark start */}
         <section className="relative z-[2] overflow-hidden">
@@ -26,7 +28,7 @@ export default function About() {
                 Brands built to stand out.
               </h1>
               <p className="t-large mt-8 max-w-[34rem]">
-                Graafex is a creative studio blending strategy, design and film. We help organisations tell their
+                Studiofex is a creative studio blending strategy, design and film. We help organisations tell their
                 story clearly and build brands that last.
               </p>
               <div className="mt-10">
@@ -48,6 +50,7 @@ export default function About() {
           </div>
         </section>
       </main>
+      </PageStage>
       <Footer />
     </>
   );

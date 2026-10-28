@@ -1,8 +1,8 @@
-// All copy is placeholder — swap in real Graafex content.
+// All copy is placeholder — swap in real Studiofex content.
 
 export const site = {
-  name: "Graafex",
-  email: "hello@graafex.com",
+  name: "Studiofex",
+  email: "hello@studiofex.com",
   socials: [
     { label: "Instagram", href: "https://instagram.com" },
     { label: "TikTok", href: "https://tiktok.com" },
@@ -21,7 +21,7 @@ export const navLinks = [
 
 export const hero = {
   loader: ["Every idea", "starts somewhere."],
-  heading: "Brands built to stand out and strategy built to last.",
+  heading: "Studiofex has helped brands 10× their social media reach in 60 days.",
 };
 
 /** Fallback names if no logos are published in the admin CMS yet. */
@@ -44,7 +44,7 @@ export type PricingPackage = {
 export const oneOffPackages: PricingPackage[] = [
   {
     name: "Social Content package",
-    price: "$750",
+    price: "$1,200",
     features: [
       "2 reels (40–60 seconds)",
       "3 short reels (7–10 seconds)",

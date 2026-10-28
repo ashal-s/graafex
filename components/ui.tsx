@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, type CSSProperties, type ElementType, type ReactNode } from "react";
+import { site } from "@/lib/content";
 
 /** Adds `is-in` once the element scrolls into view. */
 export function useInView<T extends HTMLElement>(threshold = 0.2) {
@@ -81,20 +82,36 @@ export function Media({
   );
 }
 
-export function LogoMark({ className = "h-[1.4em] w-[1.4em]" }: { className?: string }) {
+/** Framed S monogram — reads as a mark, not a letter floating beside type. */
+export function LogoMark({ className = "h-[1em] w-[1em]" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 32 32" className={className} aria-hidden>
-      <circle cx="16" cy="16" r="15" fill="none" stroke="currentColor" strokeWidth="2.5" />
-      <path d="M22 11a8 8 0 1 0 1 7h-7" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+    <svg viewBox="0 0 40 40" className={className} fill="none" aria-hidden>
+      <rect
+        x="1.25"
+        y="1.25"
+        width="37.5"
+        height="37.5"
+        rx="11"
+        stroke="currentColor"
+        strokeWidth="1.75"
+        opacity="0.55"
+      />
+      <path
+        d="M27.2 10.2H16.4A4.7 4.7 0 0 0 11.7 14.9 4.7 4.7 0 0 0 16.4 19.6H23.6A4.7 4.7 0 0 1 28.3 24.3 4.7 4.7 0 0 1 23.6 29H11.8"
+        stroke="currentColor"
+        strokeWidth="3.1"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
 
+/** Brand lockup: framed monogram + wordmark. */
 export function Logo({ className = "" }: { className?: string }) {
   return (
-    <span className={`inline-flex items-center gap-2 font-bold tracking-tight text-white ${className}`}>
-      <LogoMark />
-      graafex
+    <span className={`inline-flex items-center gap-[0.7em] leading-none text-white ${className}`}>
+      <LogoMark className="h-[1.55em] w-[1.55em] shrink-0" />
+      <span className="pt-[0.02em] text-[0.92em] font-semibold tracking-[-0.06em]">{site.name}</span>
     </span>
   );
 }

@@ -43,21 +43,24 @@ export default function AboutTeam() {
         innerGradient={INNER}
         className="w-full max-w-[250px] [&_.pc-card]:!aspect-[0.56] [&_.pc-details_h3]:!text-[1.75rem] [&_.pc-card]:!h-auto [&_.pc-card]:!max-h-none"
       />
-      <ProfileCard
-        name="Asher Sadiq"
-        title="Marketing Director"
-        handle="ashersadiq"
-        status="Online"
-        contactText="Contact Me"
-        avatarUrl="/team/asher.png"
-        iconUrl={ICON_PATTERN}
-        showUserInfo={false}
-        onContactClick={contact}
-        behindGlowEnabled
-        behindGlowColor="rgba(255, 122, 51, 0.67)"
-        innerGradient={INNER}
-        className="w-full max-w-[250px] [&_.pc-card]:!aspect-[0.56] [&_.pc-details_h3]:!text-[1.75rem] [&_.pc-card]:!h-auto [&_.pc-card]:!max-h-none"
-      />
+      {/* Hidden for now — set to true to show again. */}
+      {false && (
+        <ProfileCard
+          name="Asher Sadiq"
+          title="Marketing Director"
+          handle="ashersadiq"
+          status="Online"
+          contactText="Contact Me"
+          avatarUrl="/team/asher.png"
+          iconUrl={ICON_PATTERN}
+          showUserInfo={false}
+          onContactClick={contact}
+          behindGlowEnabled
+          behindGlowColor="rgba(255, 122, 51, 0.67)"
+          innerGradient={INNER}
+          className="w-full max-w-[250px] [&_.pc-card]:!aspect-[0.56] [&_.pc-details_h3]:!text-[1.75rem] [&_.pc-card]:!h-auto [&_.pc-card]:!max-h-none"
+        />
+      )}
     </div>
   );
 }

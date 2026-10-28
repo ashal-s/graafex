@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
+import { Logo } from "@/components/ui";
 import { signInWithEmail } from "./actions";
 
 export default function SignInPage() {
@@ -12,9 +13,7 @@ export default function SignInPage() {
         action={formAction}
         className="w-full max-w-sm rounded-[calc(var(--radius-main)-0.25rem)] border border-line bg-[color-mix(in_srgb,var(--bg-2)_90%,black)] p-6 shadow-[0_24px_60px_rgb(0_0_0_/0.4),inset_0_1px_0_rgb(255_245_237_/0.04)] sm:p-7"
       >
-        <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-accent">
-          Graafex
-        </p>
+        <Logo className="text-base" />
         <h1 className="mt-2 text-[1.75rem] font-semibold tracking-[-0.03em] text-heading">
           Sign in
         </h1>

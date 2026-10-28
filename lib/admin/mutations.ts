@@ -89,7 +89,7 @@ export async function upsertCaseStudy(formData: FormData) {
   const reels = reelUrls.map((url, i) => ({ url, sortOrder: i }));
   const photos = photoUrls.map((url, i) => ({
     url,
-    alt: `${name} — photo ${i + 1}`,
+    alt: `${name}, photo ${i + 1}`,
     sortOrder: i,
   }));
 

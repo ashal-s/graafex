@@ -58,11 +58,11 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={wrap} className="theme-dark theme-dark-hero relative z-[2] h-[280svh]">
+    <section ref={wrap} className="relative z-[2] h-[280svh]">
       {/* Intro loader */}
       <div className="loader fixed inset-0 z-[70] flex items-center justify-center bg-bg">
         <div className="t-h3 flex items-center gap-5 font-semibold text-heading">
-          <LogoMark className="h-[2.4em] w-[2.4em] text-white" />
+          <LogoMark className="h-[1.7em] w-[1.7em] shrink-0 text-heading" />
           <div className="overflow-hidden leading-tight">
             {hero.loader.map((line, i) => (
               <span key={line} className="loader__line" style={{ animationDelay: `${200 + i * 150}ms` }}>
@@ -74,7 +74,7 @@ export default function Hero() {
       </div>
 
       {/* Sticky hero — padded so page bg shows around the rounded frame */}
-      <div className="sticky top-0 flex h-[100svh] items-stretch overflow-hidden p-[var(--margin)]">
+      <div className="theme-dark theme-dark-hero sticky top-0 flex h-[100svh] items-stretch overflow-hidden p-[var(--margin)]">
         <div
           className="relative h-full w-full overflow-hidden rounded-[var(--radius-main)] bg-[#0c0807]"
         >
@@ -88,7 +88,7 @@ export default function Hero() {
             loop
             playsInline
             preload="auto"
-            aria-label="Graafex brand video"
+            aria-label="Studiofex brand video"
           />
           <div className="hero-wash pointer-events-none absolute inset-0" aria-hidden />
           <div ref={overlay} className="pointer-events-none absolute inset-0 bg-[#0c0807] opacity-0" aria-hidden />

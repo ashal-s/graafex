@@ -1,5 +1,6 @@
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import PageStage from "@/components/PageStage";
 import { Eyebrow, Reveal, SwooshButton } from "@/components/ui";
 import {
   aboutServices,
@@ -84,6 +85,7 @@ export default function Services() {
   return (
     <>
       <Nav />
+      <PageStage>
       <main id="main">
         <section className="relative z-[2] overflow-hidden">
           <div className="container-x relative pb-[clamp(3rem,6vw,5rem)] pt-[clamp(9rem,16vw,14rem)]">
@@ -91,7 +93,7 @@ export default function Services() {
               <Eyebrow>Services</Eyebrow>
               <h1 className="t-h1 font-semibold text-heading">Made in-house, end to end.</h1>
               <p className="t-large mt-8 max-w-[36rem]">
-                Four disciplines under one roof — plus clear packages for social, events and brand film, whether you
+                Four disciplines under one roof, plus clear packages for social, events and brand film, whether you
                 need a one-off shoot or a monthly content engine.
               </p>
             </Reveal>
@@ -168,7 +170,7 @@ export default function Services() {
               <Eyebrow>One-off packages</Eyebrow>
               <h2 className="t-h2 font-semibold text-heading">Shoot once. Deliver sharp.</h2>
               <p className="t-large mt-6">
-                Clear scopes for social content, events and brand film — pick a package or tell us what you need.
+                Clear scopes for social content, events and brand film. Pick a package or tell us what you need.
               </p>
             </Reveal>
             <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
@@ -207,6 +209,7 @@ export default function Services() {
           </div>
         </section>
       </main>
+      </PageStage>
       <Footer />
     </>
   );

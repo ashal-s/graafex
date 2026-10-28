@@ -1,6 +1,6 @@
-# Graafex
+# Studiofex
 
-Marketing site for **Graafex**, a creative studio focused on strategy, design, and film.
+Marketing site for **Studiofex**, a creative studio focused on strategy, design, and film.
 
 Built with [Next.js](https://nextjs.org) (App Router), React, and Tailwind CSS.
 
@@ -15,6 +15,8 @@ Built with [Next.js](https://nextjs.org) (App Router), React, and Tailwind CSS.
 | `/admin` | CMS for portfolio films and case studies (Better Auth) |
 
 Site copy, nav, services, and contact details live in [`lib/content.ts`](lib/content.ts). Portfolio films and case studies are stored in **MongoDB Atlas** (metadata) with media on **Cloudflare R2**.
+
+Repo: [github.com/ashal-s/studiofex](https://github.com/ashal-s/studiofex). The Atlas database and R2 bucket still use the legacy `graafex` names so existing content keeps loading — rename those in Atlas/Cloudflare only when you are ready to migrate.
 
 ## Getting started
 

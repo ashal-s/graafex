@@ -95,9 +95,9 @@ export default function Nav() {
 
       {/* Logo stays above the menu; it doesn't catch clicks outside itself */}
       <div className="pointer-events-none fixed inset-x-0 top-[var(--margin)] z-[56] flex items-center justify-between gap-6 px-[calc(var(--margin)*2)] py-5">
-        <Link ref={logoRef} href="/" aria-label={`${site.name} home`} className="pointer-events-auto t-h5">
+        <Link ref={logoRef} href="/" aria-label={`${site.name} home`} className="pointer-events-auto">
           <Logo
-            className={`transition-colors duration-300 ${onLight && !open ? "!text-[#1c1410]" : "!text-white"}`}
+            className={`text-[clamp(1.05rem,0.95rem+0.35vw,1.25rem)] transition-colors duration-300 ${onLight && !open ? "!text-[#1c1410]" : "!text-white"}`}
           />
         </Link>
       </div>

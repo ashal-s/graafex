@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Syne } from "next/font/google";
 import "./globals.css";
 import Cursor from "@/components/Cursor";
+import { site } from "@/lib/content";
 
 // Geometric display grotesk — sharp against black, warm with orange.
 const primary = Syne({
@@ -18,9 +19,11 @@ const body = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Graafex — Strategy, Design & Film",
-  description:
-    "Graafex is a creative studio combining strategy, design and film to help organisations grow.",
+  title: {
+    default: `${site.name} | Strategy, Design & Film`,
+    template: `%s | ${site.name}`,
+  },
+  description: `${site.name} is a creative studio combining strategy, design and film to help organisations grow.`,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

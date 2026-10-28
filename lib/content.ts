@@ -13,7 +13,7 @@ export const navLinks = [
 ];
 
 export const hero = {
-  loader: ["Every idea", "starts somewhere."],
+  loader: ["Strategy, design", "& film."],
   heading: "Studiofex has helped brands 10× their social media reach in 60 days.",
 };
 

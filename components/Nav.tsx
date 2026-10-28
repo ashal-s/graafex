@@ -24,6 +24,9 @@ export default function Nav() {
   const logoRef = useRef<HTMLAnchorElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
+  // Case study hero is a rounded video inset in `.container-x` — pin chrome to that box.
+  const pinToHero =
+    pathname.startsWith("/portfolio/") && pathname !== "/portfolio/";
 
   // Flip the logo to dark ink while it sits over a light band (.section-white).
   useEffect(() => {
@@ -93,7 +96,13 @@ export default function Nav() {
       </a>
 
       {/* Logo stays above the menu; it doesn't catch clicks outside itself */}
-      <div className="pointer-events-none fixed inset-x-0 top-[var(--margin)] z-[56] flex items-center justify-between gap-6 px-[calc(var(--margin)*2)] py-5">
+      <div
+        className={
+          pinToHero
+            ? "pointer-events-none fixed left-[calc((100vw-min(100vw,100rem))/2+var(--margin)+1.25rem)] top-[calc(var(--margin)+1.25rem)] z-[56]"
+            : "pointer-events-none fixed inset-x-0 top-[var(--margin)] z-[56] flex items-center justify-between gap-6 px-[calc(var(--margin)*2)] py-5"
+        }
+      >
         <Link ref={logoRef} href="/" aria-label={`${site.name} home`} className="pointer-events-auto">
           <Logo
             className={`text-[clamp(1.05rem,0.95rem+0.35vw,1.25rem)] transition-colors duration-300 ${onLight && !open ? "!text-[#1c1410]" : "!text-white"}`}
@@ -109,7 +118,11 @@ export default function Nav() {
         aria-expanded={open}
         aria-controls="site-menu"
         aria-label={open ? "Close menu" : "Open menu"}
-        className="group fixed right-[calc(var(--margin)*2)] top-[calc(var(--margin)+1rem)] z-[57] flex cursor-pointer items-center gap-3 rounded-full bg-[#c23a00] py-1.5 pl-5 pr-1.5 text-sm font-semibold uppercase tracking-[0.1em] text-white transition-colors duration-300 hover:bg-heading hover:text-bg"
+        className={
+          pinToHero
+            ? "group fixed right-[calc((100vw-min(100vw,100rem))/2+var(--margin)+1.25rem)] top-[calc(var(--margin)+1.25rem)] z-[57] flex cursor-pointer items-center gap-3 rounded-full bg-[#c23a00] py-1.5 pl-5 pr-1.5 text-sm font-semibold uppercase tracking-[0.1em] text-white transition-colors duration-300 hover:bg-heading hover:text-bg"
+            : "group fixed right-[calc(var(--margin)*2)] top-[calc(var(--margin)+1rem)] z-[57] flex cursor-pointer items-center gap-3 rounded-full bg-[#c23a00] py-1.5 pl-5 pr-1.5 text-sm font-semibold uppercase tracking-[0.1em] text-white transition-colors duration-300 hover:bg-heading hover:text-bg"
+        }
       >
         {/* Both words share one grid cell so the pill is always as wide as the longer one */}
         <span className="grid h-[1.2em] overflow-hidden" aria-hidden>

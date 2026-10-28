@@ -37,6 +37,7 @@ function requireUri() {
   return uri;
 }
 
+/** Atlas DB that holds Studiofex CMS + auth. Keep until the cluster DB is renamed. */
 function dbNameFromUri(uri: string) {
   try {
     const path = new URL(uri).pathname.replace(/^\//, "");

@@ -76,6 +76,7 @@ function asPalette(raw: NeonVideo["palette"]): [string, string] {
   return ["#ff4d00", "#7a2a0a"];
 }
 
+/** Atlas DB that holds Studiofex CMS data. Keep until the cluster DB is renamed. */
 function dbNameFromUri(uri: string) {
   try {
     const path = new URL(uri).pathname.replace(/^\//, "");

@@ -80,7 +80,7 @@ export default async function Portfolio() {
                 {clients.map((c) => (
                   <li
                     key={c.id ?? c.name}
-                    className="group relative flex h-28 items-center justify-center overflow-hidden border-b border-r border-line px-4 text-center md:h-36"
+                    className="group relative flex h-24 items-center justify-center overflow-hidden border-b border-r border-line px-4 text-center md:h-28 md:px-5"
                   >
                     <span
                       aria-hidden
@@ -95,10 +95,10 @@ export default async function Portfolio() {
                       <img
                         src={c.image}
                         alt={c.name}
-                        className="relative max-h-10 w-auto max-w-[9rem] object-contain opacity-60 transition-[opacity,filter,transform] duration-500 ease-[var(--ease-out)] group-hover:-translate-y-0.5 group-hover:scale-105 group-hover:opacity-100 group-hover:brightness-0 md:max-h-12"
+                        className="relative max-h-14 w-auto max-w-full object-contain md:max-h-16"
                       />
                     ) : (
-                      <span className="t-h5 relative font-semibold tracking-tight text-heading opacity-60 transition-[opacity,color,transform] duration-500 ease-[var(--ease-out)] group-hover:-translate-y-0.5 group-hover:scale-105 group-hover:text-bg-2 group-hover:opacity-100">
+                      <span className="t-h5 relative font-semibold tracking-tight text-heading opacity-60 transition-[opacity,color] duration-500 ease-[var(--ease-out)] group-hover:text-bg-2 group-hover:opacity-100">
                         {c.name}
                       </span>
                     )}

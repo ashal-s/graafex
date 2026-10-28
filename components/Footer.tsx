@@ -2,11 +2,19 @@
 
 import { navLinks, site } from "@/lib/content";
 import { Logo, Media } from "./ui";
-import { SocialLinks } from "./social-icons";
 
 const footerLinks = navLinks;
 
 const linkCls = "t-small block text-heading transition-colors hover:text-accent";
+
+function MailIcon({ className = "h-4 w-4" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden>
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="m3 7 9 6 9-6" />
+    </svg>
+  );
+}
 
 export default function Footer() {
   return (
@@ -25,8 +33,13 @@ export default function Footer() {
             ))}
           </ul>
           <div className="flex flex-wrap items-center gap-4 md:justify-end">
-            <a href={`mailto:${site.email}`} className={linkCls}>{site.email}</a>
-            <SocialLinks />
+            <a
+              href={`mailto:${site.email}`}
+              className={`${linkCls} inline-flex items-center gap-2`}
+            >
+              <MailIcon />
+              {site.email}
+            </a>
           </div>
         </div>
       </div>

@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { navLinks, site } from "@/lib/content";
 import { Logo, Media } from "./ui";
-import { SocialLinks } from "./social-icons";
 
 const EASE = "cubic-bezier(0.645, 0.045, 0.355, 1)";
 const REVEAL_MS = 900;
@@ -194,12 +193,14 @@ export default function Nav() {
                 <p className="mb-3 text-xs font-medium uppercase tracking-[0.12em] text-accent">Get in touch</p>
                 <a
                   href={`mailto:${site.email}`}
-                  className="t-h4 font-semibold text-heading underline decoration-accent decoration-2 underline-offset-8 transition-colors hover:text-accent"
+                  className="t-h4 inline-flex items-center gap-3 font-semibold text-heading underline decoration-accent decoration-2 underline-offset-8 transition-colors hover:text-accent"
                 >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6 shrink-0" aria-hidden>
+                    <rect x="3" y="5" width="18" height="14" rx="2" />
+                    <path d="m3 7 9 6 9-6" />
+                  </svg>
                   {site.email}
                 </a>
-                <p className="mb-4 mt-8 text-xs font-medium uppercase tracking-[0.12em] text-accent">Follow</p>
-                <SocialLinks />
               </div>
             </div>
 

@@ -50,16 +50,18 @@ export default async function CaseStudyPage({ params }: PageProps<"/portfolio/[s
               <div>
                 <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-8">
                   {study.logo && (
-                    <div className="inline-flex h-16 shrink-0 items-center self-start rounded-[var(--radius-small)] bg-white px-5 sm:self-auto md:h-20 md:px-6">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={study.logo} alt={`${study.name} logo`} className="h-8 w-auto max-w-[12rem] object-contain md:h-10" />
-                    </div>
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={study.logo}
+                      alt={`${study.name} logo`}
+                      className="t-h2 h-[1.15lh] w-auto max-w-[16rem] shrink-0 self-start object-contain sm:self-auto"
+                    />
                   )}
                   <h1 className="t-h2 max-w-[22ch] font-[family-name:var(--font-primary)] font-semibold text-heading">
                     {study.name}
                   </h1>
                 </div>
-                <p className="t-large mt-6 max-w-[40rem] tracking-[-0.005em]">{study.description}</p>
+                <p className="t-large mt-6 tracking-[-0.005em]">{study.description}</p>
               </div>
               <dl className="grid gap-8">
                 <div>

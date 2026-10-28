@@ -61,7 +61,7 @@ export function CaseStudyDetail({ study, index }: { study: CaseStudy; index: num
       )}
 
       {study.photos.length > 0 && (
-        <Reveal className="mt-24">
+        <Reveal className="mt-36 md:mt-48" threshold={0}>
           <PortfolioGallery items={study.photos.map((src, i) => ({ src, alt: `${study.name}, photo ${i + 1}` }))} />
         </Reveal>
       )}

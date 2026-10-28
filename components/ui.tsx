@@ -28,14 +28,17 @@ export function Reveal({
   as: Tag = "div",
   className = "",
   delay = 0,
+  threshold = 0.2,
   children,
 }: {
   as?: ElementType;
   className?: string;
   delay?: number;
+  /** Fraction of the element that must be visible before it reveals. Use a low value for tall sections. */
+  threshold?: number;
   children: ReactNode;
 }) {
-  const ref = useInView<HTMLElement>();
+  const ref = useInView<HTMLElement>(threshold);
   return (
     <Tag ref={ref} className={`reveal ${className}`} style={{ transitionDelay: `${delay}ms` }}>
       {children}

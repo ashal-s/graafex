@@ -82,24 +82,36 @@ export function Media({
   );
 }
 
+/** Framed S monogram — reads as a mark, not a letter floating beside type. */
 export function LogoMark({ className = "h-[1em] w-[1em]" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 32 32" className={className} fill="none" aria-hidden>
-      <path
-        d="M22.5 7.4H12.8A4.3 4.3 0 0 0 8.5 11.7 4.3 4.3 0 0 0 12.8 16H19.2A4.3 4.3 0 0 1 23.5 20.3 4.3 4.3 0 0 1 19.2 24.6H9.5"
+    <svg viewBox="0 0 40 40" className={className} fill="none" aria-hidden>
+      <rect
+        x="1.25"
+        y="1.25"
+        width="37.5"
+        height="37.5"
+        rx="11"
         stroke="currentColor"
-        strokeWidth="3.6"
+        strokeWidth="1.75"
+        opacity="0.55"
+      />
+      <path
+        d="M27.2 10.2H16.4A4.7 4.7 0 0 0 11.7 14.9 4.7 4.7 0 0 0 16.4 19.6H23.6A4.7 4.7 0 0 1 28.3 24.3 4.7 4.7 0 0 1 23.6 29H11.8"
+        stroke="currentColor"
+        strokeWidth="3.1"
         strokeLinecap="round"
       />
     </svg>
   );
 }
 
+/** Brand lockup: framed monogram + wordmark. */
 export function Logo({ className = "" }: { className?: string }) {
   return (
-    <span className={`inline-flex items-center gap-[0.42em] font-semibold tracking-[-0.065em] text-white ${className}`}>
-      <LogoMark />
-      {site.name}
+    <span className={`inline-flex items-center gap-[0.7em] leading-none text-white ${className}`}>
+      <LogoMark className="h-[1.55em] w-[1.55em] shrink-0" />
+      <span className="pt-[0.02em] text-[0.92em] font-semibold tracking-[-0.06em]">{site.name}</span>
     </span>
   );
 }

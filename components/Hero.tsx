@@ -62,7 +62,7 @@ export default function Hero() {
       {/* Intro loader */}
       <div className="loader fixed inset-0 z-[70] flex items-center justify-center bg-bg">
         <div className="t-h3 flex items-center gap-5 font-semibold text-heading">
-          <LogoMark className="h-[2.4em] w-[2.4em] text-white" />
+          <LogoMark className="h-[1.7em] w-[1.7em] shrink-0 text-heading" />
           <div className="overflow-hidden leading-tight">
             {hero.loader.map((line, i) => (
               <span key={line} className="loader__line" style={{ animationDelay: `${200 + i * 150}ms` }}>
